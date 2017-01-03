@@ -17,13 +17,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>MultiDenseReal</exeName>
+<exeName>VecMultiDenseReal16</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 32 -m 131072</arguments>
+<arguments>-n 46 -m 8</arguments>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

@@ -4,14 +4,14 @@ USE_SLIC:=1
 
 MAXCOMPILER_QUOTE   := $(shell printf %q "$(MAXCOMPILERDIR)")
 
-RUNRULE_ARGS        := -n 8192 -m 8192
+RUNRULE_ARGS        := -n 46 -m 8
 RUNRULE_RUNENV      := MAXELEROSDIR="$(MAXCOMPILERDIR)/lib/maxeleros-sim" LD_LIBRARY_PATH="$(MAXCOMPILERDIR)/lib/maxeleros-sim/lib:$$LD_LIBRARY_PATH" SLIC_CONF="use_simulation=ch01mvavgsimpl;"  
-RUNRULE_MAXFILES    := MultiSparseReal.max  
-RUNRULE_MAXFILES_H  := MultiSparseReal.h 
+RUNRULE_MAXFILES    := MultiDenseReal.max  
+RUNRULE_MAXFILES_H  := MultiDenseReal.h 
 RUNRULE_CFLAGS      := 
 RUNRULE_LDFLAGS     := 
 
-TARGET_EXEC         := MultiSparseReal
+TARGET_EXEC         := VecMultiDenseReal16
 TARGET_LIBRARY      := 
 
 
