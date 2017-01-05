@@ -6,7 +6,7 @@
 <enableMPCX enabled="false"/>
 </common>
 <maxFiles>
-<maxFile buildName="MultiDenseReal" buildOrUseExisting="build">
+<maxFile buildName="VecMultiDenseReal" buildOrUseExisting="build">
 <runConfiguration askBeforeAutoBuild="false">
 <mainClass>polyeval.PolyEvalManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
@@ -23,7 +23,7 @@
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 46 -m 8</arguments>
+<arguments>-n 128 -m 8192</arguments>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

@@ -18,7 +18,7 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>VecMultiDenseReal16</exeName>
+<exeName>VecMultiDenseReal64</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>

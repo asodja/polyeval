@@ -68,7 +68,7 @@ int main(int argc, char * argv[])
 	// print_dense_real_poly(n, polynomial);
 
 	// Setup result
-	uint32_t tile_size = 16;
+	uint32_t tile_size = 64;
 	float* result = malloc(sizeof(float) * m);
 	timing_t timer;
 	timer_start(&timer);

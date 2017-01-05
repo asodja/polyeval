@@ -38,7 +38,7 @@
     </condition>
     <target name="all" depends="runresult"/>
     <target name="build">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/MultiDenseReal_Build.xml"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiDenseReal_Build.xml"/>
     </target>
     <target name="run" depends="build">
         <condition property="args" value="">
@@ -69,7 +69,7 @@
         <fail if="java.run.fail" message="java run stage failed."/>
     </target>
     <target name="clean">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/MultiDenseReal_Build.xml" target="clean"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiDenseReal_Build.xml" target="clean"/>
     </target>
     <target name="jar" depends="build">
         <mkdir dir="../RunRules/Simulation/dist/jar"/>
@@ -83,11 +83,11 @@
         </jar>
     </target>
     <target name="help">
-        <echo message="ant -f MultiDenseReal.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f MultiDenseReal.xml build&#9;&#9;&#9;Compile project"/>
-        <echo message="ant -f MultiDenseReal.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f MultiDenseReal.xml clean&#9;&#9;&#9;Delete temp folders"/>
-        <echo message="ant -f MultiDenseReal.xml jar&#9;&#9;&#9;Create jar package"/>
-        <echo message="ant -f MultiDenseReal.xml help&#9;&#9;&#9;Print help message"/>
+        <echo message="ant -f VecMultiDenseReal.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f VecMultiDenseReal.xml build&#9;&#9;&#9;Compile project"/>
+        <echo message="ant -f VecMultiDenseReal.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f VecMultiDenseReal.xml clean&#9;&#9;&#9;Delete temp folders"/>
+        <echo message="ant -f VecMultiDenseReal.xml jar&#9;&#9;&#9;Create jar package"/>
+        <echo message="ant -f VecMultiDenseReal.xml help&#9;&#9;&#9;Print help message"/>
     </target>
 </project>
