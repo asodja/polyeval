@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="VecMultiDenseReal32_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/VecMultiDenseReal32_EngineCode/bin" projectName="VecMultiDenseReal32"/>
+<cpuPart internalCpuSubproject="VecMultiDenseReal32_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

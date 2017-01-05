@@ -77,8 +77,8 @@ public class VecMultiDenseRealKernel extends Kernel {
     	// kIn.simWatch("kIn");
     	// xIn.simWatch("xin");
     	// tickCount.simWatch("ticks");
-
         // Output
+
         io.output("result", TreeReduce.reduce(new Add<DFEVector<DFEVar>>(), summands), vecType, ~readAndWriteKs & kCounter >= (n - tileSize));
     }
 

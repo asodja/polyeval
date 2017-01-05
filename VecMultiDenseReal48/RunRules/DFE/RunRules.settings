@@ -2,12 +2,13 @@
 <buildProfile>
 <common>
 <boardModel type="VECTIS"/>
-<simulation enabled="true"/>
+<simulation enabled="false"/>
 <enableMPCX enabled="false"/>
+<programArgument argument="MPPREndCT" value="4"/>
 </common>
 <maxFiles>
 <maxFile buildName="VecMultiDenseReal" buildOrUseExisting="build">
-<runConfiguration askBeforeAutoBuild="false">
+<runConfiguration askBeforeAutoBuild="true">
 <mainClass>polyeval.PolyEvalManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
 </runConfiguration>
@@ -17,13 +18,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>VecMultiDenseReal16</exeName>
+<exeName>VecMultiDenseReal48</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 128 -m 4800</arguments>
+<arguments/>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>
@@ -34,7 +35,7 @@
 <deleteDRAM enabled="false"/>
 <maxDRAMSize enabled="false"/>
 <DRAMFile enabled="false"/>
-<socketName>ch01mvavgsimpl</socketName>
+<socketName>tutorial-chap03-example1-movingaveragesimpleHardware</socketName>
 <startStopScript enabled="false"/>
 <numberOfDevices>1</numberOfDevices>
 <ethernetOneEnabled enabled="false"/>

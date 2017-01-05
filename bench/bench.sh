@@ -54,7 +54,7 @@ multi_bench() {
   local logfile="${filename%.*}-$type.log"
   echo "Running $exe, log is written to $logfile"
   for n in 16 32 128 256 512 1024; do
-	for m in 16 128 1024 4096 16384 65536 262144 1048576 4194304 8388608 16777216 33554432 67108864; do
+	for m in 96 6048 49056 393120 1572768 3145632 6291360 12582816 25165728 50331552 67108704; do
 		$exe -n "$n" -m "$m" >> $logfile 2>&1
     		sleep 2
 	done

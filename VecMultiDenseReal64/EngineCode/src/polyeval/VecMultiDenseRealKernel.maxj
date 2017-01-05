@@ -44,7 +44,7 @@ public class VecMultiDenseRealKernel extends Kernel {
         			.withEnable(readXFromStream)
         			.withWrapMode(WrapMode.STOP_AT_MAX));
 
-        DFEVar xIn = io.input("xs", FLOAT, readXFromStream & xCounter.getCount() < m);
+        DFEVar xIn = io.input("xs", FLOAT, readXFromStream & xCounter.getCount() < m / 16);
         DFEVar kIn = io.input("coefficients", FLOAT, readAndWriteKs);
     	Memory<DFEVar> kBuf = mem.alloc(FLOAT, maxPolynomialLength);
     	kBuf.write(tickCount.cast(addressType), kIn, readAndWriteKs);
