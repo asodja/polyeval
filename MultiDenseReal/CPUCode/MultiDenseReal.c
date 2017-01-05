@@ -56,12 +56,12 @@ int main(int argc, char * argv[])
 	int seed = 15;
 	// Setup points, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	float* points = get_random_float_array(m, 10.0, seed + 1);
+	float* points = get_random_oninterval_float_array(m, 0.95, 1.05, seed + 1);
 	// print_real_array(m, points, "POINTS");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	float* polynomial = get_random_float_array(n, 10.0, seed);
+	float* polynomial = get_random_oninterval_float_array(n, 0, 5.5, seed);
 	// print_dense_real_poly(n, polynomial);
 
 	// Setup result

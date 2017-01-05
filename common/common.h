@@ -8,6 +8,12 @@
 
 float* get_random_float_array(uint32_t n, float maxValue, int seed);
 
+float* get_random_oninterval_float_array(uint32_t n, float minValue, float maxValue, int seed);
+
+float* adjust_float_array_size(uint32_t current_size, float* array, uint32_t new_size);
+
+uint32_t next_multiple_of(uint32_t n, uint32_t larger_then);
+
 float complex* get_random_complex_array(uint32_t n, float maxValue, int seed);
 
 uint32_t* get_random_uint_array(uint32_t n, uint32_t maxValue, int seed);
@@ -52,3 +58,4 @@ void timer_stop(timing_t * t);
 
 
 #endif
+

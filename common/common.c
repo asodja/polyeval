@@ -17,6 +17,39 @@ float* get_random_float_array(uint32_t n, float maxValue, int seed) {
 	return constants;
 }
 
+float* get_random_oninterval_float_array(uint32_t n, float minValue, float maxValue, int seed) {
+	srand(seed);
+	float* constants = malloc(sizeof(float) * n);
+	for (uint32_t i = 0; i < n; i++) {
+		float constant = ((rand() & 1) ? -1 : 1) * (minValue + ((float) rand() / (float) RAND_MAX) * (maxValue - minValue));
+		constants[i] = constant;
+	}
+	return constants;
+}
+
+float* adjust_float_array_size(uint32_t current_size, float* array, uint32_t new_size) {
+	if (current_size >= new_size) {
+		return array;
+	} else {
+		float* new_array = malloc(sizeof(float) * new_size);
+		for (uint32_t i = 0; i < current_size; i++) {
+			new_array[i] = array[i];
+		}
+		for (uint32_t i = current_size; i < new_size; i++) {
+			new_array[i] = 0.0;
+		}
+		return new_array;
+	}
+}
+
+uint32_t next_multiple_of(uint32_t n, uint32_t larger_then) {
+	if (n > larger_then) {
+		return n;
+	} else {
+		return ((larger_then + n - 1) / n) * n;
+	}
+}
+
 float complex* get_random_complex_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float complex* constants = malloc(sizeof(float complex) * n);
@@ -147,4 +180,5 @@ void timer_stop(timing_t * t) {
 #endif
     t->cputime = (t->cpuend - t->cpubegin) * 1000 / CLOCKS_PER_SEC;
 }
+
 

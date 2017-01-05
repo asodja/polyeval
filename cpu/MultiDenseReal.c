@@ -99,8 +99,8 @@ int main(int argc, char * argv[])
 	int seed = 15;
 	uint32_t maxExponent = 7;
 	float maxConstant = 10;
-	float* polynomial = get_random_float_array(n, maxConstant, seed);
-	float* xs = get_random_float_array(m, maxConstant, seed+1);
+	float* polynomial = get_random_oninterval_float_array(n, 0, 5.5, seed);
+	float* xs = get_random_oninterval_float_array(m, 0.95, 1.05, seed + 1);
 
 	timing_t timer;
 	timer_start(&timer);

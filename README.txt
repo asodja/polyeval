@@ -7,24 +7,23 @@ cd cpu
 make
 cd ..
 cd bench
-./bench.sh cpumul ../cpu/MultiSparseReal
-./bench.sh cpumul ../cpu/MultiSparseComplex
+./bench.sh cpumul ../cpu/MultiDenseReal
 
 # Alternative Make and run CPU Automatically (script with all upper commands)
 cd polyeval
 ./make-cpu-and-run.sh
 
 # DF use correct RUNRULE
-cd MultiSparseReal/RunRules/DFE
+cd VecMultiDenseReal16/RunRules/DFE
 make
-cd MultiSparseComplex/RunRules/DFE
+cd VecMultiDenseReal64/RunRules/DFE
+make
+cd VecMultiDenseReal128/RunRules/DFE
 make
 
 cd ../../../bench
-./bench.sh dfemul "../MultiSparseReal/RunRules/DFE/binaries/MultiSparseReal" 
-./bench.sh dfemul "../MultiSparseComplex/RunRules/DFE/binaries/MultiSparseComplex" 
+./bench.sh dfemul "../VecMultiDenseReal16/RunRules/DFE/binaries/VecMultiDenseReal16" 
+./bench.sh dfemul "../VecMultiDenseReal64/RunRules/DFE/binaries/VecMultiDenseReal64" 
+./bench.sh dfemul "../VecMultiDenseReal128/RunRules/DFE/binaries/VecMultiDenseReal128" 
 
-# Alternative Make and run DFE Automatically (script with all upper commands)
-cd polyeval
-./make-dfe-and-run.sh
 
