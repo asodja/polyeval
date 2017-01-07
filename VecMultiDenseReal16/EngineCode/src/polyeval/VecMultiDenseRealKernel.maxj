@@ -1,7 +1,6 @@
 package polyeval;
 
-import maxpower.kernel.KernelBinaryOp.Add;
-import maxpower.utils.TreeReduce;
+import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
@@ -32,10 +31,11 @@ public class VecMultiDenseRealKernel extends Kernel {
 			int xsPerTick) {
         super(parameters);
 
+        DFEVectorType<DFEVar> kInType = new DFEVectorType<DFEVar>(FLOAT, 2);
         DFEVectorType<DFEVar> vecType = new DFEVectorType<DFEVar>(FLOAT, xsPerTick);
         DFEVectorType<DFEVector<DFEVar>> resultType = new DFEVectorType<DFEVector<DFEVar>>(vecType, tileSize);
         DFEFix addressType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
-        DFEVar n = io.scalarInput("n", UINT_32);
+        DFEVar n = io.scalarInput("n", UINT_32) / 2;
         DFEVar m = io.scalarInput("m", UINT_32);
         DFEVar tickCount = control.count.simpleCounter(32);
 
@@ -51,8 +51,8 @@ public class VecMultiDenseRealKernel extends Kernel {
         			.withWrapMode(WrapMode.STOP_AT_MAX));
 
         DFEVector<DFEVar> xIn = io.input("xs", vecType, readXFromStream & xCounter.getCount() < m / xsPerTick);
-        DFEVar kIn = io.input("coefficients", FLOAT, readAndWriteKs);
-    	Memory<DFEVar> kBuf = mem.alloc(FLOAT, maxPolynomialLength);
+        DFEVector<DFEVar> kIn = io.input("coefficients", kInType, readAndWriteKs);
+    	Memory<DFEVector<DFEVar>> kBuf = mem.alloc(kInType, maxPolynomialLength);
     	kBuf.write(tickCount.cast(addressType), kIn, readAndWriteKs);
 
     	DFEVar initLoop = (kCounter === 0);
@@ -65,21 +65,19 @@ public class VecMultiDenseRealKernel extends Kernel {
         DFEVector<DFEVar>[] pows = getNextPows(tileSize, xsPerTick, currentX, kCounter, initLoop, loopPows);
         for (int t = 0; t < tileSize; t++) {
         	DFEVar address = (kCounter + t).cast(addressType);
-        	DFEVar k = kBuf.read(address);
+        	DFEVector<DFEVar> k = kBuf.read(address);
+        	DFEVar k1 = k[0];
+        	DFEVar k2 = k[1];
+        	DFEVector<DFEVar> inter = (k1 + k2 * currentX) * pows[t];
         	DFEVector<DFEVar> previousResult = initLoop ? constant.vect(xsPerTick, FLOAT, 0.0) : result.get(t);
-        	summands[t] = previousResult + k * pows[t];
-        	// debug.simPrintf("readW: %d, tickCount: %f, kIndex: %f, xIn: %f, currentX: %f, %f + %f * %f = %f\n", readAndWriteKs, tickCount, (kCounter + t), xIn, currentX, previousResult[t], k, pows[t], summands[t]);
+        	summands[t] = previousResult + inter;
         }
         loopPows <== stream.offset(pows[tileSize - 1], -latency);
     	loopX <== stream.offset(currentX, -latency);
     	result <== stream.offset(DFEVectorType.newInstance(summands), -latency);
 
-    	// kIn.simWatch("kIn");
-    	// xIn.simWatch("xin");
-    	// tickCount.simWatch("ticks");
-
         // Output
-        io.output("result", TreeReduce.reduce(new Add<DFEVector<DFEVar>>(), summands), vecType, ~readAndWriteKs & kCounter >= (n - tileSize));
+        io.output("result", FloatingPointMultiAdder.add(summands), vecType, ~readAndWriteKs & kCounter >= (n - tileSize));
     }
 
     private DFEVector<DFEVar>[] getNextPows(
@@ -92,10 +90,11 @@ public class VecMultiDenseRealKernel extends Kernel {
     	@SuppressWarnings("unchecked")
 		DFEVector<DFEVar>[] pows = new DFEVector[tileSize];
     	DFEVector<DFEVar> pow = initLoop ? constant.vect(xsPerTick, FLOAT, 1.0) : loopPows;
-    	pows[0] = initLoop ? pow : loopPows * x;
-    	optimization.pushPipeliningFactor(0, PipelinedOps.FLOAT_MUL);
+    	DFEVector<DFEVar> xSquare = x * x;
+    	pows[0] = initLoop ? pow : pow * xSquare;
+    	optimization.pushPipeliningFactor(0.0, PipelinedOps.FLOAT_MUL);
     	for (int i = 1; i < tileSize; i++) {
-    		pows[i] = x * pows[i - 1];
+    		pows[i] = pows[i - 1] * xSquare;
     	}
     	optimization.popPipeliningFactor(PipelinedOps.FLOAT_MUL);
     	return pows;

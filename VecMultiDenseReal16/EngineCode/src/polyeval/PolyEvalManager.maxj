@@ -12,7 +12,7 @@ class PolyEvalManager {
 
 	static final int LATENCY = 16;
 
-	static final int TILE_SIZE = 16;
+	static final int TILE_SIZE = 4;
 
 	static final int XS_PER_TICK_SIZE = 16;
 

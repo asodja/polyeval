@@ -65,7 +65,7 @@ int main(int argc, char * argv[])
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
 	float* polynomial = get_random_oninterval_float_array(n, 0, 5.5, seed);
-	// print_dense_real_poly(n, polynomial);
+	print_dense_real_poly(n, polynomial);
 
 	// Setup result
 	uint32_t tile_size = 16;
@@ -77,7 +77,7 @@ int main(int argc, char * argv[])
 	VecMultiDenseReal(m, next_multiple, adjusted, points, result);
 	timer_stop(&timer);
 
-	// checkResult(m, points, n, polynomial, result);
+	checkResult(m, points, n, polynomial, result);
 	long double real = 0.0;
 	for (uint32_t i = 0; i < m; i++) {
 		real += result[i];
