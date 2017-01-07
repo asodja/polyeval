@@ -14,16 +14,16 @@ cd polyeval
 ./make-cpu-and-run.sh
 
 # DF use correct RUNRULE
+cd VecMultiDenseReal4/RunRules/DFE
+make
+cd VecMultiDenseReal8/RunRules/DFE
+make
 cd VecMultiDenseReal16/RunRules/DFE
-make
-cd VecMultiDenseReal32/RunRules/DFE
-make
-cd VecMultiDenseReal48/RunRules/DFE
 make
 
 cd ../../../bench
+./bench.sh dfemul "../VecMultiDenseReal4/RunRules/DFE/binaries/VecMultiDenseReal4" 
+./bench.sh dfemul "../VecMultiDenseReal8/RunRules/DFE/binaries/VecMultiDenseReal8" 
 ./bench.sh dfemul "../VecMultiDenseReal16/RunRules/DFE/binaries/VecMultiDenseReal16" 
-./bench.sh dfemul "../VecMultiDenseReal64/RunRules/DFE/binaries/VecMultiDenseReal32" 
-./bench.sh dfemul "../VecMultiDenseReal128/RunRules/DFE/binaries/VecMultiDenseReal48" 
 
 

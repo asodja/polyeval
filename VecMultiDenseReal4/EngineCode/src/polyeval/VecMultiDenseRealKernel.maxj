@@ -1,0 +1,103 @@
+package polyeval;
+
+import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.Optimization.PipelinedOps;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.Counter;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFix;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVector;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVectorType;
+import com.maxeler.maxcompiler.v2.utils.MathUtils;
+
+public class VecMultiDenseRealKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    static final DFEType UINT_63 = dfeUInt(63);
+
+	VecMultiDenseRealKernel(KernelParameters parameters,
+			int latency,
+			int maxPolynomialLength,
+			int tileSize,
+			int xsPerTick) {
+        super(parameters);
+
+        DFEVectorType<DFEVar> kInType = new DFEVectorType<DFEVar>(FLOAT, 2);
+        DFEVectorType<DFEVar> vecType = new DFEVectorType<DFEVar>(FLOAT, xsPerTick);
+        DFEVectorType<DFEVector<DFEVar>> resultType = new DFEVectorType<DFEVector<DFEVar>>(vecType, tileSize);
+        DFEFix addressType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
+        DFEVar n = io.scalarInput("n", UINT_32) / 2;
+        DFEVar m = io.scalarInput("m", UINT_32);
+        DFEVar tickCount = control.count.simpleCounter(32);
+
+        DFEVar readAndWriteKs = (tickCount < n);
+
+        CounterChain kChain = control.count.makeCounterChain(~readAndWriteKs);
+        DFEVar kCounter = kChain.addCounter(n, tileSize);
+        kChain.addCounter(latency, 1);
+
+        DFEVar readXFromStream = kCounter === 0 & ~readAndWriteKs;
+        Counter xCounter = control.count.makeCounter(control.count.makeParams(32)
+        			.withEnable(readXFromStream)
+        			.withWrapMode(WrapMode.STOP_AT_MAX));
+
+        DFEVector<DFEVar> xIn = io.input("xs", vecType, readXFromStream & xCounter.getCount() < m / xsPerTick);
+        DFEVector<DFEVar> kIn = io.input("coefficients", kInType, readAndWriteKs);
+    	Memory<DFEVector<DFEVar>> kBuf = mem.alloc(kInType, maxPolynomialLength);
+    	kBuf.write(tickCount.cast(addressType), kIn, readAndWriteKs);
+
+    	DFEVar initLoop = (kCounter === 0);
+    	DFEVector<DFEVar> loopX = vecType.newInstance(this);
+    	DFEVector<DFEVar> loopPows = vecType.newInstance(this);
+    	DFEVector<DFEVar> currentX = initLoop ? xIn : loopX;
+    	DFEVector<DFEVector<DFEVar>> result = resultType.newInstance(this);
+    	@SuppressWarnings("unchecked")
+    	DFEVector<DFEVar>[] summands = new DFEVector[tileSize];
+        DFEVector<DFEVar>[] pows = getNextPows(tileSize, xsPerTick, currentX, kCounter, initLoop, loopPows);
+        for (int t = 0; t < tileSize; t++) {
+        	DFEVar address = (kCounter + t).cast(addressType);
+        	DFEVector<DFEVar> k = kBuf.read(address);
+        	DFEVar k1 = k[0];
+        	DFEVar k2 = k[1];
+        	DFEVector<DFEVar> inter = (k1 + k2 * currentX) * pows[t];
+        	DFEVector<DFEVar> previousResult = initLoop ? constant.vect(xsPerTick, FLOAT, 0.0) : result.get(t);
+        	summands[t] = previousResult + inter;
+        }
+        loopPows <== stream.offset(pows[tileSize - 1], -latency);
+    	loopX <== stream.offset(currentX, -latency);
+    	result <== stream.offset(DFEVectorType.newInstance(summands), -latency);
+
+        // Output
+        io.output("result", FloatingPointMultiAdder.add(summands), vecType, ~readAndWriteKs & kCounter >= (n - tileSize));
+    }
+
+    private DFEVector<DFEVar>[] getNextPows(
+    		int tileSize,
+    		int xsPerTick,
+    		DFEVector<DFEVar> x,
+    		DFEVar k,
+    		DFEVar initLoop,
+    		DFEVector<DFEVar> loopPows) {
+    	@SuppressWarnings("unchecked")
+		DFEVector<DFEVar>[] pows = new DFEVector[tileSize];
+    	DFEVector<DFEVar> pow = initLoop ? constant.vect(xsPerTick, FLOAT, 1.0) : loopPows;
+    	DFEVector<DFEVar> xSquare = x * x;
+    	pows[0] = initLoop ? pow : pow * xSquare;
+    	optimization.pushPipeliningFactor(0.0, PipelinedOps.FLOAT_MUL);
+    	for (int i = 1; i < tileSize; i++) {
+    		pows[i] = pows[i - 1] * xSquare;
+    	}
+    	optimization.popPipeliningFactor(PipelinedOps.FLOAT_MUL);
+    	return pows;
+    }
+
+}
