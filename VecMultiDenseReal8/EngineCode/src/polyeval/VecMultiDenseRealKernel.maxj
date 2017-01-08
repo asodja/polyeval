@@ -4,7 +4,6 @@ import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
-import com.maxeler.maxcompiler.v2.kernelcompiler.Optimization.PipelinedOps;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.Counter;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
@@ -92,11 +91,9 @@ public class VecMultiDenseRealKernel extends Kernel {
     	DFEVector<DFEVar> pow = initLoop ? constant.vect(xsPerTick, FLOAT, 1.0) : loopPows;
     	DFEVector<DFEVar> xSquare = x * x;
     	pows[0] = initLoop ? pow : pow * xSquare;
-    	optimization.pushPipeliningFactor(0.0, PipelinedOps.FLOAT_MUL);
     	for (int i = 1; i < tileSize; i++) {
     		pows[i] = pows[i - 1] * xSquare;
     	}
-    	optimization.popPipeliningFactor(PipelinedOps.FLOAT_MUL);
     	return pows;
     }
 
