@@ -1,0 +1,450 @@
+Thu 19:56: PROGRESS: MaxCompiler version: 2016.1.1
+Thu 19:56: PROGRESS: Build "PolyEval" start time: Thu Jan 19 19:56:29 GMT 2017
+Thu 19:56: PROGRESS: Main build process running as user demo on host localhost.localdomain
+Thu 19:56: INFO    : Loading build properties from bundled MaxCompiler_build.conf...
+Thu 19:56: INFO    : No default external build property file has been specified.
+Thu 19:56: INFO    : (Set environment variable MAXCOMPILER_DEFAULT_CONF_FILE to assign one)
+Thu 19:56: INFO    : Loading user build properties from: /home/demo/.MaxCompiler_build_user.conf
+Thu 19:56: INFO    : No user-specified external build property file has been specified.
+Thu 19:56: INFO    : (Set environment variable MAXCOMPILER_BUILD_CONF_FILE to assign one)
+Thu 19:56: INFO    : Loading additional parameters from MAXCOMPILER_BUILD_CONF environment variable
+Thu 19:56: PROGRESS: Build location: /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM
+Thu 19:56: PROGRESS: Detailed build log available in "_build.log"
+Thu 19:56: INFO    : Created build manager PolyEval (PolyEval_MAIA_DFE_SIM Thu Jan 19 19:56:29 GMT 2017). (19:56:29 19/01/17)
+Thu 19:56: INFO    : Working in dir: /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM
+Thu 19:56: INFO    : Java class path (2 paths):
+Thu 19:56: INFO    : 	/home/demo/workspace/PolyEval/EngineCode/bin
+Thu 19:56: INFO    : 	/opt/maxeler/maxcompiler/lib/MaxCompiler.jar
+Thu 19:56: INFO    : Java process started by 'main' method in class 'polyeval.PolyEvalManager'.
+Thu 19:56: INFO    : build.arbitrated_core_cache parameter is blank, not using core-cache
+Thu 19:56: INFO    : Checking license files in directory: /opt/maxeler/maxcompiler/licenses
+Thu 19:56: INFO    : All license signatures valid.
+Thu 19:56: WARNING : No valid license for the component 'MaxCompiler_core' was found
+Thu 19:56: WARNING : but a valid 'MaxCompiler_core_sim' license was found.
+Thu 19:56: WARNING : Falling back to sim-only support
+Thu 19:56: PROGRESS: Instantiating manager
+Thu 19:56: PROGRESS: Instantiating kernel "PolyEvalKernel"
+Thu 19:56: INFO    : Backing-up source-files (old source files in build directory will be removed first)...
+Thu 19:56: INFO    : Source directories: /home/demo/workspace/PolyEval/EngineCode/src:
+Thu 19:56: INFO    : Deleting directory: src
+Thu 19:56: INFO    : Copying source-files took 2.30726 ms
+Thu 19:56: PROGRESS: Compiling manager (CPU I/O Only)
+Thu 19:56: PROGRESS: 
+Thu 19:56: PROGRESS: Compiling kernel "PolyEvalKernel"
+Thu 19:56: INFO    : Configuration:
+Thu 19:56: INFO    : 	KernelConfiguration.additionalInputPipelining = 64                                          [Init: 64]
+Thu 19:56: INFO    : 	KernelConfiguration.allowDSPCascading = true                                                [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.allowInputsOutputsBeforeFlushNode = false                               [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.allowZeroLatencyNodeHold = false                                        [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.board = MAX4848A                                                        [Init: MAX2116B, change: MAX4848A]
+Thu 19:56: INFO    : 	KernelConfiguration.bramBitsThreshold = 2080                                                [Init: 2080]
+Thu 19:56: INFO    : 	KernelConfiguration.buildTarget = MAXCOMPILERSIM_HOST_DRIVEN                                [Init: NONE, change: MAXCOMPILERSIM_HOST_DRIVEN]
+Thu 19:56: INFO    : 	KernelConfiguration.cePipelining = 2                                                        [Init: 2]
+Thu 19:56: INFO    : 	KernelConfiguration.clockPhaseBalanceThreshold = 0.1                                        [Init: 0.1]
+Thu 19:56: INFO    : 	KernelConfiguration.clockPhasingRetries = 50                                                [Init: 50]
+Thu 19:56: INFO    : 	KernelConfiguration.dumpNeighboursString =                                                  [Init: ]
+Thu 19:56: INFO    : 	KernelConfiguration.enableCeReplication = true                                              [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.enableClockPhasePartitioning = false                                    [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.enableDebugIOControlRegs = true                                         [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.enableDummyBuild = false                                                [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.enableKernelProfiler = false                                            [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.enablePipelinedComputeController = false                                [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.enableShadowRegister = false                                            [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.enableSmartKernelControl = false                                        [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.fifoSrlRegisterStages = 1                                               [Init: 1]
+Thu 19:56: INFO    : 	KernelConfiguration.flushOnInputDataCongtiguous = false                                     [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.hardwareDebugDepth = 512                                                [Init: 512]
+Thu 19:56: INFO    : 	KernelConfiguration.hwHierarchyMode = UNSET                                                 [Init: UNSET]
+Thu 19:56: INFO    : 	KernelConfiguration.latencyAnnotation = false                                               [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.latencyAnnotationAll = true                                             [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.latencyAnnotationIOs =                                                  [Init: null]
+Thu 19:56: INFO    : 	KernelConfiguration.maxCoalescedFifoWidth = 2147483647                                      [Init: 2147483647]
+Thu 19:56: INFO    : 	KernelConfiguration.maxPreAdderFanOut = 1                                                   [Init: 1]
+Thu 19:56: INFO    : 	KernelConfiguration.netlistMode = false                                                     [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.numPhotonStateMachines = 1                                              [Init: 1]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.ceCounterRegisterDuplication = 1                          [Init: 1]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.conditionalArithmetic = true                              [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.counterChainWrapPipelining = 0                            [Init: 0]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.dspAddChain = OPTIMISE                                    [Init: null, Init after BuildTarget change: OPTIMISE]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableActiveFanoutReduction = false                       [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableBUFGCE = false                                      [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableBetterInputRegistering = false                      [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableBetterRegistering = false                           [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableFIFOCoalescingAcrossPlacementConstraints = false    [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableFifoCoalescing = true                               [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableFullPrecisionBinaryOpConstants = false              [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableIntegratedRounding = false                          [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableMappedMemoryHostReadBack = true                     [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableMultiCycleReset = false                             [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enablePowerTwoFloatMult = true                            [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableRedundantNodeDeletion = true                        [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.enableStateMachineRegisterMerging = true                  [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.inlining = false                                          [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.inputFlushDistanceFactor = 0                              [Init: 0]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.minimumStaticFIFOSplitDepth = 1                           [Init: 1]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.optimizationTechnique = DEFAULT                           [Init: DEFAULT]
+Thu 19:56: INFO    : 	KernelConfiguration.optimizations.triAdd = true                                             [Init: true]
+Thu 19:56: INFO    : 	KernelConfiguration.partialReconfBlockName =                                                [Init: ]
+Thu 19:56: INFO    : 	KernelConfiguration.partialReconfMode = false                                               [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.partialReconfTemplate = false                                           [Init: false]
+Thu 19:56: INFO    : 	KernelConfiguration.replicateNodeCeLog2NumPartitions = 0                                    [Init: 0]
+Thu 19:56: INFO    : 	KernelConfiguration.romBRAMBitsThreshold = 2080                                             [Init: 2080]
+Thu 19:56: INFO    : 	KernelConfiguration.simulation.ramAddressCollisionBehaviour = EXCEPTION                     [Init: EXCEPTION]
+Thu 19:56: INFO    : 	KernelConfiguration.simulation.ramOutOfBoundsAccessBehaviour = EXCEPTION                    [Init: EXCEPTION]
+Thu 19:56: INFO    : 	KernelConfiguration.simulation.simProgressMessageFrequency = 0                              [Init: 0]
+Thu 19:56: INFO    : 	KernelConfiguration.useAsapScheduler = false                                                [Init: false]
+Thu 19:56: INFO    : 
+Thu 19:56: INFO    :  -- 
+Thu 19:56: INFO    : Writing current graph to: PolyEval-PolyEvalKernel-original.pxg
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 975.838 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'original' with DotDumper.
+Thu 19:56: INFO    : Deleting /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/PolyEvalKernel.graphs
+Thu 19:56: INFO    : Dumping graph 'original' with DotDumper took 16.1419 ms
+Thu 19:56: INFO    : Deleting directory: neighbours
+Thu 19:56: INFO    : Running Photon pre-schedule graph optimisations
+Thu 19:56: INFO    : Running kernel graph-pass 'AlignOrEradicatePrintfs'.
+Thu 19:56: INFO    : Graph-pass 'AlignOrEradicatePrintfs' took 69.9090 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FoldConstantsPass'.
+Thu 19:56: INFO    : Graph-pass 'FoldConstantsPass' took 297.093 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'OptimiseNodesPass'.
+Thu 19:56: INFO    : Graph-pass 'OptimiseNodesPass' took 3.62656 ms (2 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'DeleteRedundantNodes'.
+Thu 19:56: INFO    : Graph-pass 'DeleteRedundantNodes' took 88.1280 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'pre_dsp_extraction' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'pre_dsp_extraction' with DotDumper took 7.27127 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'AlteraDSPExtractionGraphPass'.
+Thu 19:56: INFO    : Optimized 0 sub-graphs into DSP multiply/add chains 
+Thu 19:56: INFO    : Graph-pass 'AlteraDSPExtractionGraphPass' took 1.36552 ms (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'post_dsp_extraction' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'post_dsp_extraction' with DotDumper took 1.21314 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'TriAddExtractionPass'.
+Thu 19:56: INFO    : Graph-pass 'TriAddExtractionPass' took 38.2620 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'pre_condadd_extraction' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'pre_condadd_extraction' with DotDumper took 1.16717 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'ConditionalAddExtractionPass'.
+Thu 19:56: INFO    : Optimized 0 sub-graphs into conditional adds/subs/triadds.
+Thu 19:56: INFO    : Graph-pass 'ConditionalAddExtractionPass' took 509.638 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ConditionalPosNegExtractionPass'.
+Thu 19:56: INFO    : Graph-pass 'ConditionalPosNegExtractionPass' took 50.0320 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'PO2FPMultOptimiser'.
+Thu 19:56: INFO    : Graph-pass 'PO2FPMultOptimiser' took 287.704 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'optimised' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'optimised' with DotDumper took 1.54711 ms
+Thu 19:56: INFO    : Running Photon simulation preparation
+Thu 19:56: INFO    : Running kernel graph-pass 'PrepareSimulationPass'.
+Thu 19:56: INFO    : Graph-pass 'PrepareSimulationPass' took 10.9101 ms (2 iterations)
+Thu 19:56: INFO    : Logging Photon stats to: PolyEvalKernel_photon_stats.csv
+Thu 19:56: INFO    : Deleting /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/PolyEvalKernel_photon_stats.csv
+Thu 19:56: INFO    : Running kernel graph-pass 'StatsPass'.
+Thu 19:56: INFO    : Graph-pass 'StatsPass' took 1.01613 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'CollectNumericExceptions'.
+Thu 19:56: INFO    : Graph-pass 'CollectNumericExceptions' took 51.2910 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'StreamOffsetDivExpand'.
+Thu 19:56: INFO    : Graph-pass 'StreamOffsetDivExpand' took 83.1910 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ReachabilityPass'.
+Thu 19:56: INFO    : Graph-pass 'ReachabilityPass' took 124.868 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ReachabilityPass'.
+Thu 19:56: INFO    : Graph-pass 'ReachabilityPass' took 30.8690 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FindInputsLeadingToFlush'.
+Thu 19:56: INFO    : Graph-pass 'FindInputsLeadingToFlush' took 65.9130 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'CheckForStatefulToFlushViolations'.
+Thu 19:56: INFO    : Graph-pass 'CheckForStatefulToFlushViolations' took 218.893 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'CheckForInputToFlushViolations'.
+Thu 19:56: INFO    : Graph-pass 'CheckForInputToFlushViolations' took 673.537 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FindIllegalLoops'.
+Thu 19:56: INFO    : Graph-pass 'FindIllegalLoops' took 7.28697 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'AddNodeSchedulingConstraints'.
+Thu 19:56: INFO    : Graph-pass 'AddNodeSchedulingConstraints' took 56.3020 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 67.7620 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleVariables'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleVariables' took 1.47556 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'SubstituteEqPlaceholders'.
+Thu 19:56: INFO    : Graph-pass 'SubstituteEqPlaceholders' took 2.90497 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleApplier'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleApplier' took 703.635 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 81.3120 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleDumper'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleDumper' took 2.04264 ms (1 iterations)
+Thu 19:56: INFO    : Running Photon post-schedule graph optimisations (pass 1)
+Thu 19:56: INFO    : Running kernel graph-pass 'TapFIFOsPass'.
+Thu 19:56: INFO    : Graph-pass 'TapFIFOsPass' took 289.491 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FoldFIFOsPass'.
+Thu 19:56: INFO    : Graph-pass 'FoldFIFOsPass' took 124.137 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'tapnfold_1' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'tapnfold_1' with DotDumper took 1.34454 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 57.5000 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'OptimiseVariableFIFOs'.
+Thu 19:56: INFO    : Graph-pass 'OptimiseVariableFIFOs' took 39.4120 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'validated_fifos' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'validated_fifos' with DotDumper took 1.59548 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 63.8690 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleDumper'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleDumper' took 1.24524 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 55.4120 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleConstants'.
+Thu 19:56: INFO    : Running command: "/opt/maxeler/maxcompiler/bin/cbc" "PolyEvalKernel_schedule_C.mps.gz" -solve  -printi csv -solu "PolyEvalKernel_schedule_C.csv" > "PolyEvalKernel_schedule_C.stdout.log"
+Thu 19:56: INFO    : Checking for file hash changes...
+Thu 19:56: INFO    : Hash changed for file: 'PolyEvalKernel_schedule_C.mps.gz'
+Thu 19:56: INFO    : Optimum found: 155
+Thu 19:56: INFO    : Graph-pass 'ScheduleConstants' took 82.8914 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 85.5350 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleDumper'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleDumper' took 5.15448 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'SubstituteEqPlaceholders'.
+Thu 19:56: INFO    : OffsetAutoLoop sizes:
+Thu 19:56: INFO    :   loopExpr = 12
+Thu 19:56: INFO    : Graph-pass 'SubstituteEqPlaceholders' took 10.0530 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'RemoveDistMeasurementNodes'.
+Thu 19:56: INFO    : Graph-pass 'RemoveDistMeasurementNodes' took 19.3260 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleApplier'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleApplier' took 9.39625 ms (1 iterations)
+Thu 19:56: INFO    : Maximum stream latency for kernel 'PolyEvalKernel': 13
+Thu 19:56: INFO    : Using user logic for flush.
+Thu 19:56: INFO    : Running Photon post-schedule graph optimisations (pass 2)
+Thu 19:56: INFO    : Running kernel graph-pass 'TapFIFOsPass'.
+Thu 19:56: INFO    : Graph-pass 'TapFIFOsPass' took 2.79083 ms (2 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FoldFIFOsPass'.
+Thu 19:56: INFO    : Graph-pass 'FoldFIFOsPass' took 165.294 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'tapnfold_2' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'tapnfold_2' with DotDumper took 4.96111 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 99.2260 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ScheduleAsserter'.
+Thu 19:56: INFO    : Graph-pass 'ScheduleAsserter' took 268.182 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'ReplaceEvalStreamOffsetNodes'.
+Thu 19:56: INFO    : Graph-pass 'ReplaceEvalStreamOffsetNodes' took 8.39439 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FIFOReport'.
+Thu 19:56: INFO    : Graph-pass 'FIFOReport' took 904.184 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'StatsPass'.
+Thu 19:56: INFO    : Graph-pass 'StatsPass' took 806.783 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'RemoveUntypedConstants'.
+Thu 19:56: INFO    : Graph-pass 'RemoveUntypedConstants' took 3.61850 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'VariableSizeMappedRegInserter'.
+Thu 19:56: INFO    : Graph-pass 'VariableSizeMappedRegInserter' took 44.2640 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 62.8220 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MakeMaxFileNodeData'.
+Thu 19:56: INFO    : Graph-pass 'MakeMaxFileNodeData' took 1.99723 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MoveFanoutRegsForwards'.
+Thu 19:56: INFO    : Graph-pass 'MoveFanoutRegsForwards' took 40.4890 µs (1 iterations)
+Thu 19:56: INFO    : Dumping graph 'final' with DotDumper.
+Thu 19:56: INFO    : Dumping graph 'final' with DotDumper took 10.7322 ms
+Thu 19:56: INFO    : Running kernel graph-pass 'FIFOReportDotDump'.
+Thu 19:56: INFO    : Graph-pass 'FIFOReportDotDump' took 5.23258 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'FIFOReportDotDump'.
+Thu 19:56: INFO    : Graph-pass 'FIFOReportDotDump' took 7.76837 ms (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'StallScopeDump'.
+Thu 19:56: INFO    : Graph-pass 'StallScopeDump' took 5.83807 ms (1 iterations)
+Thu 19:56: INFO    : Optimization report for Kernel 'PolyEvalKernel'.
+Thu 19:56: INFO    : Enabled optimizations:
+Thu 19:56: INFO    : 	DSP-MultAdd
+Thu 19:56: INFO    : 	Tri-Adder
+Thu 19:56: INFO    : 	Conditional (Tri)Adds/Subs/AddSubs
+Thu 19:56: INFO    : 	Power-of-2 Floating Point
+Thu 19:56: INFO    : Creating a preliminary MaxCompilerDesignData.dat. (@ CoreCompile PolyEvalKernel)
+Thu 19:56: INFO    : Deleting /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/MaxCompilerDesignData.dat
+Thu 19:56: INFO    : Total compilation of 'PolyEvalKernel' took 353.847 ms.
+Thu 19:56: INFO    : Manager Configuration:
+Thu 19:56: INFO    : 	ManagerConfiguration.allowNonMultipleTransitions = false                   [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.board = MAX4848A                                      [Init: null, init: MAX4848A]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.buildEffort = MEDIUM                            [Init: MEDIUM]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.enableChipScopeInserter = false                 [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.enableTimingAnalysis = true                     [Init: true]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.level = FULL_BUILD                              [Init: FULL_BUILD]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.mpprContinueAfterMeetingTiming = false          [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.mpprCtMax = 1                                   [Init: 1]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.mpprCtMin = 1                                   [Init: 1]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.mpprParallelism = 1                             [Init: 1]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.mpprRetryMissesThrshld = 0                      [Init: 0]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.optimizationGoal = BALANCED                     [Init: BALANCED]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthAsyncPipelining = AUTO                 [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthCombLogic = AUTO                       [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthCombLogicForArea = AUTO                [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthEffort = AUTO                          [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthRegDuplication = AUTO                  [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physSynthRetiming = AUTO                        [Init: AUTO]
+Thu 19:56: INFO    : 	ManagerConfiguration.build.physicalSynthesis = false                       [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.buildTarget = DFE_SIM                                 [Init: null, init: DFE_SIM]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.chipscopeCaptureDepth = 4096                    [Init: 4096]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.fifoUnderOverFlowRegs = false                   [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.memCtlDebugRegs = true                          [Init: true]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.memCtlExtraDebugRegs = false                    [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.memMarginingSupport = false                     [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.memPhyDebugRegister = NONE                      [Init: NONE]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.memPllLockDebugRegs = true                      [Init: true]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.streamStatus = false                            [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.debug.streamStatusChecksums = false                   [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.commandEchoModeEnabled = false                   [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.commandEchoModeFifoDepth = 512                   [Init: 512]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.commandEchoModeStreamAlmostEmptyLatency = 792    [Init: 792]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.commandEchoModeStreamAlmostEmptyLatency = 8      [Init: 8]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.commandEchoModeStreamStallLatency = 8            [Init: 8]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.max4m_GALAVA_MCP_UseRefClk = false               [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.dram.max4m_MAIA_MCP_UseRefClk = false                 [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.enableMPCX = false                                    [Init: false, init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.maxring.maxringConnections = []                       [Init: []]
+Thu 19:56: INFO    : 	ManagerConfiguration.maxring.maxringNumLanes = {}                          [Init: {}]
+Thu 19:56: INFO    : 	ManagerConfiguration.multiCycleMappedMemoryBus = false                     [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.pcie.numPCIeLanes = 8                                 [Init: 0, change: 8]
+Thu 19:56: INFO    : 	ManagerConfiguration.pcie.pcieFastClock = true                             [Init: false, change: true]
+Thu 19:56: INFO    : 	ManagerConfiguration.pcie.streamFromHostMaxNum = 0                         [Init: 0]
+Thu 19:56: INFO    : 	ManagerConfiguration.pcie.streamToHostMaxNum = 0                           [Init: 0]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.boardModel = MAX4848A                         [Init: null, change: MAX4848A]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.ddr3Enable = false                            [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.ddr3Frq = 400.0                               [Init: 400.0]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.ddr3Qmode = false                             [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.disableMultiplePersona = true                 [Init: true]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.dynamic_scaling = false                       [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.enableCPLDOverrideOutpus = false              [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.enableJDFEPTPTestLogic = false                [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.maxRingLocal = false                          [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.maxRingOptical = false                        [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.maxringDataRate = 2500.0                      [Init: 2500.0]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.maxringOpticalDataRate = 10000.0              [Init: 10000.0]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.mode = InitMode                               [Init: InitMode]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.panMaxRingA = false                           [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.panMaxRingB = false                           [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.personaInterfaceVersion = 1                   [Init: 1]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.qdr2Enable = false                            [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.qdr2Frq = 350.0                               [Init: 350.0]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.streamClks = 1                                [Init: 1]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.streamFrq = [100.0]                           [Init: [150.0], change: [100.0]]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.streamPs = [0]                                [Init: [0]]
+Thu 19:56: INFO    : 	ManagerConfiguration.persona.usePCIeGen1 = false                           [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.simulation.nativeFloatingPoint = false                [Init: false]
+Thu 19:56: INFO    : 	ManagerConfiguration.streamClockFrq = 100                                  [Init: 100]
+Thu 19:56: INFO    : 	ManagerConfiguration.useLegacyStreamFIFOs = false                          [Init: false]
+Thu 19:56: INFO    : 
+Thu 19:56: INFO    :  -- 
+Thu 19:56: INFO    : Running kernel graph-pass 'MarkConstantPass'.
+Thu 19:56: INFO    : Graph-pass 'MarkConstantPass' took 99.0390 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'MaxConstantLatency'.
+Thu 19:56: INFO    : Graph-pass 'MaxConstantLatency' took 596.874 µs (1 iterations)
+Thu 19:56: INFO    : Running kernel graph-pass 'SimCodeGraphPass'.
+Thu 19:56: INFO    : Graph-pass 'SimCodeGraphPass' took 9.26577 ms (1 iterations)
+Thu 19:56: INFO    : Writing current graph to: PolyEval-PolyEvalKernel-final-simulation.pxg
+Thu 19:56: INFO    : Running kernel graph-pass 'GeneratePXG'.
+Thu 19:56: INFO    : Graph-pass 'GeneratePXG' took 9.62871 ms (1 iterations)
+Thu 19:56: INFO    : Deleting /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/Manager_PolyEval.graphs
+Thu 19:56: INFO    : Running manager compiler graph-pass: GenerateMXGInfo
+Thu 19:56: INFO    : Running manager compiler graph-pass: ScheduleStallLatency
+Thu 19:56: INFO    : Running manager compiler graph-pass: ClockWidthAssignment
+Thu 19:56: INFO    : Running manager compiler graph-pass: InsertDualAspectLogic
+Thu 19:56: INFO    : Running manager compiler graph-pass: ClockWidthAssignment
+Thu 19:56: INFO    : Running manager compiler graph-pass: InsertPullPushAdapter
+Thu 19:56: INFO    : Running manager compiler graph-pass: ClockWidthAssignment
+Thu 19:56: INFO    : Running manager compiler graph-pass: InsertStreamFifos
+Thu 19:56: INFO    : Running manager compiler graph-pass: ClockWidthAssignment
+Thu 19:56: INFO    : Running manager compiler graph-pass: InsertStreamStatus
+Thu 19:56: INFO    : Running manager compiler graph-pass: InsertChipscope
+Thu 19:56: INFO    : Inserted 0 chipscope manager nodes.
+Thu 19:56: INFO    : Running manager compiler graph-pass: ClockWidthAssignment
+Thu 19:56: INFO    : Running manager compiler graph-pass: ReportClockAssignments
+Thu 19:56: INFO    : Running manager compiler graph-pass: BuildSoftwareSim
+Thu 19:56: INFO    : Mapped register report:
+Thu 19:56: INFO    : 	0	io_input_force_disabled	1bytes
+Thu 19:56: INFO    : 	1	io_output_force_disabled	1bytes
+Thu 19:56: INFO    : 	2	run_cycle_count	6bytes
+Thu 19:56: INFO    : 	8	current_run_cycle_count	6bytes
+Thu 19:56: INFO    : 	e	dbg_ctld_almost_empty	1bytes
+Thu 19:56: INFO    : 	f	dbg_ctld_done	1bytes
+Thu 19:56: INFO    : 	10	dbg_ctld_empty	1bytes
+Thu 19:56: INFO    : 	11	dbg_ctld_read	1bytes
+Thu 19:56: INFO    : 	12	dbg_ctld_read_pipe_dbg	1bytes
+Thu 19:56: INFO    : 	13	dbg_ctld_request	1bytes
+Thu 19:56: INFO    : 	14	dbg_done_out	1bytes
+Thu 19:56: INFO    : 	15	dbg_fill_level	1bytes
+Thu 19:56: INFO    : 	16	dbg_flush_level	1bytes
+Thu 19:56: INFO    : 	17	dbg_flush_start	1bytes
+Thu 19:56: INFO    : 	18	dbg_flush_start_level	1bytes
+Thu 19:56: INFO    : 	19	dbg_flushing	1bytes
+Thu 19:56: INFO    : 	1a	dbg_full_level	1bytes
+Thu 19:56: INFO    : 	1b	dbg_out_stall	1bytes
+Thu 19:56: INFO    : 	1c	dbg_out_valid	1bytes
+Thu 19:56: INFO    : 	1d	dbg_stall_vector	1bytes
+Thu 19:56: INFO    : 	1e	ifpga_ctrl	1bytes
+Thu 19:56: INFO    : 	1f	SFA_FORWARD_EN	4bytes
+Thu 19:56: INFO    : Mapped register chain length = 35
+Thu 19:56: INFO    : Mapped register efficiency = 0.60 (168 / 280 bits)
+Thu 19:56: INFO    : Mapped memory report:
+Thu 19:56: INFO    : 	No mapped memories in this design.
+Thu 19:56: INFO    : Running manager compiler graph-pass: GenerateMXGInfo
+Thu 19:56: INFO    : Running manager compiler graph-pass: GenerateSlicHostCode
+Thu 19:56: INFO    : Generating SLIC interface information
+Thu 19:56: INFO    : Generating SLIC code for interface 'default'
+Thu 19:56: INFO    : Skipping blacklisted scalar parameter 'PolyEvalKernel.current_run_cycle_count'
+Thu 19:56: INFO    : Interface 'default' depends on parameter 'length'
+Thu 19:56: INFO    : Interface 'default' depends on parameter 'PolyEvalKernel_loopExpr'
+Thu 19:56: INFO    : Generating XML description for Maxfile
+Thu 19:56: INFO    : Generating XML description for mode 'default'
+Thu 19:56: INFO    : Skipping blacklisted scalar parameter 'PolyEvalKernel.current_run_cycle_count'
+Thu 19:56: INFO    : Interface 'default' depends on parameter 'length'
+Thu 19:56: INFO    : Interface 'default' depends on parameter 'PolyEvalKernel_loopExpr'
+Thu 19:56: INFO    : Adding SLIC sections to the maxfile
+Thu 19:56: INFO    : Adding user files to the maxfile
+Thu 19:56: INFO    : Generating SLIC include file
+Thu 19:56: INFO    : Done generating SLIC interface information
+Thu 19:56: PROGRESS: Running back-end simulation build (3 phases)
+Thu 19:56: PROGRESS: (1/3) - Prepare MaxFile Data (GenerateMaxFileDataFile)
+Thu 19:56: INFO    : Build pass 'GenerateMaxFileDataFile' took 34.2578 ms.
+Thu 19:56: PROGRESS: (2/3) - Compile Simulation Modules (SimCompilePass)
+Thu 19:56: INFO    : Running command: make -j1
+Thu 19:56: INFO    : Checking for file hash changes...
+Thu 19:56: INFO    : Hash changed for file: 'tmp_resource_dump/PolyEvalKernel_exec0.cpp'
+Thu 19:56: INFO    : Hash changed for file: 'tmp_resource_dump/PolyEvalKernel_Templates.cpp'
+Thu 19:56: INFO    : Hash changed for file: 'tmp_resource_dump/PolyEvalKernel.cpp'
+Thu 19:56: INFO    : Hash changed for file: 'tmp_resource_dump/PolyEvalKernel.h'
+Thu 19:56: INFO    : Hash changed for file: '../../MaxCompilerDesignData.dat'
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/stdsimheader.h.O0Impl -MF objdir/stdsimheader.h.O0Impl -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -O0 -DOPTIMIZATION_LEVEL=0 -x c++-header \
+Thu 19:56: INFO    : 		-o stdsimheader.h.gch/O0_stdsimheader.h.gch stdsimheader.h
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/stdsimheader.h.O2 -MF objdir/stdsimheader.h.O2 -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -fno-implicit-templates -O2 -DOPTIMIZATION_LEVEL=2 -x c++-header \
+Thu 19:56: INFO    : 		-o stdsimheader.h.gch/NoTplInst_O2_stdsimheader.h.gch stdsimheader.h
+Thu 19:56: INFO    : make PolyEval.so
+Thu 19:56: INFO    : make[1]: Entering directory `/home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/software-sim/build'
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/PolyEvalKernel_exec0.NoTplInst.O2.o -MF objdir/PolyEvalKernel_exec0.NoTplInst.O2.d -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -fno-implicit-templates -include-pch stdsimheader.h.gch -O2 -DOPTIMIZATION_LEVEL=2 -o objdir/PolyEvalKernel_exec0.NoTplInst.O2.o PolyEvalKernel_exec0.cpp
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/PolyEvalKernel.O0.o -MF objdir/PolyEvalKernel.O0.d -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -include-pch stdsimheader.h.gch -O0 -DOPTIMIZATION_LEVEL=0 -o objdir/PolyEvalKernel.O0.o PolyEvalKernel.cpp
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/PolyEvalKernel_Templates.O2.o -MF objdir/PolyEvalKernel_Templates.O2.d -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -include-pch stdsimheader.h.gch -O2 -DOPTIMIZATION_LEVEL=2 -o objdir/PolyEvalKernel_Templates.O2.o PolyEvalKernel_Templates.cpp
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -c -MMD -MT objdir/max_msi.O0.o -MF objdir/max_msi.O0.d -std=c++11 -fPIC -B/opt/maxeler/maxcompiler/lib/gcc -fbracket-depth=1024 -D__USE_XOPEN2K8 -O3 -Wno-format  -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim -I/opt/maxeler/maxcompiler/lib/lwip_sim/include -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/arch -I/opt/maxeler/maxcompiler/lib/lwip_sim/include/ipv4  -DHAVE_KERNELS -DMAXFILE_INC="../../MaxCompilerDesignData.dat" -g0  -DSLIC_NO_DECLARATIONS   -include-pch stdsimheader.h.gch -O0 -DOPTIMIZATION_LEVEL=0 -o objdir/max_msi.O0.o max_msi.cpp
+Thu 19:56: INFO    : In file included from max_msi.cpp:15:
+Thu 19:56: INFO    : ./MaxFile.h:4:9: warning: '_QUOTE' macro redefined [-Wmacro-redefined]
+Thu 19:56: INFO    : #define _QUOTE(what) #what
+Thu 19:56: INFO    :         ^
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/maxeleros-sim/include/maxrt_error.h:87:9: note: previous definition is here
+Thu 19:56: INFO    : #define _QUOTE(x) #x
+Thu 19:56: INFO    :         ^
+Thu 19:56: INFO    : 1 warning generated.
+Thu 19:56: INFO    : /opt/maxeler/maxcompiler/lib/clang/bin/start.sh clang++ -fPIC -shared -B/opt/maxeler/maxcompiler/lib/gcc -lrt -pthread -O2 -s  -o PolyEval.so objdir/PolyEvalKernel_exec0.NoTplInst.O2.o objdir/PolyEvalKernel.O0.o objdir/PolyEvalKernel_Templates.O2.o objdir/max_msi.O0.o StructToGroupDummy.o Mux.o DualAspectMux.o Demux.o Fanout.o CapRegs.o IFPGARegs.o ChecksumMem.o PCIe.o KernelManagerBlockSync.o DualAspectReg.o PullPushAdapter.o FilePullSource.o max_shared_fifo.o SharedFIFO.o Fifos.o FilePushSink.o SimTerminator.o Watch.o StreamStatus.o RunLengthExpander.o ManagerBlock.o MappedElements.o Thread.o ManagerSync.o PullSync.o PushSync.o DynamicVarUInt.o DebugStreams.o AddressGenerator.o MemoryControllerPro.o MemoryControllerRAM.o MemoryControllerCommand.o MemoryControllerStreams.o MemoryControllerConfig.o Timestamp.o /opt/maxeler/maxcompiler/lib/lwip_sim/lib/liblwip.a
+Thu 19:56: INFO    : make[1]: Leaving directory `/home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/scratch/software-sim/build'
+Thu 19:56: INFO    : Build pass 'SimCompilePass' took 7.30582 s.
+Thu 19:56: PROGRESS: (3/3) - Generate MaxFile (AddSimObjectToMaxFilePass)
+Thu 19:56: INFO    : Build pass 'AddSimObjectToMaxFilePass' took 183.708 ms.
+Thu 19:56: INFO    : Final result files after build: 
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEval-PolyEvalKernel-original.pxg"
+Thu 19:56: INFO    : PolyEval-PolyEvalKernel-original.pxg (BuildFilePXG)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEvalKernel_Configuration.txt"
+Thu 19:56: INFO    : PolyEvalKernel_Configuration.txt (BuildFile)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEvalKernel_NodeDiary.txt"
+Thu 19:56: INFO    : PolyEvalKernel_NodeDiary.txt (BuildFile)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEval-PolyEvalKernel-final-simulation.pxg"
+Thu 19:56: INFO    : PolyEval-PolyEvalKernel-final-simulation.pxg (BuildFilePXG)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEval.xml"
+Thu 19:56: INFO    : PolyEval.xml (BuildFile)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEval.h"
+Thu 19:56: INFO    : PolyEval.h (BuildFileSlicH)
+Thu 19:56: INFO    : Running command: ln -sf "../scratch/PolyEval.max"
+Thu 19:56: INFO    : PolyEval.max (BuildFileMaxFile)
+Thu 19:56: INFO    : Result files will be copied to '/home/demo/workspace/PolyEval/RunRules/Simulation/maxfiles'
+Thu 19:56: INFO    : Result 'PolyEval-PolyEvalKernel-original.pxg' is identical to '/home/demo/workspace/PolyEval/RunRules/Simulation/maxfiles/PolyEval-PolyEvalKernel-original.pxg': not overwriting.
+Thu 19:56: INFO    : Result 'PolyEval-PolyEvalKernel-final-simulation.pxg' is identical to '/home/demo/workspace/PolyEval/RunRules/Simulation/maxfiles/PolyEval-PolyEvalKernel-final-simulation.pxg': not overwriting.
+Thu 19:56: INFO    : Result 'PolyEval.h' is identical to '/home/demo/workspace/PolyEval/RunRules/Simulation/maxfiles/PolyEval.h': not overwriting.
+Thu 19:56: INFO    : Result 'PolyEval.max' is identical to '/home/demo/workspace/PolyEval/RunRules/Simulation/maxfiles/PolyEval.max': not overwriting.
+Thu 19:56: PROGRESS: MaxFile: /home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM/results/PolyEval.max (MD5Sum: 816d59ccbc824b8b0a63c4cf38bd6bf9)
+Thu 19:56: INFO    : Waiting for any outstanding jobs to finish... 
+Thu 19:56: PROGRESS: Build completed: Thu Jan 19 19:56:38 GMT 2017 (took 9 secs)

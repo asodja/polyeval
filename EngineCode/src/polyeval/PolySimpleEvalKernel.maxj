@@ -1,0 +1,39 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.OffsetExpr;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+public class PolySimpleEvalKernel extends Kernel {
+
+	final DFEType scalarType = dfeFloat(8, 24);
+
+	PolySimpleEvalKernel(KernelParameters parameters) {
+		super(parameters);
+
+        // Counters
+        OffsetExpr loopExpr = stream.makeOffsetAutoLoop("loopExpr");
+        DFEVar loopLength = loopExpr.getDFEVar(this, dfeUInt(8));
+        CounterChain chain = control.count.makeCounterChain();
+        DFEVar inputIndex = chain.addCounter(8, 1);
+        DFEVar loopIndex = chain.addCounter(loopLength, 1);
+
+        // Input
+        DFEVar input = io.input("input", scalarType, loopIndex === 0);
+        DFEVar carriedSum = scalarType.newInstance(this);
+        DFEVar sum = (inputIndex === 0) ? 1.0 : carriedSum;
+        sum = sum * 3.0;
+        carriedSum <== stream.offset(sum, -loopExpr);
+
+        inputIndex.simWatch("inputIndex");
+        loopIndex.simWatch("loopIndex");
+        sum.simWatch("sum");
+        input.simWatch("input");
+
+        // Output
+        io.output("output", sum, scalarType, loopIndex === 0);
+	}
+}

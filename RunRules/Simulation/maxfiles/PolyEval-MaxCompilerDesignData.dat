@@ -1,0 +1,1450 @@
+#ifdef MAXCOMPILER_VERSION_INFO
+#define MAXCOMPILER_VERSION_INFO_PRESENT 1
+#define MAXFILE_MAXCOMPILER_VERSION_YEAR         2016
+#define MAXFILE_MAXCOMPILER_VERSION_NUM          1
+#define MAXFILE_MAXCOMPILER_VERSION_POINT        1
+#define MAXFILE_MAXCOMPILER_VERSION_PATCH        ""
+#define MAXFILE_MAXCOMPILER_VERSION_REV          46754
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_DATE "2016-06-10"
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_MODE true
+#endif
+
+#ifdef MAXFILE_BUILD_INFO
+#define MAXFILE_BUILD_INFO_PRESENT 1
+#define MAXFILE_BUILD_NAME "PolyEval"
+#define MAXFILE_BUILD_DIR  "/home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM"
+#define MAXFILE_BUILD_DATE  20170119
+#define MAXFILE_BUILD_REV   1
+#endif
+
+#ifdef PARAM
+#define PARAM_PRESENT 1
+PARAM(CONTAINS_WATCHES, 1)
+PARAM(APP_ID, 0)
+PARAM(REV_ID, 0)
+PARAM(CHAIN_LENGTH, 35)
+PARAM(IS_SIMULATION, 1)
+PARAM(MEC_SUPPORTED, 1)
+PARAM(PCIE_SLAVE_STREAMING, 0)
+PARAM(PCIE_ALIGNMENT, 16)
+PARAM(NUM_IFPGA_LINKS, 0)
+#endif
+
+#ifdef STRING_PARAM
+#define STRING_PARAM_PRESENT 1
+STRING_PARAM(BOARD_MODEL, "MAX4848A")
+#endif
+
+
+
+#ifdef INCLUDE_GENERATED_CPP_HEADERS
+#include "PolyEvalKernel.h"
+#endif
+
+
+
+
+
+
+
+
+#ifdef STREAM_OFFSET_AUTO_LOOP_VAR
+#define STREAM_OFFSET_AUTO_LOOP_VAR_PRESENT 1
+STREAM_OFFSET_AUTO_LOOP_VAR(PolyEvalKernel, loopExpr, 12)
+#endif
+
+
+#ifdef MANAGER_NODE
+#define MANAGER_NODE_PRESENT 1
+MANAGER_NODE(PolyEvalKernel, Kernel)
+MANAGER_NODE(input, PCIe_From_Host)
+MANAGER_NODE(output, PCIe_To_Host)
+MANAGER_NODE(watch_PolyEvalKernel, WatchBlock)
+MANAGER_NODE(Stream_1, DualAspectMux)
+MANAGER_NODE(Stream_6, DualAspectReg)
+MANAGER_NODE(Stream_23, StreamPullPushAdapter)
+MANAGER_NODE(Stream_17, Fifo)
+MANAGER_NODE(Stream_19, Fifo)
+MANAGER_NODE(Stream_21, Fifo)
+#endif
+
+#ifdef MANAGER_NODE_IO
+#define MANAGER_NODE_IO_PRESENT 1
+MANAGER_NODE_IO(PolyEvalKernel, input, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(PolyEvalKernel, output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(PolyEvalKernel, internal_watch_inputindex_output, OUT, STREAM, 3, PUSH)
+MANAGER_NODE_IO(PolyEvalKernel, internal_watch_loopindex_output, OUT, STREAM, 8, PUSH)
+MANAGER_NODE_IO(PolyEvalKernel, internal_watch_sum_output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(PolyEvalKernel, internal_watch_input_output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(input, input, OUT, PCIE, 128, PUSH)
+MANAGER_NODE_IO(output, output, IN, PCIE, 128, PUSH)
+MANAGER_NODE_IO(watch_PolyEvalKernel, inputindex, IN, STREAM, 3, PUSH)
+MANAGER_NODE_IO(watch_PolyEvalKernel, loopindex, IN, STREAM, 8, PUSH)
+MANAGER_NODE_IO(watch_PolyEvalKernel, sum, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(watch_PolyEvalKernel, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_1, input, IN, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_1, output, OUT, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_6, input, IN, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_6, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_23, input, IN, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_23, output, OUT, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_17, input, IN, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_17, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_19, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_19, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_21, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_21, output, OUT, PCIE, 32, PULL)
+#endif
+
+#ifdef MANAGER_STREAM
+#define MANAGER_STREAM_PRESENT 1
+MANAGER_STREAM(input, input, Stream_17, input, 128)
+MANAGER_STREAM(PolyEvalKernel, output, Stream_21, input, 32)
+MANAGER_STREAM(PolyEvalKernel, internal_watch_inputindex_output, watch_PolyEvalKernel, inputindex, 3)
+MANAGER_STREAM(PolyEvalKernel, internal_watch_loopindex_output, watch_PolyEvalKernel, loopindex, 8)
+MANAGER_STREAM(PolyEvalKernel, internal_watch_sum_output, watch_PolyEvalKernel, sum, 32)
+MANAGER_STREAM(PolyEvalKernel, internal_watch_input_output, watch_PolyEvalKernel, input, 32)
+MANAGER_STREAM(Stream_1, output, Stream_19, input, 32)
+MANAGER_STREAM(Stream_6, output, Stream_23, input, 128)
+MANAGER_STREAM(Stream_23, output, output, output, 128)
+MANAGER_STREAM(Stream_17, output, Stream_1, input, 128)
+MANAGER_STREAM(Stream_19, output, PolyEvalKernel, input, 32)
+MANAGER_STREAM(Stream_21, output, Stream_6, input, 32)
+#endif
+
+#ifdef MANAGER_NODE_STACK_TRACE
+#define MANAGER_NODE_STACK_TRACE_PRESENT 1
+MANAGER_NODE_STACK_TRACE(PolyEvalKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(input, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(output, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(watch_PolyEvalKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_6, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_23, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_17, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_19, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(Stream_21, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+#endif
+
+#ifdef MANAGER_NODE_NOT_VISIBLE
+#define MANAGER_NODE_NOT_VISIBLE_PRESENT 1
+MANAGER_NODE_NOT_VISIBLE(watch_PolyEvalKernel)
+#endif
+
+#ifdef MANAGER_NODE_PROPERTY
+#define MANAGER_NODE_PROPERTY_PRESENT 1
+MANAGER_NODE_PROPERTY(PolyEvalKernel, control_pipelining_depth, 2)
+#endif
+
+
+#ifdef KERNEL_CORE
+#define KERNEL_CORE_PRESENT 1
+KERNEL_CORE(PolyEvalKernel)
+#endif
+
+#ifdef KERNEL_HOST_CONTROLLED
+#define KERNEL_HOST_CONTROLLED_PRESENT 1
+KERNEL_HOST_CONTROLLED(PolyEvalKernel, PolyEvalKernel)
+#endif
+
+#ifdef DEBUG_INPUT_BITS
+#define DEBUG_INPUT_BITS_PRESENT 1
+DEBUG_INPUT_BITS(PolyEvalKernel, input, 0)
+#endif
+
+#ifdef DEBUG_OUTPUT_BITS
+#define DEBUG_OUTPUT_BITS_PRESENT 1
+DEBUG_OUTPUT_BITS(PolyEvalKernel, output, 0)
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_CTOR
+#define MANAGER_NODE_CPP_SIM_MODEL_CTOR_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(input, PCIePushSourceSyncMax4, "input")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_17, FifoPushToPullSync, "Stream_17", false, 512, 128)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_1, DualAspectMuxSync, "Stream_1", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_19, FifoPushToPullSync, "Stream_19", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(PolyEvalKernel, PolyEvalKernel, "PolyEvalKernel")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_21, FifoPushToPullSync, "Stream_21", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(watch_PolyEvalKernel, WatchSync, "watch_PolyEvalKernel", "PolyEval", "PolyEvalKernel")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_6, DualAspectRegSync, "Stream_6", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_23, PullToPushAdapterSync, "Stream_23")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(output, PCIePushSinkSyncMax3, "output")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 1, 1, 0, 0, 0, 0, 0, 35)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ifpga, IFPGARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(sfa, SFARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "d45d895db7d9f7c63203f734898a8ebb18c22c055c15b708ec8cdfd6311e10ce")
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_SETUP
+#define MANAGER_NODE_CPP_SIM_MODEL_SETUP_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_done, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_empty, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_request, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_done_out, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_fill_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_start, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_start_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flushing, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_full_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_out_stall, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_out_valid, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_stall_vector, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "inputindex", "inputIndex", std::make_shared< DecimalWriter< HWOffsetFix<3,0,UNSIGNED>, false > >())
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "loopindex", "loopIndex", std::make_shared< DecimalWriter< HWOffsetFix<8,0,UNSIGNED>, false > >())
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "sum", "sum", std::make_shared< DecimalWriter< HWFloat<8,24>, false > >())
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "input", "input", std::make_shared< DecimalWriter< HWFloat<8,24>, false > >())
+#endif
+
+#ifdef PCIE_STREAM
+#define PCIE_STREAM_PRESENT 1
+PCIE_STREAM(input, STREAM_FROM_HOST, 0)
+PCIE_STREAM(output, STREAM_TO_HOST, 0)
+#endif
+
+#ifdef REG
+#define REG_PRESENT 1
+REG(PolyEvalKernel.io_input_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PolyEvalKernel.io_output_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PolyEvalKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PolyEvalKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PolyEvalKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_ctld_done, 0xf, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_ctld_empty, 0x10, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_ctld_read, 0x11, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_ctld_request, 0x13, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_done_out, 0x14, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_fill_level, 0x15, 1, hwBits(4))
+REG(PolyEvalKernel.dbg_flush_level, 0x16, 1, hwBits(4))
+REG(PolyEvalKernel.dbg_flush_start, 0x17, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_flush_start_level, 0x18, 1, hwBits(4))
+REG(PolyEvalKernel.dbg_flushing, 0x19, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_full_level, 0x1a, 1, hwBits(4))
+REG(PolyEvalKernel.dbg_out_stall, 0x1b, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_out_valid, 0x1c, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_stall_vector, 0x1d, 1, hwBits(1))
+REG(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8))
+REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32))
+#endif
+
+#ifdef REG_V2
+#define REG_V2_PRESENT 1
+REG_V2(PolyEvalKernel.io_input_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PolyEvalKernel.io_output_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PolyEvalKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
+REG_V2(PolyEvalKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_done, 0xf, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_empty, 0x10, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_read, 0x11, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_request, 0x13, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_done_out, 0x14, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_fill_level, 0x15, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_level, 0x16, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_start, 0x17, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_start_level, 0x18, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flushing, 0x19, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_full_level, 0x1a, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_out_stall, 0x1b, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_out_valid, 0x1c, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_stall_vector, 0x1d, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8), HOST_READ_WRITE, false)
+REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32), HOST_READ_WRITE, false)
+#endif
+
+
+
+
+#ifdef CHECKSUM
+#define CHECKSUM_PRESENT 1
+CHECKSUM("d45d895db7d9f7c63203f734898a8ebb18c22c055c15b708ec8cdfd6311e10ce")
+#endif
+
+
+
+
+#ifdef CAPABILITY
+#define CAPABILITY_PRESENT 1
+CAPABILITY(MAIAREV, MAIAREVA)
+CAPABILITY(MAIARAM, DDR3_48GB)
+CAPABILITY(MAIAFPGA, 5SGSMD8N2F45C2)
+#endif
+
+#ifdef DEFINE_DESIGN_NAME
+#define DESIGN_NAME PolyEval
+#endif /* DEFINE_DESIGN_NAME */
+
+#ifdef WATCH_STREAMS
+#define WATCH_STREAMS_PRESENT 1
+WATCH_STREAMS(PolyEvalKernel, internal_watch_inputindex_output)
+WATCH_STREAMS(PolyEvalKernel, internal_watch_loopindex_output)
+WATCH_STREAMS(PolyEvalKernel, internal_watch_sum_output)
+WATCH_STREAMS(PolyEvalKernel, internal_watch_input_output)
+#endif
+
+#ifdef WATCHNODE
+#define WATCHNODE_PRESENT 1
+WATCHNODE(PolyEvalKernel, inputIndex, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:31)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
+WATCHNODE(PolyEvalKernel, loopIndex, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:32)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
+WATCHNODE(PolyEvalKernel, sum, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:33)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
+WATCHNODE(PolyEvalKernel, input, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:34)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
+#endif
+
+#ifndef SLIC_NO_DECLARATIONS
+/**\file */
+#ifndef SLIC_DECLARATIONS_PolyEval_H
+#define SLIC_DECLARATIONS_PolyEval_H
+#include "MaxSLiCInterface.h"
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+#define PolyEval_PCIE_ALIGNMENT (16)
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "PolyEvalKernel.loopExpr".
+ */
+int PolyEval_get_PolyEvalKernel_loopExpr( void );
+
+
+/**
+ * \brief Basic static function for the interface 'default'.
+ * 
+ * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
+ * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
+ */
+void PolyEval(
+	int64_t param_length,
+	const float *instream_input,
+	float *outstream_output);
+
+/**
+ * \brief Basic static non-blocking function for the interface 'default'.
+ * 
+ * Schedule to run on an engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ * 
+ * 
+ * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
+ * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
+ * \return A handle on the execution status, or NULL in case of error.
+ */
+max_run_t *PolyEval_nonblock(
+	int64_t param_length,
+	const float *instream_input,
+	float *outstream_output);
+
+/**
+ * \brief Advanced static interface, structure for the engine interface 'default'
+ * 
+ */
+typedef struct { 
+	int64_t param_length; /**<  [in] Interface Parameter "length". */
+	const float *instream_input; /**<  [in] The stream should be of size (param_length * 4) bytes. */
+	float *outstream_output; /**<  [out] The stream should be of size (param_length * 4) bytes. */
+} PolyEval_actions_t;
+
+/**
+ * \brief Advanced static function for the interface 'default'.
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in,out] interface_actions Actions to be executed.
+ */
+void PolyEval_run(
+	max_engine_t *engine,
+	PolyEval_actions_t *interface_actions);
+
+/**
+ * \brief Advanced static non-blocking function for the interface 'default'.
+ *
+ * Schedule the actions to run on the engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in] interface_actions Actions to be executed.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PolyEval_run_nonblock(
+	max_engine_t *engine,
+	PolyEval_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void PolyEval_run_group(max_group_t *group, PolyEval_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PolyEval_run_group_nonblock(max_group_t *group, PolyEval_actions_t *interface_actions);
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void PolyEval_run_array(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[]);
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PolyEval_run_array_nonblock(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[]);
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* PolyEval_convert(max_file_t *maxfile, PolyEval_actions_t *interface_actions);
+
+/**
+ * \brief Initialise a maxfile.
+ */
+max_file_t* PolyEval_init(void);
+
+/* Error handling functions */
+int PolyEval_has_errors(void);
+const char* PolyEval_get_errors(void);
+void PolyEval_clear_errors(void);
+/* Free statically allocated maxfile data */
+void PolyEval_free(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int PolyEval_simulator_start(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int PolyEval_simulator_stop(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+#endif /* SLIC_DECLARATIONS_PolyEval_H */
+
+#endif /* SLIC_NO_DECLARATIONS */
+
+#ifdef PHOTON_NODE_DATA
+#define PHOTON_NODE_DATA_PRESENT 1
+PHOTON_NODE_DATA(PolyEvalKernel, 41, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 1, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.makeCounterChain(Count.java:496)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:20)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 55, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x0c; 12.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream$OffsetExpr.getDFEVar(Stream.java:185)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:19)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 4, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:527)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:22)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 62, NodeConstantRawBits, "{HWOffsetFix:4, 0, UNSIGNED}\n0x8; 8.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:505)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 3, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:505)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 49, NodeFIFO, "FIFO(13)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 42, NodeOutput, "Output(internal_watch_inputindex_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 51, NodeFIFO, "FIFO(7)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 53, NodeFIFO, "FIFO(5)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 54, NodeFIFO, "FIFO(1)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 43, NodeOutput, "Output(internal_watch_loopindex_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 61, NodeConstantRawBits, "{HWOffsetFix:3, 0, UNSIGNED}\n0x0; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 37, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 48, NodeStreamOffset, "stream offset: -12", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:356)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:29)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 13, NodeConstantRawBits, "{HWFloat:8, 24}\n0x3f800000; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 14, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 60, NodeConstantRawBits, "{HWFloat:8, 24}\n0x40400000; 3.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:978)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 16, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:978)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 44, NodeOutput, "Output(internal_watch_sum_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 59, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 38, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 7, NodeInputMappedReg, "Scalar input (io_input_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 8, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 9, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 10, NodeInput, "Input(input)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 45, NodeOutput, "Output(internal_watch_input_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 18, NodeWatch, "WatchNode", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:31)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 58, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 39, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 21, NodeInputMappedReg, "Scalar input (io_output_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 22, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 23, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 24, NodeOutput, "Output(output)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 29, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 57, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 26, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 27, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 28, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 30, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 56, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 32, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 33, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 35, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 40, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 34, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+#endif
+
+#ifdef SLIC_USE_DEFINITIONS
+#include <stdio.h>
+#include <math.h>
+#include <pthread.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+static max_file_t *stored_maxfile = NULL;
+static max_engine_t *stored_engine = NULL;
+static char *stored_error = NULL;
+static int stored_has_error = 0;
+static pthread_once_t slic_bs_is_initialised = PTHREAD_ONCE_INIT;
+
+static void set_error(const char *error_str)
+{
+	stored_has_error = 1; 
+	if(stored_error == NULL) {
+		stored_error = strdup(error_str);
+	} else {
+		char *nerr = malloc(strlen(stored_error) + strlen(error_str) + 2);
+		sprintf(nerr, "%s\n%s", stored_error, error_str);
+		free(stored_error);
+		stored_error = nerr;
+	}
+}
+static void set_error_and_free(char *error_str){
+	set_error(error_str);
+	free(error_str);
+}
+int PolyEval_has_errors(void)
+{	return stored_has_error; }
+const char* PolyEval_get_errors(void)
+{	return stored_error; }
+void PolyEval_clear_errors(void)
+{
+	free(stored_error);
+	stored_error = NULL;
+	stored_has_error = 0;
+}
+
+static char PolyEval_use_simulation[16];
+static void PolyEval_def_use_simulation(void)
+{
+	long pid = ((long) getpid()) % 100000;
+	snprintf(PolyEval_use_simulation, 16, "PolyEval_%05ld_", pid);
+}
+static const char *PolyEval_check_use_simulation(void)
+{
+	PolyEval_def_use_simulation();
+	const char *use_sim = max_config_get_string(MAX_CONFIG_USE_SIMULATION);
+	if (use_sim == NULL) {
+		use_sim = PolyEval_use_simulation;
+		max_config_set_string(MAX_CONFIG_USE_SIMULATION, use_sim);
+	}
+	return use_sim;
+}
+
+static int PolyEval_simulation_launch = 0;
+int PolyEval_simulator_start(void)
+{
+	int retval = 0;
+	const char *use_sim = PolyEval_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX4848A -S simutils restart", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		if (strstr(buff, "Error")) {
+			set_error(buff);
+			retval = -1;
+		}
+	}
+	pclose(pipe_fp);
+	return retval;
+}
+
+int PolyEval_simulator_stop(void)
+{
+	const char *use_sim = PolyEval_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX4848A -S simutils stop", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		;
+	}
+	pclose(pipe_fp);
+	return 0;
+}
+
+static void PolyEval_static_init(void) 
+{
+	stored_maxfile = PolyEval_init();
+	if (stored_maxfile == NULL || !max_ok(stored_maxfile->errors)) {
+		stored_maxfile = NULL;
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) abort();
+		else { set_error("Unable to load maxfile"); return; }
+	}
+	if(!max_ok(max_global_errors())) {
+		set_error_and_free(max_errors_trace(max_global_errors()));
+		return;
+	}
+	if(!max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR))
+		max_errors_mode(stored_maxfile->errors, 0);
+	time_t timeout_previous = max_load_timeout(stored_maxfile, 30);
+	const char *use_sim = PolyEval_check_use_simulation();
+	if (max_ping_daemon(stored_maxfile, use_sim) == 0) {
+		int sim_stat = PolyEval_simulator_start();
+		if ((sim_stat == 0) && (max_ping_daemon(stored_maxfile, use_sim) == 1)) {
+			PolyEval_simulation_launch = 1;
+		} else {
+			set_error("Error: An error occurred while trying to start the simulation infrastructure automatically.");
+			set_error("Error: Check that 'use_simulation=<simulator_name>' is set correctly in your SLiC configuration");
+			set_error("Error: and that the associated simulated system daemon is running.");
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		}
+	}
+	stored_engine = max_load(stored_maxfile, "*");
+	if (!max_ok(stored_maxfile->errors)) {
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) {
+			fprintf(stderr, "\nUnable to load engine: aborting now.\n\n");
+			fflush(stderr);
+			abort();
+		} else {
+			set_error_and_free(max_errors_trace(stored_maxfile->errors));
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		} 
+	} 
+	max_load_timeout(stored_maxfile, timeout_previous);
+}
+void PolyEval_free(void)
+{
+	if (stored_engine != NULL) {
+		max_unload(stored_engine);
+		stored_engine = NULL;
+	}
+	if (stored_maxfile != NULL) {
+		max_file_free(stored_maxfile);
+		stored_maxfile = NULL;
+	}
+	if (stored_error != NULL) {
+		free(stored_error);
+		stored_error = NULL;
+	}
+	if (PolyEval_simulation_launch == 1) {
+		int sim_stat = PolyEval_simulator_stop();
+		if (sim_stat != 0 ) {
+			fprintf(stderr, "Error stopping simulator.");
+		}
+		PolyEval_simulation_launch = 0;
+	}
+}
+
+static int PolyEval_get_pcie_alignment(void)
+{
+#ifdef PolyEval_PCIE_ALIGNMENT
+	return ((PolyEval_PCIE_ALIGNMENT < 1) ? 16 : PolyEval_PCIE_ALIGNMENT);
+#else
+	return 16;
+#endif
+}
+
+static int PolyEval_check_aligned(const void *data)
+{
+	uintptr_t pointer = (uintptr_t) data;
+	int alignment = PolyEval_get_pcie_alignment();
+	return (pointer % alignment) ? 1 : 0;
+}
+
+static void *PolyEval_malloc_aligned(const size_t size)
+{
+	void *ptr;
+	int alignment = PolyEval_get_pcie_alignment();
+	posix_memalign(&ptr, alignment, size);
+	return ptr;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "PolyEvalKernel.loopExpr".
+ */
+int PolyEval_get_PolyEvalKernel_loopExpr( void )
+{
+	return 12;
+}
+
+#define CHECK_ERRORS_ST(ST, RET) if(!max_ok(ST->errors)) { if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n", max_errors_trace(ST->errors)); abort(); } set_error_and_free(max_errors_trace(ST->errors)); return RET; } 
+#define CHECK_NULL(VALUE, MESSAGE, RET) if(VALUE == NULL) { if (max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n%s\n", (stored_error == NULL) ? "" : stored_error, MESSAGE); abort(); } set_error(MESSAGE); return RET; }
+
+ 
+typedef struct PolyEval_callback_stream {
+	uint8_t *user_ptr;
+	uint8_t *aligned_ptr;
+	size_t   size;
+	int      is_output;
+} PolyEval_callback_stream_t;
+
+typedef struct PolyEval_callback_data {
+	PolyEval_callback_stream_t stream[2]; 
+	int count;
+	int max_count;
+} PolyEval_callback_data_t;
+
+static void PolyEval_callback_internal(void *cb_data)
+{
+	PolyEval_callback_data_t *data = (PolyEval_callback_data_t*) cb_data;
+	for (int i = 0 ; i < data->count ; i++ ) {
+		PolyEval_callback_stream_t *s = &data->stream[i];
+		if (s->is_output && (s->size > 0)) {
+			memcpy(s->user_ptr, s->aligned_ptr, s->size);
+		}
+		free(s->aligned_ptr);
+	}
+	free(data);
+}
+
+static max_actions_t* PolyEval_convert_internal(
+	max_file_t *maxfile,
+	PolyEval_actions_t *interface_actions,
+	int  is_internal_call,
+	void (**callback_func)(void*),
+	void **callback_data)
+{
+	max_actions_t *actions = max_actions_init(maxfile, NULL);
+	if(actions == NULL) return NULL;
+
+#define CHECK_ERRORS if(!max_ok(actions->errors)) { set_error_and_free(max_errors_trace(actions->errors)); return NULL; } 
+
+	PolyEval_callback_data_t *cb_data = NULL;
+	int use_callback = (callback_func != NULL) && (callback_data != NULL);
+	if (use_callback) {
+		cb_data = malloc(sizeof(PolyEval_callback_data_t));
+		if (cb_data == NULL) {
+			fprintf(stderr, "Unable to allocate memory for stream callback data in function PolyEval_convert_internal\n");
+			return NULL;
+		}
+		cb_data->max_count = 2;
+		cb_data->count     = 0;
+		*callback_data     = cb_data;
+		*callback_func     = &PolyEval_callback_internal;
+	}
+
+	int32_t param_PolyEvalKernel_loopExpr = PolyEval_get_PolyEvalKernel_loopExpr(  );
+	
+	int64_t param_length = interface_actions->param_length;
+	
+	int64_t tmp_1 = (param_length * param_PolyEvalKernel_loopExpr);
+	
+	/* code for scalar PolyEvalKernel.run_cycle_count */
+	uint64_t ticks_PolyEvalKernel = tmp_1;
+	max_set_ticks(actions, "PolyEvalKernel", tmp_1);
+	CHECK_ERRORS;
+	/* end of code for scalar PolyEvalKernel.run_cycle_count*/
+	
+	int64_t tmp_0 = (param_length * 4);
+	
+	/* code for stream input */
+	size_t instream_size_input = tmp_0;
+	if (instream_size_input > 0) {
+		const float *stream_ptr = interface_actions->instream_input;
+		if (use_callback && (1 == PolyEval_check_aligned(interface_actions->instream_input))) {
+			float *aligned_instream_input = malloc(instream_size_input);
+			if (aligned_instream_input == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'input'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_input;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_input;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_input;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_input, interface_actions->instream_input, instream_size_input);
+			stream_ptr = aligned_instream_input;
+		}
+		max_queue_input(actions, "input", stream_ptr, instream_size_input);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream input */
+	
+	/* code for stream output */
+	size_t outstream_size_output = tmp_0;
+	if (outstream_size_output > 0) {
+		float *stream_ptr = interface_actions->outstream_output;
+		if (use_callback && (1 == PolyEval_check_aligned(interface_actions->outstream_output))) {
+			float *aligned_outstream_output = malloc(outstream_size_output);
+			if (aligned_outstream_output == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'output'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_output;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_output;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_output;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_output;
+		}
+		max_queue_output(actions, "output", stream_ptr, outstream_size_output);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream output */
+	
+	if (use_callback && cb_data->count == 0) {
+		*callback_data = NULL;
+		*callback_func = NULL;
+		free(cb_data);
+	}
+	return actions;
+#undef CHECK_ERRORS
+}
+
+void PolyEval(
+	int64_t param_length,
+	const float *instream_input,
+	float *outstream_output)
+{
+	(void) pthread_once(&slic_bs_is_initialised, PolyEval_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", );
+	max_run_t *run = PolyEval_nonblock(param_length, instream_input, outstream_output);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *PolyEval_nonblock(
+	int64_t param_length,
+	const float *instream_input,
+	float *outstream_output)
+{
+	PolyEval_actions_t interface_actions;
+	interface_actions.param_length = param_length;
+	interface_actions.instream_input = instream_input;
+	interface_actions.outstream_output = outstream_output;
+	(void) pthread_once(&slic_bs_is_initialised, PolyEval_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", NULL);
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = PolyEval_convert_internal(stored_maxfile, &interface_actions, 1, &cb_func, &cb_data);
+	CHECK_NULL(actions, "Unable to build actions", NULL);
+	max_validate(actions);
+	CHECK_ERRORS_ST(actions, NULL);
+	CHECK_ERRORS_ST(stored_engine, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(stored_engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(stored_engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+void PolyEval_run(
+	max_engine_t *engine,
+	PolyEval_actions_t *interface_actions)
+{
+	max_run_t *run = PolyEval_run_nonblock(engine, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *PolyEval_run_nonblock(
+	max_engine_t *engine,
+	PolyEval_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_engine_get_max_file(engine); 
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = PolyEval_convert_internal(maxfile, interface_actions, 1, &cb_func, &cb_data);
+	CHECK_NULL(actions, "Unable to build actions", NULL);
+	max_validate(actions);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void PolyEval_run_group(max_group_t *group, PolyEval_actions_t *interface_actions)
+{
+	max_run_t *run = PolyEval_run_group_nonblock(group, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PolyEval_run_group_nonblock(max_group_t *group, PolyEval_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_group_get_max_file(group);
+	max_actions_t *actions = PolyEval_convert_internal(maxfile, interface_actions, 1, NULL, NULL);
+	if(actions == NULL) return NULL;
+	if(!max_ok(actions->errors)) return NULL;
+	max_validate(actions);
+	max_run_t *run = max_run_group_nonblock(group, actions);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void PolyEval_run_array(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[])
+{
+	max_run_t *run = PolyEval_run_array_nonblock(engarray, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PolyEval_run_array_nonblock(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[])
+{
+	max_file_t *maxfile = max_engarray_get_max_file(engarray, 0);
+	int i;
+	max_actarray_t *actarray = max_actarray_init(maxfile, engarray->size);
+	if (actarray == NULL) return NULL;
+	max_actions_t **arr_actions = malloc(engarray->size * sizeof(max_actions_t*));
+	for ( i = 0 ; i < actarray->size; i++ ) {
+		max_actions_t *actions = PolyEval_convert_internal(maxfile, interface_actions[i], 1, NULL, NULL);
+		if (actions == NULL) return NULL;
+		arr_actions[i] = actions;
+		max_set_action(actarray, i, actions);
+	}
+	max_run_t *run = max_run_array_nonblock(engarray, actarray);
+	for ( i = 0 ; i < actarray->size ; i++ ) { max_actions_free(arr_actions[i]); }
+	max_actarray_free(actarray);
+	free(arr_actions);
+	return run;
+}
+
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* PolyEval_convert(max_file_t *maxfile, PolyEval_actions_t *interface_actions)
+{
+	return PolyEval_convert_internal(maxfile, interface_actions, 0, NULL, NULL);
+}
+
+#undef CHECK_ERRORS_ST
+#undef CHECK_NULL
+
+
+
+#endif /* SLIC_USE_DEFINITIONS */
+
+#ifdef SLIC_DYNAMIC_CODE
+SLIC_MODE_START(default)	
+SLIC_AUTO_LOOP_OFFSET(int32_t, PolyEvalKernel, loopExpr, param_PolyEvalKernel_loopExpr)	
+SLIC_PARAMETER_UINT64(int64_t, length, param_length)	
+SLIC_TEMP_VAR(int64_t tmp_1 = (param_length * param_PolyEvalKernel_loopExpr);)	
+SLIC_SET_TICKS(PolyEvalKernel, tmp_1)	
+SLIC_TEMP_VAR(int64_t tmp_0 = (param_length * 4);)	
+SLIC_STREAM(input, tmp_0)	
+SLIC_STREAM(output, tmp_0)	
+SLIC_MODE_END(default)
+
+#endif /* SLIC_DYNAMIC_CODE */
+
+#ifdef SKIN_META_DATA
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PG1h
+eGZpbGUgZm9ybWF0LXZlcnNpb249IjIwMTIwMjAwIiBoZWFkZXI9IlBvbHlFdmFsLmgiIG5hbWU9
+IlBvbHlFdmFsIj48Y29uc3RhbnQgbmFtZT0iUENJRV9BTElHTk1FTlQiIHR5cGU9ImxvbmciIHZh
+bHVlPSIxNiIvPjxlbmdpbmVtb2RlIG5hbWU9ImRlZmF1bHQiPjxmdW5jdGlvbiBuYW1lPSJQb2x5
+RXZhbCIgcmV0dXJuLXZhbHVlPSJ2b2lkIj48c2NhbGFyIGRlc2M9IkludGVyZmFjZSBQYXJhbWV0
+ZXIgJnF1b3Q7bGVuZ3RoJnF1b3Q7LiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0icGFyYW1fbGVu
+Z3RoIiB0eXBlPSJpbnQ2NF90Ii8+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9m
+IHNpemUgKHBhcmFtX2xlbmd0aCAqIDQpIGJ5dGVzLiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0i
+aW5zdHJlYW1faW5wdXQiIHNpemU9IihwYXJhbV9sZW5ndGggKiA0KSIgdHJhbnNwb3NlPSJ0cnVl
+IiB0eXBlPSJmbG9hdCI+PGRpbWVuc2lvbiBpbmRleD0iMCI+PGxlbmd0aD48ZnVuY3Rpb25DYWxs
+PjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iLyIgdmFsdWU9IigocGFyYW1fbGVuZ3RoICog
+NCkgLyA0KSI+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZh
+bHVlPSIocGFyYW1fbGVuZ3RoICogNCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX2xlbmd0aCIv
+Pjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9u
+Q2FsbD48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5j
+dGlvbkNhbGw+PC9sZW5ndGg+PC9kaW1lbnNpb24+PC9hcnJheT48YXJyYXkgZGVzYz0iVGhlIHN0
+cmVhbSBzaG91bGQgYmUgb2Ygc2l6ZSAocGFyYW1fbGVuZ3RoICogNCkgYnl0ZXMuIiBkaXJlY3Rp
+b249Ik91dHB1dCIgbmFtZT0ib3V0c3RyZWFtX291dHB1dCIgc2l6ZT0iKHBhcmFtX2xlbmd0aCAq
+IDQpIiB0cmFuc3Bvc2U9InRydWUiIHR5cGU9ImZsb2F0Ij48ZGltZW5zaW9uIGluZGV4PSIwIj48
+bGVuZ3RoPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIvIiB2YWx1
+ZT0iKChwYXJhbV9sZW5ndGggKiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVy
+YXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9sZW5ndGggKiA0KSI+PHVzZXJQYXJhbSB2
+YWx1ZT0icGFyYW1fbGVuZ3RoIi8+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFy
+eU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1C
+aW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48L2xlbmd0aD48L2RpbWVuc2lvbj48L2FycmF5
+PjwvZnVuY3Rpb24+PC9lbmdpbmVtb2RlPjwvbWF4ZmlsZT4=
+#endif /* SKIN_META_DATA */
+
+#ifdef SLIC_B64_DEFINITIONS
+I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxtYXRoLmg+CiNpbmNsdWRlIDxwdGhyZWFkLmg+
+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGli
+Lmg+CnN0YXRpYyBtYXhfZmlsZV90ICpzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CnN0YXRpYyBtYXhf
+ZW5naW5lX3QgKnN0b3JlZF9lbmdpbmUgPSBOVUxMOwpzdGF0aWMgY2hhciAqc3RvcmVkX2Vycm9y
+ID0gTlVMTDsKc3RhdGljIGludCBzdG9yZWRfaGFzX2Vycm9yID0gMDsKc3RhdGljIHB0aHJlYWRf
+b25jZV90IHNsaWNfYnNfaXNfaW5pdGlhbGlzZWQgPSBQVEhSRUFEX09OQ0VfSU5JVDsKCnN0YXRp
+YyB2b2lkIHNldF9lcnJvcihjb25zdCBjaGFyICplcnJvcl9zdHIpCnsKCXN0b3JlZF9oYXNfZXJy
+b3IgPSAxOyAKCWlmKHN0b3JlZF9lcnJvciA9PSBOVUxMKSB7CgkJc3RvcmVkX2Vycm9yID0gc3Ry
+ZHVwKGVycm9yX3N0cik7Cgl9IGVsc2UgewoJCWNoYXIgKm5lcnIgPSBtYWxsb2Moc3RybGVuKHN0
+b3JlZF9lcnJvcikgKyBzdHJsZW4oZXJyb3Jfc3RyKSArIDIpOwoJCXNwcmludGYobmVyciwgIiVz
+XG4lcyIsIHN0b3JlZF9lcnJvciwgZXJyb3Jfc3RyKTsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJ
+c3RvcmVkX2Vycm9yID0gbmVycjsKCX0KfQpzdGF0aWMgdm9pZCBzZXRfZXJyb3JfYW5kX2ZyZWUo
+Y2hhciAqZXJyb3Jfc3RyKXsKCXNldF9lcnJvcihlcnJvcl9zdHIpOwoJZnJlZShlcnJvcl9zdHIp
+Owp9CmludCBQb2x5RXZhbF9oYXNfZXJyb3JzKHZvaWQpCnsJcmV0dXJuIHN0b3JlZF9oYXNfZXJy
+b3I7IH0KY29uc3QgY2hhciogUG9seUV2YWxfZ2V0X2Vycm9ycyh2b2lkKQp7CXJldHVybiBzdG9y
+ZWRfZXJyb3I7IH0Kdm9pZCBQb2x5RXZhbF9jbGVhcl9lcnJvcnModm9pZCkKewoJZnJlZShzdG9y
+ZWRfZXJyb3IpOwoJc3RvcmVkX2Vycm9yID0gTlVMTDsKCXN0b3JlZF9oYXNfZXJyb3IgPSAwOwp9
+CgpzdGF0aWMgY2hhciBQb2x5RXZhbF91c2Vfc2ltdWxhdGlvblsxNl07CnN0YXRpYyB2b2lkIFBv
+bHlFdmFsX2RlZl91c2Vfc2ltdWxhdGlvbih2b2lkKQp7Cglsb25nIHBpZCA9ICgobG9uZykgZ2V0
+cGlkKCkpICUgMTAwMDAwOwoJc25wcmludGYoUG9seUV2YWxfdXNlX3NpbXVsYXRpb24sIDE2LCAi
+UG9seUV2YWxfJTA1bGRfIiwgcGlkKTsKfQpzdGF0aWMgY29uc3QgY2hhciAqUG9seUV2YWxfY2hl
+Y2tfdXNlX3NpbXVsYXRpb24odm9pZCkKewoJUG9seUV2YWxfZGVmX3VzZV9zaW11bGF0aW9uKCk7
+Cgljb25zdCBjaGFyICp1c2Vfc2ltID0gbWF4X2NvbmZpZ19nZXRfc3RyaW5nKE1BWF9DT05GSUdf
+VVNFX1NJTVVMQVRJT04pOwoJaWYgKHVzZV9zaW0gPT0gTlVMTCkgewoJCXVzZV9zaW0gPSBQb2x5
+RXZhbF91c2Vfc2ltdWxhdGlvbjsKCQltYXhfY29uZmlnX3NldF9zdHJpbmcoTUFYX0NPTkZJR19V
+U0VfU0lNVUxBVElPTiwgdXNlX3NpbSk7Cgl9CglyZXR1cm4gdXNlX3NpbTsKfQoKc3RhdGljIGlu
+dCBQb2x5RXZhbF9zaW11bGF0aW9uX2xhdW5jaCA9IDA7CmludCBQb2x5RXZhbF9zaW11bGF0b3Jf
+c3RhcnQodm9pZCkKewoJaW50IHJldHZhbCA9IDA7Cgljb25zdCBjaGFyICp1c2Vfc2ltID0gUG9s
+eUV2YWxfY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0XTsKCXNucHJpbnRm
+KGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVyc2ltIC1kIDEgLW4g
+JXMgLWMgTUFYNDg0OEEgLVMgc2ltdXRpbHMgcmVzdGFydCIsIHVzZV9zaW0pOwoJRklMRSAqcGlw
+ZV9mcCA9IHBvcGVuKGJ1ZmYsICJyIik7CglpZiAocGlwZV9mcCA9PSBOVUxMKSB7CgkJc3RybmNh
+dChidWZmLCAiIDogZmFpbGVkIHRvIGV4ZWN1dGUuIiwgKDEwMjQgLSBzdHJsZW4oYnVmZikpKTsK
+CQlzZXRfZXJyb3IoYnVmZik7CgkJcmV0dXJuIC0xOwoJfQoJd2hpbGUgKGZnZXRzKGJ1ZmYsIDEw
+MjQsIHBpcGVfZnApICE9IE5VTEwpIHsKCQkvKiBVbmNvbW1lbnQgdGhpcyB0byBnZXQgc2ltdWxh
+dG9yIGNvbW1hbmQgb3V0cHV0ICovCgkJLyogZnByaW50ZihzdGRlcnIsIGJ1ZmYpOyAqLwoJCWlm
+IChzdHJzdHIoYnVmZiwgIkVycm9yIikpIHsKCQkJc2V0X2Vycm9yKGJ1ZmYpOwoJCQlyZXR2YWwg
+PSAtMTsKCQl9Cgl9CglwY2xvc2UocGlwZV9mcCk7CglyZXR1cm4gcmV0dmFsOwp9CgppbnQgUG9s
+eUV2YWxfc2ltdWxhdG9yX3N0b3Aodm9pZCkKewoJY29uc3QgY2hhciAqdXNlX3NpbSA9IFBvbHlF
+dmFsX2NoZWNrX3VzZV9zaW11bGF0aW9uKCk7CgljaGFyIGJ1ZmZbMTAyNF07CglzbnByaW50Zihi
+dWZmLCAxMDI0LCAiUEFUSD1zaW11dGlsczokUEFUSCBtYXhjb21waWxlcnNpbSAtZCAxIC1uICVz
+IC1jIE1BWDQ4NDhBIC1TIHNpbXV0aWxzIHN0b3AiLCB1c2Vfc2ltKTsKCUZJTEUgKnBpcGVfZnAg
+PSBwb3BlbihidWZmLCAiciIpOwoJaWYgKHBpcGVfZnAgPT0gTlVMTCkgewoJCXN0cm5jYXQoYnVm
+ZiwgIiA6IGZhaWxlZCB0byBleGVjdXRlLiIsICgxMDI0IC0gc3RybGVuKGJ1ZmYpKSk7CgkJc2V0
+X2Vycm9yKGJ1ZmYpOwoJCXJldHVybiAtMTsKCX0KCXdoaWxlIChmZ2V0cyhidWZmLCAxMDI0LCBw
+aXBlX2ZwKSAhPSBOVUxMKSB7CgkJLyogVW5jb21tZW50IHRoaXMgdG8gZ2V0IHNpbXVsYXRvciBj
+b21tYW5kIG91dHB1dCAqLwoJCS8qIGZwcmludGYoc3RkZXJyLCBidWZmKTsgKi8KCQk7Cgl9Cglw
+Y2xvc2UocGlwZV9mcCk7CglyZXR1cm4gMDsKfQoKc3RhdGljIHZvaWQgUG9seUV2YWxfc3RhdGlj
+X2luaXQodm9pZCkgCnsKCXN0b3JlZF9tYXhmaWxlID0gUG9seUV2YWxfaW5pdCgpOwoJaWYgKHN0
+b3JlZF9tYXhmaWxlID09IE5VTEwgfHwgIW1heF9vayhzdG9yZWRfbWF4ZmlsZS0+ZXJyb3JzKSkg
+ewoJCXN0b3JlZF9tYXhmaWxlID0gTlVMTDsKCQlpZihtYXhfY29uZmlnX2dldF9ib29sKE1BWF9D
+T05GSUdfU1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIGFib3J0KCk7CgkJZWxzZSB7
+IHNldF9lcnJvcigiVW5hYmxlIHRvIGxvYWQgbWF4ZmlsZSIpOyByZXR1cm47IH0KCX0KCWlmKCFt
+YXhfb2sobWF4X2dsb2JhbF9lcnJvcnMoKSkpIHsKCQlzZXRfZXJyb3JfYW5kX2ZyZWUobWF4X2Vy
+cm9yc190cmFjZShtYXhfZ2xvYmFsX2Vycm9ycygpKSk7CgkJcmV0dXJuOwoJfQoJaWYoIW1heF9j
+b25maWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FCT1JUX09OX0VSUk9S
+KSkKCQltYXhfZXJyb3JzX21vZGUoc3RvcmVkX21heGZpbGUtPmVycm9ycywgMCk7Cgl0aW1lX3Qg
+dGltZW91dF9wcmV2aW91cyA9IG1heF9sb2FkX3RpbWVvdXQoc3RvcmVkX21heGZpbGUsIDMwKTsK
+CWNvbnN0IGNoYXIgKnVzZV9zaW0gPSBQb2x5RXZhbF9jaGVja191c2Vfc2ltdWxhdGlvbigpOwoJ
+aWYgKG1heF9waW5nX2RhZW1vbihzdG9yZWRfbWF4ZmlsZSwgdXNlX3NpbSkgPT0gMCkgewoJCWlu
+dCBzaW1fc3RhdCA9IFBvbHlFdmFsX3NpbXVsYXRvcl9zdGFydCgpOwoJCWlmICgoc2ltX3N0YXQg
+PT0gMCkgJiYgKG1heF9waW5nX2RhZW1vbihzdG9yZWRfbWF4ZmlsZSwgdXNlX3NpbSkgPT0gMSkp
+IHsKCQkJUG9seUV2YWxfc2ltdWxhdGlvbl9sYXVuY2ggPSAxOwoJCX0gZWxzZSB7CgkJCXNldF9l
+cnJvcigiRXJyb3I6IEFuIGVycm9yIG9jY3VycmVkIHdoaWxlIHRyeWluZyB0byBzdGFydCB0aGUg
+c2ltdWxhdGlvbiBpbmZyYXN0cnVjdHVyZSBhdXRvbWF0aWNhbGx5LiIpOwoJCQlzZXRfZXJyb3Io
+IkVycm9yOiBDaGVjayB0aGF0ICd1c2Vfc2ltdWxhdGlvbj08c2ltdWxhdG9yX25hbWU+JyBpcyBz
+ZXQgY29ycmVjdGx5IGluIHlvdXIgU0xpQyBjb25maWd1cmF0aW9uIik7CgkJCXNldF9lcnJvcigi
+RXJyb3I6IGFuZCB0aGF0IHRoZSBhc3NvY2lhdGVkIHNpbXVsYXRlZCBzeXN0ZW0gZGFlbW9uIGlz
+IHJ1bm5pbmcuIik7CgkJCW1heF9maWxlX2ZyZWUoc3RvcmVkX21heGZpbGUpOwoJCQlzdG9yZWRf
+bWF4ZmlsZSA9IE5VTEw7CgkJCXJldHVybjsKCQl9Cgl9CglzdG9yZWRfZW5naW5lID0gbWF4X2xv
+YWQoc3RvcmVkX21heGZpbGUsICIqIik7CglpZiAoIW1heF9vayhzdG9yZWRfbWF4ZmlsZS0+ZXJy
+b3JzKSkgewoJCWlmKG1heF9jb25maWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJG
+QUNFX0FCT1JUX09OX0VSUk9SKSkgewoJCQlmcHJpbnRmKHN0ZGVyciwgIlxuVW5hYmxlIHRvIGxv
+YWQgZW5naW5lOiBhYm9ydGluZyBub3cuXG5cbiIpOwoJCQlmZmx1c2goc3RkZXJyKTsKCQkJYWJv
+cnQoKTsKCQl9IGVsc2UgewoJCQlzZXRfZXJyb3JfYW5kX2ZyZWUobWF4X2Vycm9yc190cmFjZShz
+dG9yZWRfbWF4ZmlsZS0+ZXJyb3JzKSk7CgkJCW1heF9maWxlX2ZyZWUoc3RvcmVkX21heGZpbGUp
+OwoJCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CgkJCXJldHVybjsKCQl9IAoJfSAKCW1heF9sb2Fk
+X3RpbWVvdXQoc3RvcmVkX21heGZpbGUsIHRpbWVvdXRfcHJldmlvdXMpOwp9CnZvaWQgUG9seUV2
+YWxfZnJlZSh2b2lkKQp7CglpZiAoc3RvcmVkX2VuZ2luZSAhPSBOVUxMKSB7CgkJbWF4X3VubG9h
+ZChzdG9yZWRfZW5naW5lKTsKCQlzdG9yZWRfZW5naW5lID0gTlVMTDsKCX0KCWlmIChzdG9yZWRf
+bWF4ZmlsZSAhPSBOVUxMKSB7CgkJbWF4X2ZpbGVfZnJlZShzdG9yZWRfbWF4ZmlsZSk7CgkJc3Rv
+cmVkX21heGZpbGUgPSBOVUxMOwoJfQoJaWYgKHN0b3JlZF9lcnJvciAhPSBOVUxMKSB7CgkJZnJl
+ZShzdG9yZWRfZXJyb3IpOwoJCXN0b3JlZF9lcnJvciA9IE5VTEw7Cgl9CglpZiAoUG9seUV2YWxf
+c2ltdWxhdGlvbl9sYXVuY2ggPT0gMSkgewoJCWludCBzaW1fc3RhdCA9IFBvbHlFdmFsX3NpbXVs
+YXRvcl9zdG9wKCk7CgkJaWYgKHNpbV9zdGF0ICE9IDAgKSB7CgkJCWZwcmludGYoc3RkZXJyLCAi
+RXJyb3Igc3RvcHBpbmcgc2ltdWxhdG9yLiIpOwoJCX0KCQlQb2x5RXZhbF9zaW11bGF0aW9uX2xh
+dW5jaCA9IDA7Cgl9Cn0KCnN0YXRpYyBpbnQgUG9seUV2YWxfZ2V0X3BjaWVfYWxpZ25tZW50KHZv
+aWQpCnsKI2lmZGVmIFBvbHlFdmFsX1BDSUVfQUxJR05NRU5UCglyZXR1cm4gKChQb2x5RXZhbF9Q
+Q0lFX0FMSUdOTUVOVCA8IDEpID8gMTYgOiBQb2x5RXZhbF9QQ0lFX0FMSUdOTUVOVCk7CiNlbHNl
+CglyZXR1cm4gMTY7CiNlbmRpZgp9CgpzdGF0aWMgaW50IFBvbHlFdmFsX2NoZWNrX2FsaWduZWQo
+Y29uc3Qgdm9pZCAqZGF0YSkKewoJdWludHB0cl90IHBvaW50ZXIgPSAodWludHB0cl90KSBkYXRh
+OwoJaW50IGFsaWdubWVudCA9IFBvbHlFdmFsX2dldF9wY2llX2FsaWdubWVudCgpOwoJcmV0dXJu
+IChwb2ludGVyICUgYWxpZ25tZW50KSA/IDEgOiAwOwp9CgpzdGF0aWMgdm9pZCAqUG9seUV2YWxf
+bWFsbG9jX2FsaWduZWQoY29uc3Qgc2l6ZV90IHNpemUpCnsKCXZvaWQgKnB0cjsKCWludCBhbGln
+bm1lbnQgPSBQb2x5RXZhbF9nZXRfcGNpZV9hbGlnbm1lbnQoKTsKCXBvc2l4X21lbWFsaWduKCZw
+dHIsIGFsaWdubWVudCwgc2l6ZSk7CglyZXR1cm4gcHRyOwp9CgoKCi8qLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLSovCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSBJbnRlcmZhY2UgZGVmYXVsdCAt
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCgoK
+Ci8qKgogKiBcYnJpZWYgQXV4aWxpYXJ5IGZ1bmN0aW9uIHRvIGV2YWx1YXRlIGV4cHJlc3Npb24g
+Zm9yICJQb2x5RXZhbEtlcm5lbC5sb29wRXhwciIuCiAqLwppbnQgUG9seUV2YWxfZ2V0X1BvbHlF
+dmFsS2VybmVsX2xvb3BFeHByKCB2b2lkICkKewoJcmV0dXJuIDEyOwp9CgojZGVmaW5lIENIRUNL
+X0VSUk9SU19TVChTVCwgUkVUKSBpZighbWF4X29rKFNULT5lcnJvcnMpKSB7IGlmKG1heF9jb25m
+aWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FCT1JUX09OX0VSUk9SKSkg
+eyBmcHJpbnRmKHN0ZGVyciwgIiVzXG4iLCBtYXhfZXJyb3JzX3RyYWNlKFNULT5lcnJvcnMpKTsg
+YWJvcnQoKTsgfSBzZXRfZXJyb3JfYW5kX2ZyZWUobWF4X2Vycm9yc190cmFjZShTVC0+ZXJyb3Jz
+KSk7IHJldHVybiBSRVQ7IH0gCiNkZWZpbmUgQ0hFQ0tfTlVMTChWQUxVRSwgTUVTU0FHRSwgUkVU
+KSBpZihWQUxVRSA9PSBOVUxMKSB7IGlmIChtYXhfY29uZmlnX2dldF9ib29sKE1BWF9DT05GSUdf
+U1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIHsgZnByaW50ZihzdGRlcnIsICIlc1xu
+JXNcbiIsIChzdG9yZWRfZXJyb3IgPT0gTlVMTCkgPyAiIiA6IHN0b3JlZF9lcnJvciwgTUVTU0FH
+RSk7IGFib3J0KCk7IH0gc2V0X2Vycm9yKE1FU1NBR0UpOyByZXR1cm4gUkVUOyB9CgogCnR5cGVk
+ZWYgc3RydWN0IFBvbHlFdmFsX2NhbGxiYWNrX3N0cmVhbSB7Cgl1aW50OF90ICp1c2VyX3B0cjsK
+CXVpbnQ4X3QgKmFsaWduZWRfcHRyOwoJc2l6ZV90ICAgc2l6ZTsKCWludCAgICAgIGlzX291dHB1
+dDsKfSBQb2x5RXZhbF9jYWxsYmFja19zdHJlYW1fdDsKCnR5cGVkZWYgc3RydWN0IFBvbHlFdmFs
+X2NhbGxiYWNrX2RhdGEgewoJUG9seUV2YWxfY2FsbGJhY2tfc3RyZWFtX3Qgc3RyZWFtWzJdOyAK
+CWludCBjb3VudDsKCWludCBtYXhfY291bnQ7Cn0gUG9seUV2YWxfY2FsbGJhY2tfZGF0YV90OwoK
+c3RhdGljIHZvaWQgUG9seUV2YWxfY2FsbGJhY2tfaW50ZXJuYWwodm9pZCAqY2JfZGF0YSkKewoJ
+UG9seUV2YWxfY2FsbGJhY2tfZGF0YV90ICpkYXRhID0gKFBvbHlFdmFsX2NhbGxiYWNrX2RhdGFf
+dCopIGNiX2RhdGE7Cglmb3IgKGludCBpID0gMCA7IGkgPCBkYXRhLT5jb3VudCA7IGkrKyApIHsK
+CQlQb2x5RXZhbF9jYWxsYmFja19zdHJlYW1fdCAqcyA9ICZkYXRhLT5zdHJlYW1baV07CgkJaWYg
+KHMtPmlzX291dHB1dCAmJiAocy0+c2l6ZSA+IDApKSB7CgkJCW1lbWNweShzLT51c2VyX3B0ciwg
+cy0+YWxpZ25lZF9wdHIsIHMtPnNpemUpOwoJCX0KCQlmcmVlKHMtPmFsaWduZWRfcHRyKTsKCX0K
+CWZyZWUoZGF0YSk7Cn0KCnN0YXRpYyBtYXhfYWN0aW9uc190KiBQb2x5RXZhbF9jb252ZXJ0X2lu
+dGVybmFsKAoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSwKCVBvbHlFdmFsX2FjdGlvbnNfdCAqaW50ZXJm
+YWNlX2FjdGlvbnMsCglpbnQgIGlzX2ludGVybmFsX2NhbGwsCgl2b2lkICgqKmNhbGxiYWNrX2Z1
+bmMpKHZvaWQqKSwKCXZvaWQgKipjYWxsYmFja19kYXRhKQp7CgltYXhfYWN0aW9uc190ICphY3Rp
+b25zID0gbWF4X2FjdGlvbnNfaW5pdChtYXhmaWxlLCBOVUxMKTsKCWlmKGFjdGlvbnMgPT0gTlVM
+TCkgcmV0dXJuIE5VTEw7CgojZGVmaW5lIENIRUNLX0VSUk9SUyBpZighbWF4X29rKGFjdGlvbnMt
+PmVycm9ycykpIHsgc2V0X2Vycm9yX2FuZF9mcmVlKG1heF9lcnJvcnNfdHJhY2UoYWN0aW9ucy0+
+ZXJyb3JzKSk7IHJldHVybiBOVUxMOyB9IAoKCVBvbHlFdmFsX2NhbGxiYWNrX2RhdGFfdCAqY2Jf
+ZGF0YSA9IE5VTEw7CglpbnQgdXNlX2NhbGxiYWNrID0gKGNhbGxiYWNrX2Z1bmMgIT0gTlVMTCkg
+JiYgKGNhbGxiYWNrX2RhdGEgIT0gTlVMTCk7CglpZiAodXNlX2NhbGxiYWNrKSB7CgkJY2JfZGF0
+YSA9IG1hbGxvYyhzaXplb2YoUG9seUV2YWxfY2FsbGJhY2tfZGF0YV90KSk7CgkJaWYgKGNiX2Rh
+dGEgPT0gTlVMTCkgewoJCQlmcHJpbnRmKHN0ZGVyciwgIlVuYWJsZSB0byBhbGxvY2F0ZSBtZW1v
+cnkgZm9yIHN0cmVhbSBjYWxsYmFjayBkYXRhIGluIGZ1bmN0aW9uIFBvbHlFdmFsX2NvbnZlcnRf
+aW50ZXJuYWxcbiIpOwoJCQlyZXR1cm4gTlVMTDsKCQl9CgkJY2JfZGF0YS0+bWF4X2NvdW50ID0g
+MjsKCQljYl9kYXRhLT5jb3VudCAgICAgPSAwOwoJCSpjYWxsYmFja19kYXRhICAgICA9IGNiX2Rh
+dGE7CgkJKmNhbGxiYWNrX2Z1bmMgICAgID0gJlBvbHlFdmFsX2NhbGxiYWNrX2ludGVybmFsOwoJ
+fQoKCWludDMyX3QgcGFyYW1fUG9seUV2YWxLZXJuZWxfbG9vcEV4cHIgPSBQb2x5RXZhbF9nZXRf
+UG9seUV2YWxLZXJuZWxfbG9vcEV4cHIoICApOwoJCglpbnQ2NF90IHBhcmFtX2xlbmd0aCA9IGlu
+dGVyZmFjZV9hY3Rpb25zLT5wYXJhbV9sZW5ndGg7CgkKCWludDY0X3QgdG1wXzEgPSAocGFyYW1f
+bGVuZ3RoICogcGFyYW1fUG9seUV2YWxLZXJuZWxfbG9vcEV4cHIpOwoJCgkvKiBjb2RlIGZvciBz
+Y2FsYXIgUG9seUV2YWxLZXJuZWwucnVuX2N5Y2xlX2NvdW50ICovCgl1aW50NjRfdCB0aWNrc19Q
+b2x5RXZhbEtlcm5lbCA9IHRtcF8xOwoJbWF4X3NldF90aWNrcyhhY3Rpb25zLCAiUG9seUV2YWxL
+ZXJuZWwiLCB0bXBfMSk7CglDSEVDS19FUlJPUlM7CgkvKiBlbmQgb2YgY29kZSBmb3Igc2NhbGFy
+IFBvbHlFdmFsS2VybmVsLnJ1bl9jeWNsZV9jb3VudCovCgkKCWludDY0X3QgdG1wXzAgPSAocGFy
+YW1fbGVuZ3RoICogNCk7CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBpbnB1dCAqLwoJc2l6ZV90IGlu
+c3RyZWFtX3NpemVfaW5wdXQgPSB0bXBfMDsKCWlmIChpbnN0cmVhbV9zaXplX2lucHV0ID4gMCkg
+ewoJCWNvbnN0IGZsb2F0ICpzdHJlYW1fcHRyID0gaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFt
+X2lucHV0OwoJCWlmICh1c2VfY2FsbGJhY2sgJiYgKDEgPT0gUG9seUV2YWxfY2hlY2tfYWxpZ25l
+ZChpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1faW5wdXQpKSkgewoJCQlmbG9hdCAqYWxpZ25l
+ZF9pbnN0cmVhbV9pbnB1dCA9IG1hbGxvYyhpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJaWYgKGFs
+aWduZWRfaW5zdHJlYW1faW5wdXQgPT0gTlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGlj
+KGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxs
+b2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAnaW5wdXQnIik7CgkJCQlDSEVDS19FUlJP
+UlM7CgkJCX0KCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+dXNlcl9wdHIg
+ICAgPSAodWludDhfdCopIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9pbnB1dDsKCQkJKCZj
+Yl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCop
+IGFsaWduZWRfaW5zdHJlYW1faW5wdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
+dW50XSktPnNpemUgICAgICAgID0gaW5zdHJlYW1fc2l6ZV9pbnB1dDsKCQkJKCZjYl9kYXRhLT5z
+dHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3Vu
+dCArPSAxOwoJCQltZW1jcHkoYWxpZ25lZF9pbnN0cmVhbV9pbnB1dCwgaW50ZXJmYWNlX2FjdGlv
+bnMtPmluc3RyZWFtX2lucHV0LCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJc3RyZWFtX3B0ciA9
+IGFsaWduZWRfaW5zdHJlYW1faW5wdXQ7CgkJfQoJCW1heF9xdWV1ZV9pbnB1dChhY3Rpb25zLCAi
+aW5wdXQiLCBzdHJlYW1fcHRyLCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQlDSEVDS19FUlJPUlM7
+Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIGlucHV0ICovCgkKCS8qIGNvZGUgZm9yIHN0
+cmVhbSBvdXRwdXQgKi8KCXNpemVfdCBvdXRzdHJlYW1fc2l6ZV9vdXRwdXQgPSB0bXBfMDsKCWlm
+IChvdXRzdHJlYW1fc2l6ZV9vdXRwdXQgPiAwKSB7CgkJZmxvYXQgKnN0cmVhbV9wdHIgPSBpbnRl
+cmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dHB1dDsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgx
+ID09IFBvbHlFdmFsX2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9v
+dXRwdXQpKSkgewoJCQlmbG9hdCAqYWxpZ25lZF9vdXRzdHJlYW1fb3V0cHV0ID0gbWFsbG9jKG91
+dHN0cmVhbV9zaXplX291dHB1dCk7CgkJCWlmIChhbGlnbmVkX291dHN0cmVhbV9vdXRwdXQgPT0g
+TlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxF
+X18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9y
+IHN0cmVhbSAnb3V0cHV0JyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJCQl9CgkJCSgmY2JfZGF0YS0+
+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAgID0gKHVpbnQ4X3QqKSBpbnRlcmZh
+Y2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dHB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0
+YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfb3V0c3RyZWFtX291
+dHB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAg
+PSBvdXRzdHJlYW1fc2l6ZV9vdXRwdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
+dW50XSktPmlzX291dHB1dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJc3RyZWFt
+X3B0ciA9IGFsaWduZWRfb3V0c3RyZWFtX291dHB1dDsKCQl9CgkJbWF4X3F1ZXVlX291dHB1dChh
+Y3Rpb25zLCAib3V0cHV0Iiwgc3RyZWFtX3B0ciwgb3V0c3RyZWFtX3NpemVfb3V0cHV0KTsKCQlD
+SEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIG91dHB1dCAqLwoJCglp
+ZiAodXNlX2NhbGxiYWNrICYmIGNiX2RhdGEtPmNvdW50ID09IDApIHsKCQkqY2FsbGJhY2tfZGF0
+YSA9IE5VTEw7CgkJKmNhbGxiYWNrX2Z1bmMgPSBOVUxMOwoJCWZyZWUoY2JfZGF0YSk7Cgl9Cgly
+ZXR1cm4gYWN0aW9uczsKI3VuZGVmIENIRUNLX0VSUk9SUwp9Cgp2b2lkIFBvbHlFdmFsKAoJaW50
+NjRfdCBwYXJhbV9sZW5ndGgsCgljb25zdCBmbG9hdCAqaW5zdHJlYW1faW5wdXQsCglmbG9hdCAq
+b3V0c3RyZWFtX291dHB1dCkKewoJKHZvaWQpIHB0aHJlYWRfb25jZSgmc2xpY19ic19pc19pbml0
+aWFsaXNlZCwgUG9seUV2YWxfc3RhdGljX2luaXQpOwoJQ0hFQ0tfTlVMTChzdG9yZWRfbWF4Zmls
+ZSwgIk1heGZpbGUgd2FzIG5vdCBsb2FkZWQiLCApOwoJbWF4X3J1bl90ICpydW4gPSBQb2x5RXZh
+bF9ub25ibG9jayhwYXJhbV9sZW5ndGgsIGluc3RyZWFtX2lucHV0LCBvdXRzdHJlYW1fb3V0cHV0
+KTsKCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0
+KHJ1bik7Cn0KCm1heF9ydW5fdCAqUG9seUV2YWxfbm9uYmxvY2soCglpbnQ2NF90IHBhcmFtX2xl
+bmd0aCwKCWNvbnN0IGZsb2F0ICppbnN0cmVhbV9pbnB1dCwKCWZsb2F0ICpvdXRzdHJlYW1fb3V0
+cHV0KQp7CglQb2x5RXZhbF9hY3Rpb25zX3QgaW50ZXJmYWNlX2FjdGlvbnM7CglpbnRlcmZhY2Vf
+YWN0aW9ucy5wYXJhbV9sZW5ndGggPSBwYXJhbV9sZW5ndGg7CglpbnRlcmZhY2VfYWN0aW9ucy5p
+bnN0cmVhbV9pbnB1dCA9IGluc3RyZWFtX2lucHV0OwoJaW50ZXJmYWNlX2FjdGlvbnMub3V0c3Ry
+ZWFtX291dHB1dCA9IG91dHN0cmVhbV9vdXRwdXQ7Cgkodm9pZCkgcHRocmVhZF9vbmNlKCZzbGlj
+X2JzX2lzX2luaXRpYWxpc2VkLCBQb2x5RXZhbF9zdGF0aWNfaW5pdCk7CglDSEVDS19OVUxMKHN0
+b3JlZF9tYXhmaWxlLCAiTWF4ZmlsZSB3YXMgbm90IGxvYWRlZCIsIE5VTEwpOwoJdm9pZCAoKmNi
+X2Z1bmMpKHZvaWQqKSA9IE5VTEw7Cgl2b2lkICAqY2JfZGF0YSAgICAgICAgID0gTlVMTDsKCW1h
+eF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBQb2x5RXZhbF9jb252ZXJ0X2ludGVybmFsKHN0b3JlZF9t
+YXhmaWxlLCAmaW50ZXJmYWNlX2FjdGlvbnMsIDEsICZjYl9mdW5jLCAmY2JfZGF0YSk7CglDSEVD
+S19OVUxMKGFjdGlvbnMsICJVbmFibGUgdG8gYnVpbGQgYWN0aW9ucyIsIE5VTEwpOwoJbWF4X3Zh
+bGlkYXRlKGFjdGlvbnMpOwoJQ0hFQ0tfRVJST1JTX1NUKGFjdGlvbnMsIE5VTEwpOwoJQ0hFQ0tf
+RVJST1JTX1NUKHN0b3JlZF9lbmdpbmUsIE5VTEwpOwoJbWF4X3J1bl90ICpydW47CglpZiAoY2Jf
+ZnVuYyA9PSBOVUxMKSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9jayhzdG9yZWRfZW5naW5lLCBh
+Y3Rpb25zKTsKCX0gZWxzZSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193aXRoX2NiKHN0b3Jl
+ZF9lbmdpbmUsIGFjdGlvbnMsIGNiX2Z1bmMsIGNiX2RhdGEpOwoJfQoJQ0hFQ0tfTlVMTChydW4s
+ICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCBOVUxMKTsKCUNIRUNLX0VSUk9SU19TVChhY3Rpb25z
+LCBOVUxMKTsKCW1heF9hY3Rpb25zX2ZyZWUoYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9Cgp2b2lk
+IFBvbHlFdmFsX3J1bigKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJUG9seUV2YWxfYWN0aW9uc190
+ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X3J1bl90ICpydW4gPSBQb2x5RXZhbF9ydW5fbm9u
+YmxvY2soZW5naW5lLCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJs
+ZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9CgptYXhfcnVuX3QgKlBvbHlF
+dmFsX3J1bl9ub25ibG9jaygKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJUG9seUV2YWxfYWN0aW9u
+c190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdp
+bmVfZ2V0X21heF9maWxlKGVuZ2luZSk7IAoJdm9pZCAoKmNiX2Z1bmMpKHZvaWQqKSA9IE5VTEw7
+Cgl2b2lkICAqY2JfZGF0YSAgICAgICAgID0gTlVMTDsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMg
+PSBQb2x5RXZhbF9jb252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAx
+LCAmY2JfZnVuYywgJmNiX2RhdGEpOwoJQ0hFQ0tfTlVMTChhY3Rpb25zLCAiVW5hYmxlIHRvIGJ1
+aWxkIGFjdGlvbnMiLCBOVUxMKTsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCUNIRUNLX0VSUk9S
+U19TVChhY3Rpb25zLCBOVUxMKTsKCW1heF9ydW5fdCAqcnVuOwoJaWYgKGNiX2Z1bmMgPT0gTlVM
+TCkgewoJCXJ1biA9IG1heF9ydW5fbm9uYmxvY2soZW5naW5lLCBhY3Rpb25zKTsKCX0gZWxzZSB7
+CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193aXRoX2NiKGVuZ2luZSwgYWN0aW9ucywgY2JfZnVu
+YywgY2JfZGF0YSk7Cgl9CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIs
+IE5VTEwpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJldHVybiBydW47Cn0KCgovKioK
+ICogXGJyaWVmIEdyb3VwIHJ1biBhZHZhbmNlZCBzdGF0aWMgZnVuY3Rpb24gZm9yIHRoZSBpbnRl
+cmZhY2UgJ2RlZmF1bHQnLgogKiAKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8gdXNlLgog
+KiBccGFyYW0gW2luLG91dF0gaW50ZXJmYWNlX2FjdGlvbnMgQWN0aW9ucyB0byBydW4uCiAqCiAq
+IFJ1biB0aGUgYWN0aW9ucyBvbiB0aGUgZmlyc3QgZGV2aWNlIGF2YWlsYWJsZSBpbiB0aGUgZ3Jv
+dXAuCiAqLwp2b2lkIFBvbHlFdmFsX3J1bl9ncm91cChtYXhfZ3JvdXBfdCAqZ3JvdXAsIFBvbHlF
+dmFsX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9ydW5fdCAqcnVuID0gUG9s
+eUV2YWxfcnVuX2dyb3VwX25vbmJsb2NrKGdyb3VwLCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVD
+S19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9
+CgoKLyoqCiAqIFxicmllZiBHcm91cCBydW4gYWR2YW5jZWQgc3RhdGljIG5vbi1ibG9ja2luZyBm
+dW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKgogKiBTY2hlZHVsZSB0
+aGUgYWN0aW9ucyB0byBydW4gb24gdGhlIGZpcnN0IGRldmljZSBhdmFpbGFibGUgaW4gdGhlIGdy
+b3VwIGFuZCByZXR1cm4gaW1tZWRpYXRlbHkuCiAqIFRoZSBzdGF0dXMgb2YgdGhlIHJ1biBtdXN0
+IGJlIGNoZWNrZWQgd2l0aCA6Om1heF93YWl0LiAKICogTm90ZSB0aGF0IHVzZSBvZiA6Om1heF9u
+b3dhaXQgaXMgcHJvaGliaXRlZCB3aXRoIG5vbi1ibG9ja2luZyBydW5uaW5nIG9uIGdyb3VwczoK
+ICogc2VlIHRoZSA6Om1heF9ydW5fZ3JvdXBfbm9uYmxvY2sgZG9jdW1lbnRhdGlvbiBmb3IgbW9y
+ZSBleHBsYW5hdGlvbi4KICoKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8gdXNlLgogKiBc
+cGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBBY3Rpb25zIHRvIHJ1bi4KICogXHJldHVybiBB
+IGhhbmRsZSBvbiB0aGUgZXhlY3V0aW9uIHN0YXR1cyBvZiB0aGUgYWN0aW9ucywgb3IgTlVMTCBp
+biBjYXNlIG9mIGVycm9yLgogKi8KbWF4X3J1bl90ICpQb2x5RXZhbF9ydW5fZ3JvdXBfbm9uYmxv
+Y2sobWF4X2dyb3VwX3QgKmdyb3VwLCBQb2x5RXZhbF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rp
+b25zKQp7CgltYXhfZmlsZV90ICptYXhmaWxlID0gbWF4X2dyb3VwX2dldF9tYXhfZmlsZShncm91
+cCk7CgltYXhfYWN0aW9uc190ICphY3Rpb25zID0gUG9seUV2YWxfY29udmVydF9pbnRlcm5hbCht
+YXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMSwgTlVMTCwgTlVMTCk7CglpZihhY3Rpb25zID09
+IE5VTEwpIHJldHVybiBOVUxMOwoJaWYoIW1heF9vayhhY3Rpb25zLT5lcnJvcnMpKSByZXR1cm4g
+TlVMTDsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCW1heF9ydW5fdCAqcnVuID0gbWF4X3J1bl9n
+cm91cF9ub25ibG9jayhncm91cCwgYWN0aW9ucyk7CgltYXhfYWN0aW9uc19mcmVlKGFjdGlvbnMp
+OwoJcmV0dXJuIHJ1bjsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFkdmFuY2VkIHN0YXRp
+YyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKiBccGFyYW0gW2lu
+XSBlbmdhcnJheSBUaGUgYXJyYXkgb2YgZGV2aWNlcyB0byB1c2UuCiAqIFxwYXJhbSBbaW4sb3V0
+XSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgYXJyYXkgb2YgYWN0aW9ucyB0byBydW4uCiAqCiAqIFJ1
+biB0aGUgYXJyYXkgb2YgYWN0aW9ucyBvbiB0aGUgYXJyYXkgb2YgZW5naW5lcy4gIFRoZSBsZW5n
+dGggb2YgaW50ZXJmYWNlX2FjdGlvbnMKICogbXVzdCBtYXRjaCB0aGUgc2l6ZSBvZiBlbmdhcnJh
+eS4KICovCnZvaWQgUG9seUV2YWxfcnVuX2FycmF5KG1heF9lbmdhcnJheV90ICplbmdhcnJheSwg
+UG9seUV2YWxfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9uc1tdKQp7CgltYXhfcnVuX3QgKnJ1
+biA9IFBvbHlFdmFsX3J1bl9hcnJheV9ub25ibG9jayhlbmdhcnJheSwgaW50ZXJmYWNlX2FjdGlv
+bnMpOwoJQ0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCApOwoJbWF4X3dh
+aXQocnVuKTsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFkdmFuY2VkIHN0YXRpYyBub24t
+YmxvY2tpbmcgZnVuY3Rpb24gZm9yIHRoZSBpbnRlcmZhY2UgJ2RlZmF1bHQnLgogKiAKICoKICog
+U2NoZWR1bGUgdG8gcnVuIHRoZSBhcnJheSBvZiBhY3Rpb25zIG9uIHRoZSBhcnJheSBvZiBlbmdp
+bmVzLCBhbmQgcmV0dXJuIGltbWVkaWF0ZWx5LgogKiBUaGUgbGVuZ3RoIG9mIGludGVyZmFjZV9h
+Y3Rpb25zIG11c3QgbWF0Y2ggdGhlIHNpemUgb2YgZW5nYXJyYXkuCiAqIFRoZSBzdGF0dXMgb2Yg
+dGhlIHJ1biBjYW4gYmUgY2hlY2tlZCBlaXRoZXIgYnkgOjptYXhfd2FpdCBvciA6Om1heF9ub3dh
+aXQ7CiAqIG5vdGUgdGhhdCBvbmUgb2YgdGhlc2UgKm11c3QqIGJlIGNhbGxlZCwgc28gdGhhdCBh
+c3NvY2lhdGVkIG1lbW9yeSBjYW4gYmUgcmVsZWFzZWQuCiAqCiAqIFxwYXJhbSBbaW5dIGVuZ2Fy
+cmF5IFRoZSBhcnJheSBvZiBkZXZpY2VzIHRvIHVzZS4KICogXHBhcmFtIFtpbl0gaW50ZXJmYWNl
+X2FjdGlvbnMgVGhlIGFycmF5IG9mIGFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIEEgaGFuZGxl
+IG9uIHRoZSBleGVjdXRpb24gc3RhdHVzIG9mIHRoZSBhY3Rpb25zLCBvciBOVUxMIGluIGNhc2Ug
+b2YgZXJyb3IuCiAqLwptYXhfcnVuX3QgKlBvbHlFdmFsX3J1bl9hcnJheV9ub25ibG9jayhtYXhf
+ZW5nYXJyYXlfdCAqZW5nYXJyYXksIFBvbHlFdmFsX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlv
+bnNbXSkKewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdhcnJheV9nZXRfbWF4X2ZpbGUo
+ZW5nYXJyYXksIDApOwoJaW50IGk7CgltYXhfYWN0YXJyYXlfdCAqYWN0YXJyYXkgPSBtYXhfYWN0
+YXJyYXlfaW5pdChtYXhmaWxlLCBlbmdhcnJheS0+c2l6ZSk7CglpZiAoYWN0YXJyYXkgPT0gTlVM
+TCkgcmV0dXJuIE5VTEw7CgltYXhfYWN0aW9uc190ICoqYXJyX2FjdGlvbnMgPSBtYWxsb2MoZW5n
+YXJyYXktPnNpemUgKiBzaXplb2YobWF4X2FjdGlvbnNfdCopKTsKCWZvciAoIGkgPSAwIDsgaSA8
+IGFjdGFycmF5LT5zaXplOyBpKysgKSB7CgkJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IFBvbHlF
+dmFsX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50ZXJmYWNlX2FjdGlvbnNbaV0sIDEsIE5V
+TEwsIE5VTEwpOwoJCWlmIChhY3Rpb25zID09IE5VTEwpIHJldHVybiBOVUxMOwoJCWFycl9hY3Rp
+b25zW2ldID0gYWN0aW9uczsKCQltYXhfc2V0X2FjdGlvbihhY3RhcnJheSwgaSwgYWN0aW9ucyk7
+Cgl9CgltYXhfcnVuX3QgKnJ1biA9IG1heF9ydW5fYXJyYXlfbm9uYmxvY2soZW5nYXJyYXksIGFj
+dGFycmF5KTsKCWZvciAoIGkgPSAwIDsgaSA8IGFjdGFycmF5LT5zaXplIDsgaSsrICkgeyBtYXhf
+YWN0aW9uc19mcmVlKGFycl9hY3Rpb25zW2ldKTsgfQoJbWF4X2FjdGFycmF5X2ZyZWUoYWN0YXJy
+YXkpOwoJZnJlZShhcnJfYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9CgoKLyoqCiAqIFxicmllZiBD
+b252ZXJ0cyBhIHN0YXRpYy1pbnRlcmZhY2UgYWN0aW9uIHN0cnVjdCBpbnRvIGEgZHluYW1pYy1p
+bnRlcmZhY2UgbWF4X2FjdGlvbnNfdCBzdHJ1Y3QuCiAqCiAqIE5vdGUgdGhhdCB0aGlzIGlzIGFu
+IGludGVybmFsIHV0aWxpdHkgZnVuY3Rpb24gdXNlZCBieSBvdGhlciBmdW5jdGlvbnMgaW4gdGhl
+IHN0YXRpYyBpbnRlcmZhY2UuCiAqCiAqIFxwYXJhbSBbaW5dIG1heGZpbGUgVGhlIG1heGZpbGUg
+dG8gdXNlLgogKiBccGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgaW50ZXJmYWNlLXNw
+ZWNpZmljIGFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIFRoZSBkeW5hbWljLWludGVyZmFjZSBh
+Y3Rpb25zIHRvIHJ1biwgb3IgTlVMTCBpbiBjYXNlIG9mIGVycm9yLgogKi8KbWF4X2FjdGlvbnNf
+dCogUG9seUV2YWxfY29udmVydChtYXhfZmlsZV90ICptYXhmaWxlLCBQb2x5RXZhbF9hY3Rpb25z
+X3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CglyZXR1cm4gUG9seUV2YWxfY29udmVydF9pbnRlcm5h
+bChtYXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMCwgTlVMTCwgTlVMTCk7Cn0KCiN1bmRlZiBD
+SEVDS19FUlJPUlNfU1QKI3VuZGVmIENIRUNLX05VTEwKCgo=
+#endif /* SLIC_B64_DEFINITIONS */
+
+#ifdef SLIC_EXTRA_FILES
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHVz
+ZXJmaWxlcyBmb3JtYXQtdmVyc2lvbj0iMjAxMjAyMDAiLz4=
+#endif /* SLIC_EXTRA_FILES */
+
+#ifdef PHOTON_NODE_ADD_DATA
+#define PHOTON_NODE_ADD_DATA_PRESENT 1
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 41, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 1, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 55, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 4, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 62, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 3, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 49, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 42, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 51, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 53, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 54, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 43, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 61, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 37, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 48, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 13, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 14, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 60, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 16, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 44, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 59, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 38, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 7, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 8, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 9, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 10, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 45, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 18, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 58, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 39, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 21, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 22, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 23, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 24, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 29, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 57, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 26, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 27, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 28, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 30, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 56, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 32, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 33, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 35, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 40, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 34, "SquashFactor", 0.0)
+#endif
+
+#ifdef MAXFILE_SIGNATURE
+#define MAXFILE_SIGNATURE_PRESENT 1
+MAXFILE_SIGNATURE("302c021433f1f9eedcd6bec259d73d5583c9d00e58b10332021471c25531fda9804c823b578a39bcbbe034b7b7aa")
+#endif
+
