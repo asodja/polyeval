@@ -9,10 +9,7 @@
 package polyeval;
 
 import com.maxeler.maxcompiler.v2.build.EngineParameters;
-import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
-import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
-import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 import com.maxeler.maxcompiler.v2.managers.standard.Manager;
 import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
 
@@ -22,8 +19,10 @@ class PolyEvalManager {
 		Manager manager = new Manager(params);
 
 		// Instantiate the kernel
-		Kernel kernel = new PolySimpleEvalKernel(manager.makeKernelParameters());
-		// Kernel kernel = new PolySimpleSumKernel(manager.makeKernelParameters());
+		// TODO pipe all kernels in one
+		PolyKernel kernel = new PolyEvalKernel(manager.makeKernelParameters());
+		// PolyKernel kernel = new PolySimpleEvalKernel(manager.makeKernelParameters());
+		// PolyKernel kernel = new PolySimpleSumKernel(manager.makeKernelParameters());
 
 		manager.setKernel(kernel);
 		manager.setIO(IOType.ALL_CPU); // Connect all kernel ports to
@@ -31,18 +30,7 @@ class PolyEvalManager {
 		manager.build();
 	}
 
-	private static EngineInterface getEngineInterface(Kernel kernel) {
-		EngineInterface ei = new EngineInterface();
-
-		InterfaceParam length = ei.addParam("length", CPUTypes.INT);
-		InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
-		InterfaceParam loopLength = ei.getAutoLoopOffset(kernel.getName(), "loopExpr");
-		ei.ignoreAutoLoopOffset(kernel.getName(), "loopExpr");
-
-		ei.setTicks(kernel.getName(), length * loopLength);
-
-		ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
-		ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
-		return ei;
+	private static EngineInterface getEngineInterface(PolyKernel kernel) {
+		return kernel.getEngineInterface();
 	}
 }

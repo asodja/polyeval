@@ -15,21 +15,20 @@ extern "C" {
 
 
 
-/**
- * \brief Auxiliary function to evaluate expression for "PolyEvalKernel.loopExpr".
- */
-int PolyEval_get_PolyEvalKernel_loopExpr( void );
-
 
 /**
  * \brief Basic static function for the interface 'default'.
  * 
  * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
+ * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
  * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
  * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
  */
 void PolyEval(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output);
 
@@ -42,12 +41,16 @@ void PolyEval(
  * 
  * 
  * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
+ * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
  * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
  * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *PolyEval_nonblock(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output);
 
@@ -57,6 +60,8 @@ max_run_t *PolyEval_nonblock(
  */
 typedef struct { 
 	int64_t param_length; /**<  [in] Interface Parameter "length". */
+	const int32_t *instream_exp; /**<  [in] The stream should be of size (param_length * 4) bytes. */
+	const float *instream_expVals; /**<  [in] The stream should be of size (param_length * 4) bytes. */
 	const float *instream_input; /**<  [in] The stream should be of size (param_length * 4) bytes. */
 	float *outstream_output; /**<  [out] The stream should be of size (param_length * 4) bytes. */
 } PolyEval_actions_t;

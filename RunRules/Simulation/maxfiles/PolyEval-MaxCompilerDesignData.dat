@@ -13,16 +13,15 @@
 #define MAXFILE_BUILD_INFO_PRESENT 1
 #define MAXFILE_BUILD_NAME "PolyEval"
 #define MAXFILE_BUILD_DIR  "/home/demo/Desktop/MaxCompiler-Builds/PolyEval_MAIA_DFE_SIM"
-#define MAXFILE_BUILD_DATE  20170119
+#define MAXFILE_BUILD_DATE  20170124
 #define MAXFILE_BUILD_REV   1
 #endif
 
 #ifdef PARAM
 #define PARAM_PRESENT 1
-PARAM(CONTAINS_WATCHES, 1)
 PARAM(APP_ID, 0)
 PARAM(REV_ID, 0)
-PARAM(CHAIN_LENGTH, 35)
+PARAM(CHAIN_LENGTH, 42)
 PARAM(IS_SIMULATION, 1)
 PARAM(MEC_SUPPORTED, 1)
 PARAM(PCIE_SLAVE_STREAMING, 0)
@@ -48,88 +47,106 @@ STRING_PARAM(BOARD_MODEL, "MAX4848A")
 
 
 
-#ifdef STREAM_OFFSET_AUTO_LOOP_VAR
-#define STREAM_OFFSET_AUTO_LOOP_VAR_PRESENT 1
-STREAM_OFFSET_AUTO_LOOP_VAR(PolyEvalKernel, loopExpr, 12)
-#endif
 
 
 #ifdef MANAGER_NODE
 #define MANAGER_NODE_PRESENT 1
 MANAGER_NODE(PolyEvalKernel, Kernel)
+MANAGER_NODE(exp, PCIe_From_Host)
+MANAGER_NODE(expVals, PCIe_From_Host)
 MANAGER_NODE(input, PCIe_From_Host)
 MANAGER_NODE(output, PCIe_To_Host)
-MANAGER_NODE(watch_PolyEvalKernel, WatchBlock)
+MANAGER_NODE(Stream_7, DualAspectMux)
 MANAGER_NODE(Stream_1, DualAspectMux)
-MANAGER_NODE(Stream_6, DualAspectReg)
-MANAGER_NODE(Stream_23, StreamPullPushAdapter)
-MANAGER_NODE(Stream_17, Fifo)
-MANAGER_NODE(Stream_19, Fifo)
-MANAGER_NODE(Stream_21, Fifo)
+MANAGER_NODE(Stream_4, DualAspectMux)
+MANAGER_NODE(Stream_12, DualAspectReg)
+MANAGER_NODE(Stream_28, StreamPullPushAdapter)
+MANAGER_NODE(Stream_18, Fifo)
+MANAGER_NODE(Stream_22, Fifo)
+MANAGER_NODE(Stream_14, Fifo)
+MANAGER_NODE(Stream_16, Fifo)
+MANAGER_NODE(Stream_20, Fifo)
+MANAGER_NODE(Stream_24, Fifo)
+MANAGER_NODE(Stream_26, Fifo)
 #endif
 
 #ifdef MANAGER_NODE_IO
 #define MANAGER_NODE_IO_PRESENT 1
 MANAGER_NODE_IO(PolyEvalKernel, input, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(PolyEvalKernel, exp, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(PolyEvalKernel, expVals, IN, STREAM, 32, PULL)
 MANAGER_NODE_IO(PolyEvalKernel, output, OUT, STREAM, 32, PUSH)
-MANAGER_NODE_IO(PolyEvalKernel, internal_watch_inputindex_output, OUT, STREAM, 3, PUSH)
-MANAGER_NODE_IO(PolyEvalKernel, internal_watch_loopindex_output, OUT, STREAM, 8, PUSH)
-MANAGER_NODE_IO(PolyEvalKernel, internal_watch_sum_output, OUT, STREAM, 32, PUSH)
-MANAGER_NODE_IO(PolyEvalKernel, internal_watch_input_output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(exp, exp, OUT, PCIE, 128, PUSH)
+MANAGER_NODE_IO(expVals, expVals, OUT, PCIE, 128, PUSH)
 MANAGER_NODE_IO(input, input, OUT, PCIE, 128, PUSH)
 MANAGER_NODE_IO(output, output, IN, PCIE, 128, PUSH)
-MANAGER_NODE_IO(watch_PolyEvalKernel, inputindex, IN, STREAM, 3, PUSH)
-MANAGER_NODE_IO(watch_PolyEvalKernel, loopindex, IN, STREAM, 8, PUSH)
-MANAGER_NODE_IO(watch_PolyEvalKernel, sum, IN, STREAM, 32, PUSH)
-MANAGER_NODE_IO(watch_PolyEvalKernel, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_7, input, IN, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_7, output, OUT, PCIE, 32, PUSH)
 MANAGER_NODE_IO(Stream_1, input, IN, PCIE, 128, PULL)
 MANAGER_NODE_IO(Stream_1, output, OUT, PCIE, 32, PUSH)
-MANAGER_NODE_IO(Stream_6, input, IN, PCIE, 32, PULL)
-MANAGER_NODE_IO(Stream_6, output, OUT, PCIE, 128, PULL)
-MANAGER_NODE_IO(Stream_23, input, IN, PCIE, 128, PULL)
-MANAGER_NODE_IO(Stream_23, output, OUT, PCIE, 128, PUSH)
-MANAGER_NODE_IO(Stream_17, input, IN, PCIE, 128, PUSH)
-MANAGER_NODE_IO(Stream_17, output, OUT, PCIE, 128, PULL)
-MANAGER_NODE_IO(Stream_19, input, IN, PCIE, 32, PUSH)
-MANAGER_NODE_IO(Stream_19, output, OUT, STREAM, 32, PULL)
-MANAGER_NODE_IO(Stream_21, input, IN, STREAM, 32, PUSH)
-MANAGER_NODE_IO(Stream_21, output, OUT, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_4, input, IN, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_4, output, OUT, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_12, input, IN, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_12, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_28, input, IN, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_28, output, OUT, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_18, input, IN, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_18, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_22, input, IN, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_22, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_14, input, IN, PCIE, 128, PUSH)
+MANAGER_NODE_IO(Stream_14, output, OUT, PCIE, 128, PULL)
+MANAGER_NODE_IO(Stream_16, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_16, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_20, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_20, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_24, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_24, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_26, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_26, output, OUT, PCIE, 32, PULL)
 #endif
 
 #ifdef MANAGER_STREAM
 #define MANAGER_STREAM_PRESENT 1
-MANAGER_STREAM(input, input, Stream_17, input, 128)
-MANAGER_STREAM(PolyEvalKernel, output, Stream_21, input, 32)
-MANAGER_STREAM(PolyEvalKernel, internal_watch_inputindex_output, watch_PolyEvalKernel, inputindex, 3)
-MANAGER_STREAM(PolyEvalKernel, internal_watch_loopindex_output, watch_PolyEvalKernel, loopindex, 8)
-MANAGER_STREAM(PolyEvalKernel, internal_watch_sum_output, watch_PolyEvalKernel, sum, 32)
-MANAGER_STREAM(PolyEvalKernel, internal_watch_input_output, watch_PolyEvalKernel, input, 32)
-MANAGER_STREAM(Stream_1, output, Stream_19, input, 32)
-MANAGER_STREAM(Stream_6, output, Stream_23, input, 128)
-MANAGER_STREAM(Stream_23, output, output, output, 128)
-MANAGER_STREAM(Stream_17, output, Stream_1, input, 128)
-MANAGER_STREAM(Stream_19, output, PolyEvalKernel, input, 32)
-MANAGER_STREAM(Stream_21, output, Stream_6, input, 32)
+MANAGER_STREAM(exp, exp, Stream_18, input, 128)
+MANAGER_STREAM(expVals, expVals, Stream_22, input, 128)
+MANAGER_STREAM(input, input, Stream_14, input, 128)
+MANAGER_STREAM(PolyEvalKernel, output, Stream_26, input, 32)
+MANAGER_STREAM(Stream_7, output, Stream_16, input, 32)
+MANAGER_STREAM(Stream_1, output, Stream_20, input, 32)
+MANAGER_STREAM(Stream_4, output, Stream_24, input, 32)
+MANAGER_STREAM(Stream_12, output, Stream_28, input, 128)
+MANAGER_STREAM(Stream_28, output, output, output, 128)
+MANAGER_STREAM(Stream_18, output, Stream_1, input, 128)
+MANAGER_STREAM(Stream_22, output, Stream_4, input, 128)
+MANAGER_STREAM(Stream_14, output, Stream_7, input, 128)
+MANAGER_STREAM(Stream_16, output, PolyEvalKernel, input, 32)
+MANAGER_STREAM(Stream_20, output, PolyEvalKernel, exp, 32)
+MANAGER_STREAM(Stream_24, output, PolyEvalKernel, expVals, 32)
+MANAGER_STREAM(Stream_26, output, Stream_12, input, 32)
 #endif
 
 #ifdef MANAGER_NODE_STACK_TRACE
 #define MANAGER_NODE_STACK_TRACE_PRESENT 1
-MANAGER_NODE_STACK_TRACE(PolyEvalKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(input, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(output, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(watch_PolyEvalKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_6, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_23, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_17, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_19, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-MANAGER_NODE_STACK_TRACE(Stream_21, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+MANAGER_NODE_STACK_TRACE(PolyEvalKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(exp, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(expVals, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(input, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(output, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_7, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_4, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_12, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_28, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_18, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_22, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_14, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_16, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_20, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_24, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+MANAGER_NODE_STACK_TRACE(Stream_26, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
 #endif
 
-#ifdef MANAGER_NODE_NOT_VISIBLE
-#define MANAGER_NODE_NOT_VISIBLE_PRESENT 1
-MANAGER_NODE_NOT_VISIBLE(watch_PolyEvalKernel)
-#endif
 
 #ifdef MANAGER_NODE_PROPERTY
 #define MANAGER_NODE_PROPERTY_PRESENT 1
@@ -150,6 +167,8 @@ KERNEL_HOST_CONTROLLED(PolyEvalKernel, PolyEvalKernel)
 #ifdef DEBUG_INPUT_BITS
 #define DEBUG_INPUT_BITS_PRESENT 1
 DEBUG_INPUT_BITS(PolyEvalKernel, input, 0)
+DEBUG_INPUT_BITS(PolyEvalKernel, exp, 1)
+DEBUG_INPUT_BITS(PolyEvalKernel, expVals, 2)
 #endif
 
 #ifdef DEBUG_OUTPUT_BITS
@@ -159,102 +178,111 @@ DEBUG_OUTPUT_BITS(PolyEvalKernel, output, 0)
 
 #ifdef MANAGER_NODE_CPP_SIM_MODEL_CTOR
 #define MANAGER_NODE_CPP_SIM_MODEL_CTOR_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(exp, PCIePushSourceSyncMax4, "exp")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(expVals, PCIePushSourceSyncMax4, "expVals")
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(input, PCIePushSourceSyncMax4, "input")
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_17, FifoPushToPullSync, "Stream_17", false, 512, 128)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_18, FifoPushToPullSync, "Stream_18", false, 512, 128)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_22, FifoPushToPullSync, "Stream_22", false, 512, 128)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_14, FifoPushToPullSync, "Stream_14", false, 512, 128)
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_1, DualAspectMuxSync, "Stream_1", 32, 4)
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_19, FifoPushToPullSync, "Stream_19", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_4, DualAspectMuxSync, "Stream_4", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_7, DualAspectMuxSync, "Stream_7", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_20, FifoPushToPullSync, "Stream_20", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_24, FifoPushToPullSync, "Stream_24", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_16, FifoPushToPullSync, "Stream_16", false, 512, 32)
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(PolyEvalKernel, PolyEvalKernel, "PolyEvalKernel")
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_21, FifoPushToPullSync, "Stream_21", false, 512, 32)
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(watch_PolyEvalKernel, WatchSync, "watch_PolyEvalKernel", "PolyEval", "PolyEvalKernel")
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_6, DualAspectRegSync, "Stream_6", 32, 4)
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_23, PullToPushAdapterSync, "Stream_23")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_26, FifoPushToPullSync, "Stream_26", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_12, DualAspectRegSync, "Stream_12", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_28, PullToPushAdapterSync, "Stream_28")
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(output, PCIePushSinkSyncMax3, "output")
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 1, 1, 0, 0, 0, 0, 0, 35)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 3, 1, 0, 0, 0, 0, 0, 42)
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(ifpga, IFPGARegs)
 MANAGER_NODE_CPP_SIM_MODEL_CTOR(sfa, SFARegs)
-MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "d45d895db7d9f7c63203f734898a8ebb18c22c055c15b708ec8cdfd6311e10ce")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "0d1ce6e1305cd75e0c429ce1da2c241e7d5757a5f8950632786146684c583e8a")
 #endif
 
 #ifdef MANAGER_NODE_CPP_SIM_MODEL_SETUP
 #define MANAGER_NODE_CPP_SIM_MODEL_SETUP_PRESENT 1
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_done, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_empty, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 3, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_request, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_done, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 9, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_ctld_request, 3, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_done_out, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_fill_level, 4, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_fill_level, 10, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_level, 10, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_start, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_start_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flush_start_level, 10, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_flushing, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_full_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_full_level, 10, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_out_stall, 1, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_out_valid, 1, 0)
 MANAGER_NODE_CPP_SIM_MODEL_SETUP(PolyEvalKernel, addDebugRegister, reg_dbg_stall_vector, 1, 0)
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "inputindex", "inputIndex", std::make_shared< DecimalWriter< HWOffsetFix<3,0,UNSIGNED>, false > >())
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "loopindex", "loopIndex", std::make_shared< DecimalWriter< HWOffsetFix<8,0,UNSIGNED>, false > >())
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "sum", "sum", std::make_shared< DecimalWriter< HWFloat<8,24>, false > >())
-MANAGER_NODE_CPP_SIM_MODEL_SETUP(watch_PolyEvalKernel, addInput, "input", "input", std::make_shared< DecimalWriter< HWFloat<8,24>, false > >())
 #endif
 
 #ifdef PCIE_STREAM
 #define PCIE_STREAM_PRESENT 1
-PCIE_STREAM(input, STREAM_FROM_HOST, 0)
+PCIE_STREAM(exp, STREAM_FROM_HOST, 0)
+PCIE_STREAM(expVals, STREAM_FROM_HOST, 1)
+PCIE_STREAM(input, STREAM_FROM_HOST, 2)
 PCIE_STREAM(output, STREAM_TO_HOST, 0)
 #endif
 
 #ifdef REG
 #define REG_PRESENT 1
 REG(PolyEvalKernel.io_input_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED))
-REG(PolyEvalKernel.io_output_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED))
-REG(PolyEvalKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED))
-REG(PolyEvalKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED))
-REG(PolyEvalKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_ctld_done, 0xf, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_ctld_empty, 0x10, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_ctld_read, 0x11, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3))
-REG(PolyEvalKernel.dbg_ctld_request, 0x13, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_done_out, 0x14, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_fill_level, 0x15, 1, hwBits(4))
-REG(PolyEvalKernel.dbg_flush_level, 0x16, 1, hwBits(4))
-REG(PolyEvalKernel.dbg_flush_start, 0x17, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_flush_start_level, 0x18, 1, hwBits(4))
-REG(PolyEvalKernel.dbg_flushing, 0x19, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_full_level, 0x1a, 1, hwBits(4))
-REG(PolyEvalKernel.dbg_out_stall, 0x1b, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_out_valid, 0x1c, 1, hwBits(1))
-REG(PolyEvalKernel.dbg_stall_vector, 0x1d, 1, hwBits(1))
-REG(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8))
-REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32))
+REG(PolyEvalKernel.io_exp_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PolyEvalKernel.io_expVals_force_disabled, 0x2, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PolyEvalKernel.io_output_force_disabled, 0x3, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PolyEvalKernel.run_cycle_count, 0x4, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PolyEvalKernel.current_run_cycle_count, 0xa, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PolyEvalKernel.dbg_ctld_almost_empty, 0x10, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_ctld_done, 0x11, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_ctld_empty, 0x12, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_ctld_read, 0x13, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x14, 2, hwBits(9))
+REG(PolyEvalKernel.dbg_ctld_request, 0x16, 1, hwBits(3))
+REG(PolyEvalKernel.dbg_done_out, 0x17, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_fill_level, 0x18, 2, hwBits(10))
+REG(PolyEvalKernel.dbg_flush_level, 0x1a, 2, hwBits(10))
+REG(PolyEvalKernel.dbg_flush_start, 0x1c, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_flush_start_level, 0x1d, 2, hwBits(10))
+REG(PolyEvalKernel.dbg_flushing, 0x1f, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_full_level, 0x20, 2, hwBits(10))
+REG(PolyEvalKernel.dbg_out_stall, 0x22, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_out_valid, 0x23, 1, hwBits(1))
+REG(PolyEvalKernel.dbg_stall_vector, 0x24, 1, hwBits(1))
+REG(ifpga.ifpga_ctrl, 0x25, 1, hwBits(8))
+REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x26, 4, hwBits(32))
 #endif
 
 #ifdef REG_V2
 #define REG_V2_PRESENT 1
 REG_V2(PolyEvalKernel.io_input_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
-REG_V2(PolyEvalKernel.io_output_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
-REG_V2(PolyEvalKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
-REG_V2(PolyEvalKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_done, 0xf, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_empty, 0x10, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_read, 0x11, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_ctld_request, 0x13, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_done_out, 0x14, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_fill_level, 0x15, 1, hwBits(4), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_flush_level, 0x16, 1, hwBits(4), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_flush_start, 0x17, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_flush_start_level, 0x18, 1, hwBits(4), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_flushing, 0x19, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_full_level, 0x1a, 1, hwBits(4), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_out_stall, 0x1b, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_out_valid, 0x1c, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(PolyEvalKernel.dbg_stall_vector, 0x1d, 1, hwBits(1), HOST_READ_ONLY, false)
-REG_V2(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8), HOST_READ_WRITE, false)
-REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32), HOST_READ_WRITE, false)
+REG_V2(PolyEvalKernel.io_exp_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PolyEvalKernel.io_expVals_force_disabled, 0x2, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PolyEvalKernel.io_output_force_disabled, 0x3, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PolyEvalKernel.run_cycle_count, 0x4, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
+REG_V2(PolyEvalKernel.current_run_cycle_count, 0xa, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_almost_empty, 0x10, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_done, 0x11, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_empty, 0x12, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_read, 0x13, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_read_pipe_dbg, 0x14, 2, hwBits(9), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_ctld_request, 0x16, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_done_out, 0x17, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_fill_level, 0x18, 2, hwBits(10), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_level, 0x1a, 2, hwBits(10), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_start, 0x1c, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flush_start_level, 0x1d, 2, hwBits(10), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_flushing, 0x1f, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_full_level, 0x20, 2, hwBits(10), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_out_stall, 0x22, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_out_valid, 0x23, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PolyEvalKernel.dbg_stall_vector, 0x24, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ifpga.ifpga_ctrl, 0x25, 1, hwBits(8), HOST_READ_WRITE, false)
+REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x26, 4, hwBits(32), HOST_READ_WRITE, false)
 #endif
 
 
@@ -262,7 +290,7 @@ REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32), HOST_READ_WR
 
 #ifdef CHECKSUM
 #define CHECKSUM_PRESENT 1
-CHECKSUM("d45d895db7d9f7c63203f734898a8ebb18c22c055c15b708ec8cdfd6311e10ce")
+CHECKSUM("0d1ce6e1305cd75e0c429ce1da2c241e7d5757a5f8950632786146684c583e8a")
 #endif
 
 
@@ -278,22 +306,6 @@ CAPABILITY(MAIAFPGA, 5SGSMD8N2F45C2)
 #ifdef DEFINE_DESIGN_NAME
 #define DESIGN_NAME PolyEval
 #endif /* DEFINE_DESIGN_NAME */
-
-#ifdef WATCH_STREAMS
-#define WATCH_STREAMS_PRESENT 1
-WATCH_STREAMS(PolyEvalKernel, internal_watch_inputindex_output)
-WATCH_STREAMS(PolyEvalKernel, internal_watch_loopindex_output)
-WATCH_STREAMS(PolyEvalKernel, internal_watch_sum_output)
-WATCH_STREAMS(PolyEvalKernel, internal_watch_input_output)
-#endif
-
-#ifdef WATCHNODE
-#define WATCHNODE_PRESENT 1
-WATCHNODE(PolyEvalKernel, inputIndex, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:31)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
-WATCHNODE(PolyEvalKernel, loopIndex, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:32)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
-WATCHNODE(PolyEvalKernel, sum, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:33)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
-WATCHNODE(PolyEvalKernel, input, java.lang.Thread.getStackTrace(Thread.java:1479)/com.maxeler.photon.nodes.NodeWatch.addInput(NodeWatch.java:324)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:136)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:131)/com.maxeler.photon.libs.WatchFactory.watch(WatchFactory.java:127)/com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)/polyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:34)/polyeval.PolyEvalManager.main(PolyEvalManager.maxj:25))
-#endif
 
 #ifndef SLIC_NO_DECLARATIONS
 /**\file */
@@ -313,21 +325,20 @@ extern "C" {
 
 
 
-/**
- * \brief Auxiliary function to evaluate expression for "PolyEvalKernel.loopExpr".
- */
-int PolyEval_get_PolyEvalKernel_loopExpr( void );
-
 
 /**
  * \brief Basic static function for the interface 'default'.
  * 
  * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
+ * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
  * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
  * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
  */
 void PolyEval(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output);
 
@@ -340,12 +351,16 @@ void PolyEval(
  * 
  * 
  * \param [in] param_length Interface Parameter "length".
+ * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
+ * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
  * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
  * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *PolyEval_nonblock(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output);
 
@@ -355,6 +370,8 @@ max_run_t *PolyEval_nonblock(
  */
 typedef struct { 
 	int64_t param_length; /**<  [in] Interface Parameter "length". */
+	const int32_t *instream_exp; /**<  [in] The stream should be of size (param_length * 4) bytes. */
+	const float *instream_expVals; /**<  [in] The stream should be of size (param_length * 4) bytes. */
 	const float *instream_input; /**<  [in] The stream should be of size (param_length * 4) bytes. */
 	float *outstream_output; /**<  [out] The stream should be of size (param_length * 4) bytes. */
 } PolyEval_actions_t;
@@ -472,52 +489,37 @@ int PolyEval_simulator_stop(void);
 
 #ifdef PHOTON_NODE_DATA
 #define PHOTON_NODE_DATA_PRESENT 1
-PHOTON_NODE_DATA(PolyEvalKernel, 41, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 1, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.makeCounterChain(Count.java:496)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:20)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 55, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x0c; 12.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream$OffsetExpr.getDFEVar(Stream.java:185)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:19)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 4, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:527)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:22)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 62, NodeConstantRawBits, "{HWOffsetFix:4, 0, UNSIGNED}\n0x8; 8.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:505)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 3, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:505)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 49, NodeFIFO, "FIFO(13)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 42, NodeOutput, "Output(internal_watch_inputindex_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 51, NodeFIFO, "FIFO(7)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 53, NodeFIFO, "FIFO(5)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 54, NodeFIFO, "FIFO(1)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 43, NodeOutput, "Output(internal_watch_loopindex_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 61, NodeConstantRawBits, "{HWOffsetFix:3, 0, UNSIGNED}\n0x0; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 37, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 48, NodeStreamOffset, "stream offset: -12", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:356)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:29)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 13, NodeConstantRawBits, "{HWFloat:8, 24}\n0x3f800000; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 14, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:27)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 60, NodeConstantRawBits, "{HWFloat:8, 24}\n0x40400000; 3.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:978)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 16, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:978)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 44, NodeOutput, "Output(internal_watch_sum_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 59, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 38, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 7, NodeInputMappedReg, "Scalar input (io_input_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 8, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 9, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 10, NodeInput, "Input(input)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:546)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 45, NodeOutput, "Output(internal_watch_input_output)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 18, NodeWatch, "WatchNode", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.simWatch(DFEVar.java:1108)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:31)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 58, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 39, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:602)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 21, NodeInputMappedReg, "Scalar input (io_output_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 22, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 23, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 24, NodeOutput, "Output(output)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:705)\npolyeval.PolySimpleEvalKernel.<init>(PolySimpleEvalKernel.maxj:37)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:25)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 29, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 57, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 26, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 27, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 28, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 30, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 56, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 32, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 33, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 35, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 40, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
-PHOTON_NODE_DATA(PolyEvalKernel, 34, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:31)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 19, NodeInputMappedReg, "Scalar input (io_output_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 20, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 3, NodeInputMappedReg, "Scalar input (io_input_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:19)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 4, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:19)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 5, NodeInput, "Input(input)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:19)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 9, NodeInputMappedReg, "Scalar input (io_expVals_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 10, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 11, NodeInput, "Input(expVals)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:21)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 6, NodeInputMappedReg, "Scalar input (io_exp_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:20)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 7, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:20)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 8, NodeInput, "Input(exp)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:20)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 40, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:18)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 1, NodeConstantRawBits, "{HWOffsetFix:33, 0, UNSIGNED}\n0x100000000; 4.294967296E9", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:18)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 2, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:18)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 36, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:881)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:22)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 15, NodeStreamOffset, "stream offset: -1000", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:517)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:22)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 16, NodeDynamicStreamOffset, "dynamic offset: [0, 1000]", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:517)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:22)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 17, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:973)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:25)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 22, NodeOutput, "Output(output)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)\npolyeval.PolyEvalKernel.<init>(PolyEvalKernel.maxj:28)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 27, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 39, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 24, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 25, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 26, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 28, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 38, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 30, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 31, NodeCounter, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 33, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 37, NodeEqInlined, "==", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
+PHOTON_NODE_DATA(PolyEvalKernel, 32, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)\npolyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)\n")
 #endif
 
 #ifdef SLIC_USE_DEFINITIONS
@@ -721,14 +723,6 @@ static void *PolyEval_malloc_aligned(const size_t size)
 
 
 
-/**
- * \brief Auxiliary function to evaluate expression for "PolyEvalKernel.loopExpr".
- */
-int PolyEval_get_PolyEvalKernel_loopExpr( void )
-{
-	return 12;
-}
-
 #define CHECK_ERRORS_ST(ST, RET) if(!max_ok(ST->errors)) { if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n", max_errors_trace(ST->errors)); abort(); } set_error_and_free(max_errors_trace(ST->errors)); return RET; } 
 #define CHECK_NULL(VALUE, MESSAGE, RET) if(VALUE == NULL) { if (max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n%s\n", (stored_error == NULL) ? "" : stored_error, MESSAGE); abort(); } set_error(MESSAGE); return RET; }
 
@@ -741,7 +735,7 @@ typedef struct PolyEval_callback_stream {
 } PolyEval_callback_stream_t;
 
 typedef struct PolyEval_callback_data {
-	PolyEval_callback_stream_t stream[2]; 
+	PolyEval_callback_stream_t stream[4]; 
 	int count;
 	int max_count;
 } PolyEval_callback_data_t;
@@ -779,25 +773,67 @@ static max_actions_t* PolyEval_convert_internal(
 			fprintf(stderr, "Unable to allocate memory for stream callback data in function PolyEval_convert_internal\n");
 			return NULL;
 		}
-		cb_data->max_count = 2;
+		cb_data->max_count = 4;
 		cb_data->count     = 0;
 		*callback_data     = cb_data;
 		*callback_func     = &PolyEval_callback_internal;
 	}
 
-	int32_t param_PolyEvalKernel_loopExpr = PolyEval_get_PolyEvalKernel_loopExpr(  );
-	
 	int64_t param_length = interface_actions->param_length;
 	
-	int64_t tmp_1 = (param_length * param_PolyEvalKernel_loopExpr);
-	
 	/* code for scalar PolyEvalKernel.run_cycle_count */
-	uint64_t ticks_PolyEvalKernel = tmp_1;
-	max_set_ticks(actions, "PolyEvalKernel", tmp_1);
+	uint64_t ticks_PolyEvalKernel = param_length;
+	max_set_ticks(actions, "PolyEvalKernel", param_length);
 	CHECK_ERRORS;
 	/* end of code for scalar PolyEvalKernel.run_cycle_count*/
 	
 	int64_t tmp_0 = (param_length * 4);
+	
+	/* code for stream exp */
+	size_t instream_size_exp = tmp_0;
+	if (instream_size_exp > 0) {
+		const int32_t *stream_ptr = interface_actions->instream_exp;
+		if (use_callback && (1 == PolyEval_check_aligned(interface_actions->instream_exp))) {
+			int32_t *aligned_instream_exp = malloc(instream_size_exp);
+			if (aligned_instream_exp == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'exp'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_exp;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_exp;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_exp;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_exp, interface_actions->instream_exp, instream_size_exp);
+			stream_ptr = aligned_instream_exp;
+		}
+		max_queue_input(actions, "exp", stream_ptr, instream_size_exp);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream exp */
+	
+	/* code for stream expVals */
+	size_t instream_size_expVals = tmp_0;
+	if (instream_size_expVals > 0) {
+		const float *stream_ptr = interface_actions->instream_expVals;
+		if (use_callback && (1 == PolyEval_check_aligned(interface_actions->instream_expVals))) {
+			float *aligned_instream_expVals = malloc(instream_size_expVals);
+			if (aligned_instream_expVals == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'expVals'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_expVals;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_expVals;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_expVals;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_expVals, interface_actions->instream_expVals, instream_size_expVals);
+			stream_ptr = aligned_instream_expVals;
+		}
+		max_queue_input(actions, "expVals", stream_ptr, instream_size_expVals);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream expVals */
 	
 	/* code for stream input */
 	size_t instream_size_input = tmp_0;
@@ -855,23 +891,29 @@ static max_actions_t* PolyEval_convert_internal(
 
 void PolyEval(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output)
 {
 	(void) pthread_once(&slic_bs_is_initialised, PolyEval_static_init);
 	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", );
-	max_run_t *run = PolyEval_nonblock(param_length, instream_input, outstream_output);
+	max_run_t *run = PolyEval_nonblock(param_length, instream_exp, instream_expVals, instream_input, outstream_output);
 	CHECK_NULL(run, "Unable to run actions", );
 	max_wait(run);
 }
 
 max_run_t *PolyEval_nonblock(
 	int64_t param_length,
+	const int32_t *instream_exp,
+	const float *instream_expVals,
 	const float *instream_input,
 	float *outstream_output)
 {
 	PolyEval_actions_t interface_actions;
 	interface_actions.param_length = param_length;
+	interface_actions.instream_exp = instream_exp;
+	interface_actions.instream_expVals = instream_expVals;
 	interface_actions.instream_input = instream_input;
 	interface_actions.outstream_output = outstream_output;
 	(void) pthread_once(&slic_bs_is_initialised, PolyEval_static_init);
@@ -1043,11 +1085,11 @@ max_actions_t* PolyEval_convert(max_file_t *maxfile, PolyEval_actions_t *interfa
 
 #ifdef SLIC_DYNAMIC_CODE
 SLIC_MODE_START(default)	
-SLIC_AUTO_LOOP_OFFSET(int32_t, PolyEvalKernel, loopExpr, param_PolyEvalKernel_loopExpr)	
 SLIC_PARAMETER_UINT64(int64_t, length, param_length)	
-SLIC_TEMP_VAR(int64_t tmp_1 = (param_length * param_PolyEvalKernel_loopExpr);)	
-SLIC_SET_TICKS(PolyEvalKernel, tmp_1)	
+SLIC_SET_TICKS(PolyEvalKernel, param_length)	
 SLIC_TEMP_VAR(int64_t tmp_0 = (param_length * 4);)	
+SLIC_STREAM(exp, tmp_0)	
+SLIC_STREAM(expVals, tmp_0)	
 SLIC_STREAM(input, tmp_0)	
 SLIC_STREAM(output, tmp_0)	
 SLIC_MODE_END(default)
@@ -1063,8 +1105,8 @@ RXZhbCIgcmV0dXJuLXZhbHVlPSJ2b2lkIj48c2NhbGFyIGRlc2M9IkludGVyZmFjZSBQYXJhbWV0
 ZXIgJnF1b3Q7bGVuZ3RoJnF1b3Q7LiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0icGFyYW1fbGVu
 Z3RoIiB0eXBlPSJpbnQ2NF90Ii8+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9m
 IHNpemUgKHBhcmFtX2xlbmd0aCAqIDQpIGJ5dGVzLiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0i
-aW5zdHJlYW1faW5wdXQiIHNpemU9IihwYXJhbV9sZW5ndGggKiA0KSIgdHJhbnNwb3NlPSJ0cnVl
-IiB0eXBlPSJmbG9hdCI+PGRpbWVuc2lvbiBpbmRleD0iMCI+PGxlbmd0aD48ZnVuY3Rpb25DYWxs
+aW5zdHJlYW1fZXhwIiBzaXplPSIocGFyYW1fbGVuZ3RoICogNCkiIHRyYW5zcG9zZT0idHJ1ZSIg
+dHlwZT0iaW50MzJfdCI+PGRpbWVuc2lvbiBpbmRleD0iMCI+PGxlbmd0aD48ZnVuY3Rpb25DYWxs
 PjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iLyIgdmFsdWU9IigocGFyYW1fbGVuZ3RoICog
 NCkgLyA0KSI+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZh
 bHVlPSIocGFyYW1fbGVuZ3RoICogNCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX2xlbmd0aCIv
@@ -1072,15 +1114,34 @@ Pjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9u
 Q2FsbD48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5j
 dGlvbkNhbGw+PC9sZW5ndGg+PC9kaW1lbnNpb24+PC9hcnJheT48YXJyYXkgZGVzYz0iVGhlIHN0
 cmVhbSBzaG91bGQgYmUgb2Ygc2l6ZSAocGFyYW1fbGVuZ3RoICogNCkgYnl0ZXMuIiBkaXJlY3Rp
-b249Ik91dHB1dCIgbmFtZT0ib3V0c3RyZWFtX291dHB1dCIgc2l6ZT0iKHBhcmFtX2xlbmd0aCAq
-IDQpIiB0cmFuc3Bvc2U9InRydWUiIHR5cGU9ImZsb2F0Ij48ZGltZW5zaW9uIGluZGV4PSIwIj48
-bGVuZ3RoPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIvIiB2YWx1
-ZT0iKChwYXJhbV9sZW5ndGggKiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVy
-YXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9sZW5ndGggKiA0KSI+PHVzZXJQYXJhbSB2
-YWx1ZT0icGFyYW1fbGVuZ3RoIi8+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFy
-eU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1C
-aW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48L2xlbmd0aD48L2RpbWVuc2lvbj48L2FycmF5
-PjwvZnVuY3Rpb24+PC9lbmdpbmVtb2RlPjwvbWF4ZmlsZT4=
+b249IklucHV0IiBuYW1lPSJpbnN0cmVhbV9leHBWYWxzIiBzaXplPSIocGFyYW1fbGVuZ3RoICog
+NCkiIHRyYW5zcG9zZT0idHJ1ZSIgdHlwZT0iZmxvYXQiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxs
+ZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVl
+PSIoKHBhcmFtX2xlbmd0aCAqIDQpIC8gNCkiPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJh
+dG9yIG9wZXJhdG9yPSIqIiB2YWx1ZT0iKHBhcmFtX2xlbmd0aCAqIDQpIj48dXNlclBhcmFtIHZh
+bHVlPSJwYXJhbV9sZW5ndGgiLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5
+T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJp
+bmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJyYXk+
+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9mIHNpemUgKHBhcmFtX2xlbmd0aCAq
+IDQpIGJ5dGVzLiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0iaW5zdHJlYW1faW5wdXQiIHNpemU9
+IihwYXJhbV9sZW5ndGggKiA0KSIgdHJhbnNwb3NlPSJ0cnVlIiB0eXBlPSJmbG9hdCI+PGRpbWVu
+c2lvbiBpbmRleD0iMCI+PGxlbmd0aD48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBv
+cGVyYXRvcj0iLyIgdmFsdWU9IigocGFyYW1fbGVuZ3RoICogNCkgLyA0KSI+PGZ1bmN0aW9uQ2Fs
+bD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZhbHVlPSIocGFyYW1fbGVuZ3RoICog
+NCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX2xlbmd0aCIvPjxjb25zdGFudFZhbHVlIHZhbHVl
+PSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48Y29uc3RhbnRWYWx1ZSB2
+YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PC9sZW5ndGg+PC9k
+aW1lbnNpb24+PC9hcnJheT48YXJyYXkgZGVzYz0iVGhlIHN0cmVhbSBzaG91bGQgYmUgb2Ygc2l6
+ZSAocGFyYW1fbGVuZ3RoICogNCkgYnl0ZXMuIiBkaXJlY3Rpb249Ik91dHB1dCIgbmFtZT0ib3V0
+c3RyZWFtX291dHB1dCIgc2l6ZT0iKHBhcmFtX2xlbmd0aCAqIDQpIiB0cmFuc3Bvc2U9InRydWUi
+IHR5cGU9ImZsb2F0Ij48ZGltZW5zaW9uIGluZGV4PSIwIj48bGVuZ3RoPjxmdW5jdGlvbkNhbGw+
+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIvIiB2YWx1ZT0iKChwYXJhbV9sZW5ndGggKiA0
+KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iKiIgdmFs
+dWU9IihwYXJhbV9sZW5ndGggKiA0KSI+PHVzZXJQYXJhbSB2YWx1ZT0icGFyYW1fbGVuZ3RoIi8+
+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25D
+YWxsPjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0
+aW9uQ2FsbD48L2xlbmd0aD48L2RpbWVuc2lvbj48L2FycmF5PjwvZnVuY3Rpb24+PC9lbmdpbmVt
+b2RlPjwvbWF4ZmlsZT4=
 #endif /* SKIN_META_DATA */
 
 #ifdef SLIC_B64_DEFINITIONS
@@ -1184,208 +1245,246 @@ LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLSovCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSBJbnRlcmZhY2UgZGVmYXVsdCAt
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCgoK
-Ci8qKgogKiBcYnJpZWYgQXV4aWxpYXJ5IGZ1bmN0aW9uIHRvIGV2YWx1YXRlIGV4cHJlc3Npb24g
-Zm9yICJQb2x5RXZhbEtlcm5lbC5sb29wRXhwciIuCiAqLwppbnQgUG9seUV2YWxfZ2V0X1BvbHlF
-dmFsS2VybmVsX2xvb3BFeHByKCB2b2lkICkKewoJcmV0dXJuIDEyOwp9CgojZGVmaW5lIENIRUNL
-X0VSUk9SU19TVChTVCwgUkVUKSBpZighbWF4X29rKFNULT5lcnJvcnMpKSB7IGlmKG1heF9jb25m
-aWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FCT1JUX09OX0VSUk9SKSkg
-eyBmcHJpbnRmKHN0ZGVyciwgIiVzXG4iLCBtYXhfZXJyb3JzX3RyYWNlKFNULT5lcnJvcnMpKTsg
-YWJvcnQoKTsgfSBzZXRfZXJyb3JfYW5kX2ZyZWUobWF4X2Vycm9yc190cmFjZShTVC0+ZXJyb3Jz
-KSk7IHJldHVybiBSRVQ7IH0gCiNkZWZpbmUgQ0hFQ0tfTlVMTChWQUxVRSwgTUVTU0FHRSwgUkVU
-KSBpZihWQUxVRSA9PSBOVUxMKSB7IGlmIChtYXhfY29uZmlnX2dldF9ib29sKE1BWF9DT05GSUdf
-U1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIHsgZnByaW50ZihzdGRlcnIsICIlc1xu
-JXNcbiIsIChzdG9yZWRfZXJyb3IgPT0gTlVMTCkgPyAiIiA6IHN0b3JlZF9lcnJvciwgTUVTU0FH
-RSk7IGFib3J0KCk7IH0gc2V0X2Vycm9yKE1FU1NBR0UpOyByZXR1cm4gUkVUOyB9CgogCnR5cGVk
-ZWYgc3RydWN0IFBvbHlFdmFsX2NhbGxiYWNrX3N0cmVhbSB7Cgl1aW50OF90ICp1c2VyX3B0cjsK
-CXVpbnQ4X3QgKmFsaWduZWRfcHRyOwoJc2l6ZV90ICAgc2l6ZTsKCWludCAgICAgIGlzX291dHB1
-dDsKfSBQb2x5RXZhbF9jYWxsYmFja19zdHJlYW1fdDsKCnR5cGVkZWYgc3RydWN0IFBvbHlFdmFs
-X2NhbGxiYWNrX2RhdGEgewoJUG9seUV2YWxfY2FsbGJhY2tfc3RyZWFtX3Qgc3RyZWFtWzJdOyAK
-CWludCBjb3VudDsKCWludCBtYXhfY291bnQ7Cn0gUG9seUV2YWxfY2FsbGJhY2tfZGF0YV90OwoK
-c3RhdGljIHZvaWQgUG9seUV2YWxfY2FsbGJhY2tfaW50ZXJuYWwodm9pZCAqY2JfZGF0YSkKewoJ
-UG9seUV2YWxfY2FsbGJhY2tfZGF0YV90ICpkYXRhID0gKFBvbHlFdmFsX2NhbGxiYWNrX2RhdGFf
-dCopIGNiX2RhdGE7Cglmb3IgKGludCBpID0gMCA7IGkgPCBkYXRhLT5jb3VudCA7IGkrKyApIHsK
-CQlQb2x5RXZhbF9jYWxsYmFja19zdHJlYW1fdCAqcyA9ICZkYXRhLT5zdHJlYW1baV07CgkJaWYg
-KHMtPmlzX291dHB1dCAmJiAocy0+c2l6ZSA+IDApKSB7CgkJCW1lbWNweShzLT51c2VyX3B0ciwg
-cy0+YWxpZ25lZF9wdHIsIHMtPnNpemUpOwoJCX0KCQlmcmVlKHMtPmFsaWduZWRfcHRyKTsKCX0K
-CWZyZWUoZGF0YSk7Cn0KCnN0YXRpYyBtYXhfYWN0aW9uc190KiBQb2x5RXZhbF9jb252ZXJ0X2lu
-dGVybmFsKAoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSwKCVBvbHlFdmFsX2FjdGlvbnNfdCAqaW50ZXJm
-YWNlX2FjdGlvbnMsCglpbnQgIGlzX2ludGVybmFsX2NhbGwsCgl2b2lkICgqKmNhbGxiYWNrX2Z1
-bmMpKHZvaWQqKSwKCXZvaWQgKipjYWxsYmFja19kYXRhKQp7CgltYXhfYWN0aW9uc190ICphY3Rp
-b25zID0gbWF4X2FjdGlvbnNfaW5pdChtYXhmaWxlLCBOVUxMKTsKCWlmKGFjdGlvbnMgPT0gTlVM
-TCkgcmV0dXJuIE5VTEw7CgojZGVmaW5lIENIRUNLX0VSUk9SUyBpZighbWF4X29rKGFjdGlvbnMt
-PmVycm9ycykpIHsgc2V0X2Vycm9yX2FuZF9mcmVlKG1heF9lcnJvcnNfdHJhY2UoYWN0aW9ucy0+
-ZXJyb3JzKSk7IHJldHVybiBOVUxMOyB9IAoKCVBvbHlFdmFsX2NhbGxiYWNrX2RhdGFfdCAqY2Jf
-ZGF0YSA9IE5VTEw7CglpbnQgdXNlX2NhbGxiYWNrID0gKGNhbGxiYWNrX2Z1bmMgIT0gTlVMTCkg
-JiYgKGNhbGxiYWNrX2RhdGEgIT0gTlVMTCk7CglpZiAodXNlX2NhbGxiYWNrKSB7CgkJY2JfZGF0
-YSA9IG1hbGxvYyhzaXplb2YoUG9seUV2YWxfY2FsbGJhY2tfZGF0YV90KSk7CgkJaWYgKGNiX2Rh
-dGEgPT0gTlVMTCkgewoJCQlmcHJpbnRmKHN0ZGVyciwgIlVuYWJsZSB0byBhbGxvY2F0ZSBtZW1v
-cnkgZm9yIHN0cmVhbSBjYWxsYmFjayBkYXRhIGluIGZ1bmN0aW9uIFBvbHlFdmFsX2NvbnZlcnRf
-aW50ZXJuYWxcbiIpOwoJCQlyZXR1cm4gTlVMTDsKCQl9CgkJY2JfZGF0YS0+bWF4X2NvdW50ID0g
-MjsKCQljYl9kYXRhLT5jb3VudCAgICAgPSAwOwoJCSpjYWxsYmFja19kYXRhICAgICA9IGNiX2Rh
-dGE7CgkJKmNhbGxiYWNrX2Z1bmMgICAgID0gJlBvbHlFdmFsX2NhbGxiYWNrX2ludGVybmFsOwoJ
-fQoKCWludDMyX3QgcGFyYW1fUG9seUV2YWxLZXJuZWxfbG9vcEV4cHIgPSBQb2x5RXZhbF9nZXRf
-UG9seUV2YWxLZXJuZWxfbG9vcEV4cHIoICApOwoJCglpbnQ2NF90IHBhcmFtX2xlbmd0aCA9IGlu
-dGVyZmFjZV9hY3Rpb25zLT5wYXJhbV9sZW5ndGg7CgkKCWludDY0X3QgdG1wXzEgPSAocGFyYW1f
-bGVuZ3RoICogcGFyYW1fUG9seUV2YWxLZXJuZWxfbG9vcEV4cHIpOwoJCgkvKiBjb2RlIGZvciBz
-Y2FsYXIgUG9seUV2YWxLZXJuZWwucnVuX2N5Y2xlX2NvdW50ICovCgl1aW50NjRfdCB0aWNrc19Q
-b2x5RXZhbEtlcm5lbCA9IHRtcF8xOwoJbWF4X3NldF90aWNrcyhhY3Rpb25zLCAiUG9seUV2YWxL
-ZXJuZWwiLCB0bXBfMSk7CglDSEVDS19FUlJPUlM7CgkvKiBlbmQgb2YgY29kZSBmb3Igc2NhbGFy
-IFBvbHlFdmFsS2VybmVsLnJ1bl9jeWNsZV9jb3VudCovCgkKCWludDY0X3QgdG1wXzAgPSAocGFy
-YW1fbGVuZ3RoICogNCk7CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBpbnB1dCAqLwoJc2l6ZV90IGlu
-c3RyZWFtX3NpemVfaW5wdXQgPSB0bXBfMDsKCWlmIChpbnN0cmVhbV9zaXplX2lucHV0ID4gMCkg
-ewoJCWNvbnN0IGZsb2F0ICpzdHJlYW1fcHRyID0gaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFt
-X2lucHV0OwoJCWlmICh1c2VfY2FsbGJhY2sgJiYgKDEgPT0gUG9seUV2YWxfY2hlY2tfYWxpZ25l
-ZChpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1faW5wdXQpKSkgewoJCQlmbG9hdCAqYWxpZ25l
-ZF9pbnN0cmVhbV9pbnB1dCA9IG1hbGxvYyhpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJaWYgKGFs
-aWduZWRfaW5zdHJlYW1faW5wdXQgPT0gTlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGlj
-KGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxs
-b2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAnaW5wdXQnIik7CgkJCQlDSEVDS19FUlJP
-UlM7CgkJCX0KCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+dXNlcl9wdHIg
-ICAgPSAodWludDhfdCopIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9pbnB1dDsKCQkJKCZj
+CiNkZWZpbmUgQ0hFQ0tfRVJST1JTX1NUKFNULCBSRVQpIGlmKCFtYXhfb2soU1QtPmVycm9ycykp
+IHsgaWYobWF4X2NvbmZpZ19nZXRfYm9vbChNQVhfQ09ORklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJP
+UlRfT05fRVJST1IpKSB7IGZwcmludGYoc3RkZXJyLCAiJXNcbiIsIG1heF9lcnJvcnNfdHJhY2Uo
+U1QtPmVycm9ycykpOyBhYm9ydCgpOyB9IHNldF9lcnJvcl9hbmRfZnJlZShtYXhfZXJyb3JzX3Ry
+YWNlKFNULT5lcnJvcnMpKTsgcmV0dXJuIFJFVDsgfSAKI2RlZmluZSBDSEVDS19OVUxMKFZBTFVF
+LCBNRVNTQUdFLCBSRVQpIGlmKFZBTFVFID09IE5VTEwpIHsgaWYgKG1heF9jb25maWdfZ2V0X2Jv
+b2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FCT1JUX09OX0VSUk9SKSkgeyBmcHJpbnRm
+KHN0ZGVyciwgIiVzXG4lc1xuIiwgKHN0b3JlZF9lcnJvciA9PSBOVUxMKSA/ICIiIDogc3RvcmVk
+X2Vycm9yLCBNRVNTQUdFKTsgYWJvcnQoKTsgfSBzZXRfZXJyb3IoTUVTU0FHRSk7IHJldHVybiBS
+RVQ7IH0KCiAKdHlwZWRlZiBzdHJ1Y3QgUG9seUV2YWxfY2FsbGJhY2tfc3RyZWFtIHsKCXVpbnQ4
+X3QgKnVzZXJfcHRyOwoJdWludDhfdCAqYWxpZ25lZF9wdHI7CglzaXplX3QgICBzaXplOwoJaW50
+ICAgICAgaXNfb3V0cHV0Owp9IFBvbHlFdmFsX2NhbGxiYWNrX3N0cmVhbV90OwoKdHlwZWRlZiBz
+dHJ1Y3QgUG9seUV2YWxfY2FsbGJhY2tfZGF0YSB7CglQb2x5RXZhbF9jYWxsYmFja19zdHJlYW1f
+dCBzdHJlYW1bNF07IAoJaW50IGNvdW50OwoJaW50IG1heF9jb3VudDsKfSBQb2x5RXZhbF9jYWxs
+YmFja19kYXRhX3Q7CgpzdGF0aWMgdm9pZCBQb2x5RXZhbF9jYWxsYmFja19pbnRlcm5hbCh2b2lk
+ICpjYl9kYXRhKQp7CglQb2x5RXZhbF9jYWxsYmFja19kYXRhX3QgKmRhdGEgPSAoUG9seUV2YWxf
+Y2FsbGJhY2tfZGF0YV90KikgY2JfZGF0YTsKCWZvciAoaW50IGkgPSAwIDsgaSA8IGRhdGEtPmNv
+dW50IDsgaSsrICkgewoJCVBvbHlFdmFsX2NhbGxiYWNrX3N0cmVhbV90ICpzID0gJmRhdGEtPnN0
+cmVhbVtpXTsKCQlpZiAocy0+aXNfb3V0cHV0ICYmIChzLT5zaXplID4gMCkpIHsKCQkJbWVtY3B5
+KHMtPnVzZXJfcHRyLCBzLT5hbGlnbmVkX3B0ciwgcy0+c2l6ZSk7CgkJfQoJCWZyZWUocy0+YWxp
+Z25lZF9wdHIpOwoJfQoJZnJlZShkYXRhKTsKfQoKc3RhdGljIG1heF9hY3Rpb25zX3QqIFBvbHlF
+dmFsX2NvbnZlcnRfaW50ZXJuYWwoCgltYXhfZmlsZV90ICptYXhmaWxlLAoJUG9seUV2YWxfYWN0
+aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucywKCWludCAgaXNfaW50ZXJuYWxfY2FsbCwKCXZvaWQg
+KCoqY2FsbGJhY2tfZnVuYykodm9pZCopLAoJdm9pZCAqKmNhbGxiYWNrX2RhdGEpCnsKCW1heF9h
+Y3Rpb25zX3QgKmFjdGlvbnMgPSBtYXhfYWN0aW9uc19pbml0KG1heGZpbGUsIE5VTEwpOwoJaWYo
+YWN0aW9ucyA9PSBOVUxMKSByZXR1cm4gTlVMTDsKCiNkZWZpbmUgQ0hFQ0tfRVJST1JTIGlmKCFt
+YXhfb2soYWN0aW9ucy0+ZXJyb3JzKSkgeyBzZXRfZXJyb3JfYW5kX2ZyZWUobWF4X2Vycm9yc190
+cmFjZShhY3Rpb25zLT5lcnJvcnMpKTsgcmV0dXJuIE5VTEw7IH0gCgoJUG9seUV2YWxfY2FsbGJh
+Y2tfZGF0YV90ICpjYl9kYXRhID0gTlVMTDsKCWludCB1c2VfY2FsbGJhY2sgPSAoY2FsbGJhY2tf
+ZnVuYyAhPSBOVUxMKSAmJiAoY2FsbGJhY2tfZGF0YSAhPSBOVUxMKTsKCWlmICh1c2VfY2FsbGJh
+Y2spIHsKCQljYl9kYXRhID0gbWFsbG9jKHNpemVvZihQb2x5RXZhbF9jYWxsYmFja19kYXRhX3Qp
+KTsKCQlpZiAoY2JfZGF0YSA9PSBOVUxMKSB7CgkJCWZwcmludGYoc3RkZXJyLCAiVW5hYmxlIHRv
+IGFsbG9jYXRlIG1lbW9yeSBmb3Igc3RyZWFtIGNhbGxiYWNrIGRhdGEgaW4gZnVuY3Rpb24gUG9s
+eUV2YWxfY29udmVydF9pbnRlcm5hbFxuIik7CgkJCXJldHVybiBOVUxMOwoJCX0KCQljYl9kYXRh
+LT5tYXhfY291bnQgPSA0OwoJCWNiX2RhdGEtPmNvdW50ICAgICA9IDA7CgkJKmNhbGxiYWNrX2Rh
+dGEgICAgID0gY2JfZGF0YTsKCQkqY2FsbGJhY2tfZnVuYyAgICAgPSAmUG9seUV2YWxfY2FsbGJh
+Y2tfaW50ZXJuYWw7Cgl9CgoJaW50NjRfdCBwYXJhbV9sZW5ndGggPSBpbnRlcmZhY2VfYWN0aW9u
+cy0+cGFyYW1fbGVuZ3RoOwoJCgkvKiBjb2RlIGZvciBzY2FsYXIgUG9seUV2YWxLZXJuZWwucnVu
+X2N5Y2xlX2NvdW50ICovCgl1aW50NjRfdCB0aWNrc19Qb2x5RXZhbEtlcm5lbCA9IHBhcmFtX2xl
+bmd0aDsKCW1heF9zZXRfdGlja3MoYWN0aW9ucywgIlBvbHlFdmFsS2VybmVsIiwgcGFyYW1fbGVu
+Z3RoKTsKCUNIRUNLX0VSUk9SUzsKCS8qIGVuZCBvZiBjb2RlIGZvciBzY2FsYXIgUG9seUV2YWxL
+ZXJuZWwucnVuX2N5Y2xlX2NvdW50Ki8KCQoJaW50NjRfdCB0bXBfMCA9IChwYXJhbV9sZW5ndGgg
+KiA0KTsKCQoJLyogY29kZSBmb3Igc3RyZWFtIGV4cCAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVf
+ZXhwID0gdG1wXzA7CglpZiAoaW5zdHJlYW1fc2l6ZV9leHAgPiAwKSB7CgkJY29uc3QgaW50MzJf
+dCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9leHA7CgkJaWYgKHVz
+ZV9jYWxsYmFjayAmJiAoMSA9PSBQb2x5RXZhbF9jaGVja19hbGlnbmVkKGludGVyZmFjZV9hY3Rp
+b25zLT5pbnN0cmVhbV9leHApKSkgewoJCQlpbnQzMl90ICphbGlnbmVkX2luc3RyZWFtX2V4cCA9
+IG1hbGxvYyhpbnN0cmVhbV9zaXplX2V4cCk7CgkJCWlmIChhbGlnbmVkX2luc3RyZWFtX2V4cCA9
+PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMoYWN0aW9ucy0+ZXJyb3JzLCBfX0ZJ
+TEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxvY2F0ZSBhbGlnbmVkIG1lbW9yeSBm
+b3Igc3RyZWFtICdleHAnIik7CgkJCQlDSEVDS19FUlJPUlM7CgkJCX0KCQkJKCZjYl9kYXRhLT5z
+dHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+dXNlcl9wdHIgICAgPSAodWludDhfdCopIGludGVyZmFj
+ZV9hY3Rpb25zLT5pbnN0cmVhbV9leHA7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
+dW50XSktPmFsaWduZWRfcHRyID0gKHVpbnQ4X3QqKSBhbGlnbmVkX2luc3RyZWFtX2V4cDsKCQkJ
+KCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBpbnN0cmVh
+bV9zaXplX2V4cDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+aXNfb3V0
+cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3VudCArPSAxOwoJCQltZW1jcHkoYWxpZ25lZF9pbnN0
+cmVhbV9leHAsIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9leHAsIGluc3RyZWFtX3NpemVf
+ZXhwKTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRfaW5zdHJlYW1fZXhwOwoJCX0KCQltYXhfcXVl
+dWVfaW5wdXQoYWN0aW9ucywgImV4cCIsIHN0cmVhbV9wdHIsIGluc3RyZWFtX3NpemVfZXhwKTsK
+CQlDSEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIGV4cCAqLwoJCgkv
+KiBjb2RlIGZvciBzdHJlYW0gZXhwVmFscyAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVfZXhwVmFs
+cyA9IHRtcF8wOwoJaWYgKGluc3RyZWFtX3NpemVfZXhwVmFscyA+IDApIHsKCQljb25zdCBmbG9h
+dCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9leHBWYWxzOwoJCWlm
+ICh1c2VfY2FsbGJhY2sgJiYgKDEgPT0gUG9seUV2YWxfY2hlY2tfYWxpZ25lZChpbnRlcmZhY2Vf
+YWN0aW9ucy0+aW5zdHJlYW1fZXhwVmFscykpKSB7CgkJCWZsb2F0ICphbGlnbmVkX2luc3RyZWFt
+X2V4cFZhbHMgPSBtYWxsb2MoaW5zdHJlYW1fc2l6ZV9leHBWYWxzKTsKCQkJaWYgKGFsaWduZWRf
+aW5zdHJlYW1fZXhwVmFscyA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMoYWN0
+aW9ucy0+ZXJyb3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxvY2F0
+ZSBhbGlnbmVkIG1lbW9yeSBmb3Igc3RyZWFtICdleHBWYWxzJyIpOwoJCQkJQ0hFQ0tfRVJST1JT
+OwoJCQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAg
+ID0gKHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1fZXhwVmFsczsKCQkJKCZj
 Yl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCop
-IGFsaWduZWRfaW5zdHJlYW1faW5wdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
-dW50XSktPnNpemUgICAgICAgID0gaW5zdHJlYW1fc2l6ZV9pbnB1dDsKCQkJKCZjYl9kYXRhLT5z
-dHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3Vu
-dCArPSAxOwoJCQltZW1jcHkoYWxpZ25lZF9pbnN0cmVhbV9pbnB1dCwgaW50ZXJmYWNlX2FjdGlv
-bnMtPmluc3RyZWFtX2lucHV0LCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJc3RyZWFtX3B0ciA9
-IGFsaWduZWRfaW5zdHJlYW1faW5wdXQ7CgkJfQoJCW1heF9xdWV1ZV9pbnB1dChhY3Rpb25zLCAi
-aW5wdXQiLCBzdHJlYW1fcHRyLCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQlDSEVDS19FUlJPUlM7
-Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIGlucHV0ICovCgkKCS8qIGNvZGUgZm9yIHN0
-cmVhbSBvdXRwdXQgKi8KCXNpemVfdCBvdXRzdHJlYW1fc2l6ZV9vdXRwdXQgPSB0bXBfMDsKCWlm
-IChvdXRzdHJlYW1fc2l6ZV9vdXRwdXQgPiAwKSB7CgkJZmxvYXQgKnN0cmVhbV9wdHIgPSBpbnRl
-cmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dHB1dDsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgx
-ID09IFBvbHlFdmFsX2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9v
-dXRwdXQpKSkgewoJCQlmbG9hdCAqYWxpZ25lZF9vdXRzdHJlYW1fb3V0cHV0ID0gbWFsbG9jKG91
-dHN0cmVhbV9zaXplX291dHB1dCk7CgkJCWlmIChhbGlnbmVkX291dHN0cmVhbV9vdXRwdXQgPT0g
-TlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxF
-X18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9y
-IHN0cmVhbSAnb3V0cHV0JyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJCQl9CgkJCSgmY2JfZGF0YS0+
-c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAgID0gKHVpbnQ4X3QqKSBpbnRlcmZh
-Y2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dHB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0
-YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfb3V0c3RyZWFtX291
-dHB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAg
-PSBvdXRzdHJlYW1fc2l6ZV9vdXRwdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
-dW50XSktPmlzX291dHB1dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJc3RyZWFt
-X3B0ciA9IGFsaWduZWRfb3V0c3RyZWFtX291dHB1dDsKCQl9CgkJbWF4X3F1ZXVlX291dHB1dChh
-Y3Rpb25zLCAib3V0cHV0Iiwgc3RyZWFtX3B0ciwgb3V0c3RyZWFtX3NpemVfb3V0cHV0KTsKCQlD
-SEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIG91dHB1dCAqLwoJCglp
-ZiAodXNlX2NhbGxiYWNrICYmIGNiX2RhdGEtPmNvdW50ID09IDApIHsKCQkqY2FsbGJhY2tfZGF0
-YSA9IE5VTEw7CgkJKmNhbGxiYWNrX2Z1bmMgPSBOVUxMOwoJCWZyZWUoY2JfZGF0YSk7Cgl9Cgly
-ZXR1cm4gYWN0aW9uczsKI3VuZGVmIENIRUNLX0VSUk9SUwp9Cgp2b2lkIFBvbHlFdmFsKAoJaW50
-NjRfdCBwYXJhbV9sZW5ndGgsCgljb25zdCBmbG9hdCAqaW5zdHJlYW1faW5wdXQsCglmbG9hdCAq
-b3V0c3RyZWFtX291dHB1dCkKewoJKHZvaWQpIHB0aHJlYWRfb25jZSgmc2xpY19ic19pc19pbml0
-aWFsaXNlZCwgUG9seUV2YWxfc3RhdGljX2luaXQpOwoJQ0hFQ0tfTlVMTChzdG9yZWRfbWF4Zmls
-ZSwgIk1heGZpbGUgd2FzIG5vdCBsb2FkZWQiLCApOwoJbWF4X3J1bl90ICpydW4gPSBQb2x5RXZh
-bF9ub25ibG9jayhwYXJhbV9sZW5ndGgsIGluc3RyZWFtX2lucHV0LCBvdXRzdHJlYW1fb3V0cHV0
-KTsKCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0
-KHJ1bik7Cn0KCm1heF9ydW5fdCAqUG9seUV2YWxfbm9uYmxvY2soCglpbnQ2NF90IHBhcmFtX2xl
-bmd0aCwKCWNvbnN0IGZsb2F0ICppbnN0cmVhbV9pbnB1dCwKCWZsb2F0ICpvdXRzdHJlYW1fb3V0
-cHV0KQp7CglQb2x5RXZhbF9hY3Rpb25zX3QgaW50ZXJmYWNlX2FjdGlvbnM7CglpbnRlcmZhY2Vf
-YWN0aW9ucy5wYXJhbV9sZW5ndGggPSBwYXJhbV9sZW5ndGg7CglpbnRlcmZhY2VfYWN0aW9ucy5p
-bnN0cmVhbV9pbnB1dCA9IGluc3RyZWFtX2lucHV0OwoJaW50ZXJmYWNlX2FjdGlvbnMub3V0c3Ry
-ZWFtX291dHB1dCA9IG91dHN0cmVhbV9vdXRwdXQ7Cgkodm9pZCkgcHRocmVhZF9vbmNlKCZzbGlj
-X2JzX2lzX2luaXRpYWxpc2VkLCBQb2x5RXZhbF9zdGF0aWNfaW5pdCk7CglDSEVDS19OVUxMKHN0
-b3JlZF9tYXhmaWxlLCAiTWF4ZmlsZSB3YXMgbm90IGxvYWRlZCIsIE5VTEwpOwoJdm9pZCAoKmNi
-X2Z1bmMpKHZvaWQqKSA9IE5VTEw7Cgl2b2lkICAqY2JfZGF0YSAgICAgICAgID0gTlVMTDsKCW1h
-eF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBQb2x5RXZhbF9jb252ZXJ0X2ludGVybmFsKHN0b3JlZF9t
-YXhmaWxlLCAmaW50ZXJmYWNlX2FjdGlvbnMsIDEsICZjYl9mdW5jLCAmY2JfZGF0YSk7CglDSEVD
-S19OVUxMKGFjdGlvbnMsICJVbmFibGUgdG8gYnVpbGQgYWN0aW9ucyIsIE5VTEwpOwoJbWF4X3Zh
-bGlkYXRlKGFjdGlvbnMpOwoJQ0hFQ0tfRVJST1JTX1NUKGFjdGlvbnMsIE5VTEwpOwoJQ0hFQ0tf
-RVJST1JTX1NUKHN0b3JlZF9lbmdpbmUsIE5VTEwpOwoJbWF4X3J1bl90ICpydW47CglpZiAoY2Jf
-ZnVuYyA9PSBOVUxMKSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9jayhzdG9yZWRfZW5naW5lLCBh
-Y3Rpb25zKTsKCX0gZWxzZSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193aXRoX2NiKHN0b3Jl
-ZF9lbmdpbmUsIGFjdGlvbnMsIGNiX2Z1bmMsIGNiX2RhdGEpOwoJfQoJQ0hFQ0tfTlVMTChydW4s
-ICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCBOVUxMKTsKCUNIRUNLX0VSUk9SU19TVChhY3Rpb25z
-LCBOVUxMKTsKCW1heF9hY3Rpb25zX2ZyZWUoYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9Cgp2b2lk
-IFBvbHlFdmFsX3J1bigKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJUG9seUV2YWxfYWN0aW9uc190
-ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X3J1bl90ICpydW4gPSBQb2x5RXZhbF9ydW5fbm9u
-YmxvY2soZW5naW5lLCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJs
-ZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9CgptYXhfcnVuX3QgKlBvbHlF
-dmFsX3J1bl9ub25ibG9jaygKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJUG9seUV2YWxfYWN0aW9u
-c190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdp
-bmVfZ2V0X21heF9maWxlKGVuZ2luZSk7IAoJdm9pZCAoKmNiX2Z1bmMpKHZvaWQqKSA9IE5VTEw7
-Cgl2b2lkICAqY2JfZGF0YSAgICAgICAgID0gTlVMTDsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMg
-PSBQb2x5RXZhbF9jb252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAx
-LCAmY2JfZnVuYywgJmNiX2RhdGEpOwoJQ0hFQ0tfTlVMTChhY3Rpb25zLCAiVW5hYmxlIHRvIGJ1
-aWxkIGFjdGlvbnMiLCBOVUxMKTsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCUNIRUNLX0VSUk9S
-U19TVChhY3Rpb25zLCBOVUxMKTsKCW1heF9ydW5fdCAqcnVuOwoJaWYgKGNiX2Z1bmMgPT0gTlVM
-TCkgewoJCXJ1biA9IG1heF9ydW5fbm9uYmxvY2soZW5naW5lLCBhY3Rpb25zKTsKCX0gZWxzZSB7
-CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193aXRoX2NiKGVuZ2luZSwgYWN0aW9ucywgY2JfZnVu
-YywgY2JfZGF0YSk7Cgl9CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIs
-IE5VTEwpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJldHVybiBydW47Cn0KCgovKioK
-ICogXGJyaWVmIEdyb3VwIHJ1biBhZHZhbmNlZCBzdGF0aWMgZnVuY3Rpb24gZm9yIHRoZSBpbnRl
-cmZhY2UgJ2RlZmF1bHQnLgogKiAKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8gdXNlLgog
-KiBccGFyYW0gW2luLG91dF0gaW50ZXJmYWNlX2FjdGlvbnMgQWN0aW9ucyB0byBydW4uCiAqCiAq
-IFJ1biB0aGUgYWN0aW9ucyBvbiB0aGUgZmlyc3QgZGV2aWNlIGF2YWlsYWJsZSBpbiB0aGUgZ3Jv
-dXAuCiAqLwp2b2lkIFBvbHlFdmFsX3J1bl9ncm91cChtYXhfZ3JvdXBfdCAqZ3JvdXAsIFBvbHlF
-dmFsX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9ydW5fdCAqcnVuID0gUG9s
-eUV2YWxfcnVuX2dyb3VwX25vbmJsb2NrKGdyb3VwLCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVD
-S19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9
-CgoKLyoqCiAqIFxicmllZiBHcm91cCBydW4gYWR2YW5jZWQgc3RhdGljIG5vbi1ibG9ja2luZyBm
-dW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKgogKiBTY2hlZHVsZSB0
-aGUgYWN0aW9ucyB0byBydW4gb24gdGhlIGZpcnN0IGRldmljZSBhdmFpbGFibGUgaW4gdGhlIGdy
-b3VwIGFuZCByZXR1cm4gaW1tZWRpYXRlbHkuCiAqIFRoZSBzdGF0dXMgb2YgdGhlIHJ1biBtdXN0
-IGJlIGNoZWNrZWQgd2l0aCA6Om1heF93YWl0LiAKICogTm90ZSB0aGF0IHVzZSBvZiA6Om1heF9u
-b3dhaXQgaXMgcHJvaGliaXRlZCB3aXRoIG5vbi1ibG9ja2luZyBydW5uaW5nIG9uIGdyb3VwczoK
-ICogc2VlIHRoZSA6Om1heF9ydW5fZ3JvdXBfbm9uYmxvY2sgZG9jdW1lbnRhdGlvbiBmb3IgbW9y
-ZSBleHBsYW5hdGlvbi4KICoKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8gdXNlLgogKiBc
-cGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBBY3Rpb25zIHRvIHJ1bi4KICogXHJldHVybiBB
-IGhhbmRsZSBvbiB0aGUgZXhlY3V0aW9uIHN0YXR1cyBvZiB0aGUgYWN0aW9ucywgb3IgTlVMTCBp
-biBjYXNlIG9mIGVycm9yLgogKi8KbWF4X3J1bl90ICpQb2x5RXZhbF9ydW5fZ3JvdXBfbm9uYmxv
-Y2sobWF4X2dyb3VwX3QgKmdyb3VwLCBQb2x5RXZhbF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rp
-b25zKQp7CgltYXhfZmlsZV90ICptYXhmaWxlID0gbWF4X2dyb3VwX2dldF9tYXhfZmlsZShncm91
-cCk7CgltYXhfYWN0aW9uc190ICphY3Rpb25zID0gUG9seUV2YWxfY29udmVydF9pbnRlcm5hbCht
-YXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMSwgTlVMTCwgTlVMTCk7CglpZihhY3Rpb25zID09
-IE5VTEwpIHJldHVybiBOVUxMOwoJaWYoIW1heF9vayhhY3Rpb25zLT5lcnJvcnMpKSByZXR1cm4g
-TlVMTDsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCW1heF9ydW5fdCAqcnVuID0gbWF4X3J1bl9n
-cm91cF9ub25ibG9jayhncm91cCwgYWN0aW9ucyk7CgltYXhfYWN0aW9uc19mcmVlKGFjdGlvbnMp
-OwoJcmV0dXJuIHJ1bjsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFkdmFuY2VkIHN0YXRp
-YyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKiBccGFyYW0gW2lu
-XSBlbmdhcnJheSBUaGUgYXJyYXkgb2YgZGV2aWNlcyB0byB1c2UuCiAqIFxwYXJhbSBbaW4sb3V0
-XSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgYXJyYXkgb2YgYWN0aW9ucyB0byBydW4uCiAqCiAqIFJ1
-biB0aGUgYXJyYXkgb2YgYWN0aW9ucyBvbiB0aGUgYXJyYXkgb2YgZW5naW5lcy4gIFRoZSBsZW5n
-dGggb2YgaW50ZXJmYWNlX2FjdGlvbnMKICogbXVzdCBtYXRjaCB0aGUgc2l6ZSBvZiBlbmdhcnJh
-eS4KICovCnZvaWQgUG9seUV2YWxfcnVuX2FycmF5KG1heF9lbmdhcnJheV90ICplbmdhcnJheSwg
-UG9seUV2YWxfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9uc1tdKQp7CgltYXhfcnVuX3QgKnJ1
-biA9IFBvbHlFdmFsX3J1bl9hcnJheV9ub25ibG9jayhlbmdhcnJheSwgaW50ZXJmYWNlX2FjdGlv
-bnMpOwoJQ0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCApOwoJbWF4X3dh
-aXQocnVuKTsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFkdmFuY2VkIHN0YXRpYyBub24t
-YmxvY2tpbmcgZnVuY3Rpb24gZm9yIHRoZSBpbnRlcmZhY2UgJ2RlZmF1bHQnLgogKiAKICoKICog
-U2NoZWR1bGUgdG8gcnVuIHRoZSBhcnJheSBvZiBhY3Rpb25zIG9uIHRoZSBhcnJheSBvZiBlbmdp
-bmVzLCBhbmQgcmV0dXJuIGltbWVkaWF0ZWx5LgogKiBUaGUgbGVuZ3RoIG9mIGludGVyZmFjZV9h
-Y3Rpb25zIG11c3QgbWF0Y2ggdGhlIHNpemUgb2YgZW5nYXJyYXkuCiAqIFRoZSBzdGF0dXMgb2Yg
-dGhlIHJ1biBjYW4gYmUgY2hlY2tlZCBlaXRoZXIgYnkgOjptYXhfd2FpdCBvciA6Om1heF9ub3dh
-aXQ7CiAqIG5vdGUgdGhhdCBvbmUgb2YgdGhlc2UgKm11c3QqIGJlIGNhbGxlZCwgc28gdGhhdCBh
-c3NvY2lhdGVkIG1lbW9yeSBjYW4gYmUgcmVsZWFzZWQuCiAqCiAqIFxwYXJhbSBbaW5dIGVuZ2Fy
-cmF5IFRoZSBhcnJheSBvZiBkZXZpY2VzIHRvIHVzZS4KICogXHBhcmFtIFtpbl0gaW50ZXJmYWNl
-X2FjdGlvbnMgVGhlIGFycmF5IG9mIGFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIEEgaGFuZGxl
-IG9uIHRoZSBleGVjdXRpb24gc3RhdHVzIG9mIHRoZSBhY3Rpb25zLCBvciBOVUxMIGluIGNhc2Ug
-b2YgZXJyb3IuCiAqLwptYXhfcnVuX3QgKlBvbHlFdmFsX3J1bl9hcnJheV9ub25ibG9jayhtYXhf
-ZW5nYXJyYXlfdCAqZW5nYXJyYXksIFBvbHlFdmFsX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlv
-bnNbXSkKewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdhcnJheV9nZXRfbWF4X2ZpbGUo
-ZW5nYXJyYXksIDApOwoJaW50IGk7CgltYXhfYWN0YXJyYXlfdCAqYWN0YXJyYXkgPSBtYXhfYWN0
-YXJyYXlfaW5pdChtYXhmaWxlLCBlbmdhcnJheS0+c2l6ZSk7CglpZiAoYWN0YXJyYXkgPT0gTlVM
-TCkgcmV0dXJuIE5VTEw7CgltYXhfYWN0aW9uc190ICoqYXJyX2FjdGlvbnMgPSBtYWxsb2MoZW5n
-YXJyYXktPnNpemUgKiBzaXplb2YobWF4X2FjdGlvbnNfdCopKTsKCWZvciAoIGkgPSAwIDsgaSA8
-IGFjdGFycmF5LT5zaXplOyBpKysgKSB7CgkJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IFBvbHlF
-dmFsX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50ZXJmYWNlX2FjdGlvbnNbaV0sIDEsIE5V
-TEwsIE5VTEwpOwoJCWlmIChhY3Rpb25zID09IE5VTEwpIHJldHVybiBOVUxMOwoJCWFycl9hY3Rp
-b25zW2ldID0gYWN0aW9uczsKCQltYXhfc2V0X2FjdGlvbihhY3RhcnJheSwgaSwgYWN0aW9ucyk7
-Cgl9CgltYXhfcnVuX3QgKnJ1biA9IG1heF9ydW5fYXJyYXlfbm9uYmxvY2soZW5nYXJyYXksIGFj
-dGFycmF5KTsKCWZvciAoIGkgPSAwIDsgaSA8IGFjdGFycmF5LT5zaXplIDsgaSsrICkgeyBtYXhf
-YWN0aW9uc19mcmVlKGFycl9hY3Rpb25zW2ldKTsgfQoJbWF4X2FjdGFycmF5X2ZyZWUoYWN0YXJy
-YXkpOwoJZnJlZShhcnJfYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9CgoKLyoqCiAqIFxicmllZiBD
-b252ZXJ0cyBhIHN0YXRpYy1pbnRlcmZhY2UgYWN0aW9uIHN0cnVjdCBpbnRvIGEgZHluYW1pYy1p
-bnRlcmZhY2UgbWF4X2FjdGlvbnNfdCBzdHJ1Y3QuCiAqCiAqIE5vdGUgdGhhdCB0aGlzIGlzIGFu
-IGludGVybmFsIHV0aWxpdHkgZnVuY3Rpb24gdXNlZCBieSBvdGhlciBmdW5jdGlvbnMgaW4gdGhl
-IHN0YXRpYyBpbnRlcmZhY2UuCiAqCiAqIFxwYXJhbSBbaW5dIG1heGZpbGUgVGhlIG1heGZpbGUg
-dG8gdXNlLgogKiBccGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgaW50ZXJmYWNlLXNw
-ZWNpZmljIGFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIFRoZSBkeW5hbWljLWludGVyZmFjZSBh
-Y3Rpb25zIHRvIHJ1biwgb3IgTlVMTCBpbiBjYXNlIG9mIGVycm9yLgogKi8KbWF4X2FjdGlvbnNf
-dCogUG9seUV2YWxfY29udmVydChtYXhfZmlsZV90ICptYXhmaWxlLCBQb2x5RXZhbF9hY3Rpb25z
-X3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CglyZXR1cm4gUG9seUV2YWxfY29udmVydF9pbnRlcm5h
-bChtYXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMCwgTlVMTCwgTlVMTCk7Cn0KCiN1bmRlZiBD
-SEVDS19FUlJPUlNfU1QKI3VuZGVmIENIRUNLX05VTEwKCgo=
+IGFsaWduZWRfaW5zdHJlYW1fZXhwVmFsczsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+
+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBpbnN0cmVhbV9zaXplX2V4cFZhbHM7CgkJCSgmY2JfZGF0
+YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmlzX291dHB1dCAgID0gMDsKCQkJY2JfZGF0YS0+
+Y291bnQgKz0gMTsKCQkJbWVtY3B5KGFsaWduZWRfaW5zdHJlYW1fZXhwVmFscywgaW50ZXJmYWNl
+X2FjdGlvbnMtPmluc3RyZWFtX2V4cFZhbHMsIGluc3RyZWFtX3NpemVfZXhwVmFscyk7CgkJCXN0
+cmVhbV9wdHIgPSBhbGlnbmVkX2luc3RyZWFtX2V4cFZhbHM7CgkJfQoJCW1heF9xdWV1ZV9pbnB1
+dChhY3Rpb25zLCAiZXhwVmFscyIsIHN0cmVhbV9wdHIsIGluc3RyZWFtX3NpemVfZXhwVmFscyk7
+CgkJQ0hFQ0tfRVJST1JTOwoJfQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0cmVhbSBleHBWYWxzICov
+CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBpbnB1dCAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVfaW5w
+dXQgPSB0bXBfMDsKCWlmIChpbnN0cmVhbV9zaXplX2lucHV0ID4gMCkgewoJCWNvbnN0IGZsb2F0
+ICpzdHJlYW1fcHRyID0gaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX2lucHV0OwoJCWlmICh1
+c2VfY2FsbGJhY2sgJiYgKDEgPT0gUG9seUV2YWxfY2hlY2tfYWxpZ25lZChpbnRlcmZhY2VfYWN0
+aW9ucy0+aW5zdHJlYW1faW5wdXQpKSkgewoJCQlmbG9hdCAqYWxpZ25lZF9pbnN0cmVhbV9pbnB1
+dCA9IG1hbGxvYyhpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJaWYgKGFsaWduZWRfaW5zdHJlYW1f
+aW5wdXQgPT0gTlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9y
+cywgX19GSUxFX18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBt
+ZW1vcnkgZm9yIHN0cmVhbSAnaW5wdXQnIik7CgkJCQlDSEVDS19FUlJPUlM7CgkJCX0KCQkJKCZj
+Yl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+dXNlcl9wdHIgICAgPSAodWludDhfdCop
+IGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9pbnB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1b
+Y2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfaW5zdHJl
+YW1faW5wdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnNpemUgICAg
+ICAgID0gaW5zdHJlYW1fc2l6ZV9pbnB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+
+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3VudCArPSAxOwoJCQltZW1j
+cHkoYWxpZ25lZF9pbnN0cmVhbV9pbnB1dCwgaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX2lu
+cHV0LCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRfaW5zdHJl
+YW1faW5wdXQ7CgkJfQoJCW1heF9xdWV1ZV9pbnB1dChhY3Rpb25zLCAiaW5wdXQiLCBzdHJlYW1f
+cHRyLCBpbnN0cmVhbV9zaXplX2lucHV0KTsKCQlDSEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2Yg
+Y29kZSBmb3Igc3RyZWFtIGlucHV0ICovCgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBvdXRwdXQgKi8K
+CXNpemVfdCBvdXRzdHJlYW1fc2l6ZV9vdXRwdXQgPSB0bXBfMDsKCWlmIChvdXRzdHJlYW1fc2l6
+ZV9vdXRwdXQgPiAwKSB7CgkJZmxvYXQgKnN0cmVhbV9wdHIgPSBpbnRlcmZhY2VfYWN0aW9ucy0+
+b3V0c3RyZWFtX291dHB1dDsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgxID09IFBvbHlFdmFsX2No
+ZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9vdXRwdXQpKSkgewoJCQlm
+bG9hdCAqYWxpZ25lZF9vdXRzdHJlYW1fb3V0cHV0ID0gbWFsbG9jKG91dHN0cmVhbV9zaXplX291
+dHB1dCk7CgkJCWlmIChhbGlnbmVkX291dHN0cmVhbV9vdXRwdXQgPT0gTlVMTCkgewoJCQkJbWF4
+X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1
+MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAnb3V0cHV0
+JyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJCQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEt
+PmNvdW50XSktPnVzZXJfcHRyICAgID0gKHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+b3V0
+c3RyZWFtX291dHB1dDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+YWxp
+Z25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfb3V0c3RyZWFtX291dHB1dDsKCQkJKCZjYl9k
+YXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBvdXRzdHJlYW1fc2l6
+ZV9vdXRwdXQ7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmlzX291dHB1
+dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRf
+b3V0c3RyZWFtX291dHB1dDsKCQl9CgkJbWF4X3F1ZXVlX291dHB1dChhY3Rpb25zLCAib3V0cHV0
+Iiwgc3RyZWFtX3B0ciwgb3V0c3RyZWFtX3NpemVfb3V0cHV0KTsKCQlDSEVDS19FUlJPUlM7Cgl9
+CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIG91dHB1dCAqLwoJCglpZiAodXNlX2NhbGxiYWNr
+ICYmIGNiX2RhdGEtPmNvdW50ID09IDApIHsKCQkqY2FsbGJhY2tfZGF0YSA9IE5VTEw7CgkJKmNh
+bGxiYWNrX2Z1bmMgPSBOVUxMOwoJCWZyZWUoY2JfZGF0YSk7Cgl9CglyZXR1cm4gYWN0aW9uczsK
+I3VuZGVmIENIRUNLX0VSUk9SUwp9Cgp2b2lkIFBvbHlFdmFsKAoJaW50NjRfdCBwYXJhbV9sZW5n
+dGgsCgljb25zdCBpbnQzMl90ICppbnN0cmVhbV9leHAsCgljb25zdCBmbG9hdCAqaW5zdHJlYW1f
+ZXhwVmFscywKCWNvbnN0IGZsb2F0ICppbnN0cmVhbV9pbnB1dCwKCWZsb2F0ICpvdXRzdHJlYW1f
+b3V0cHV0KQp7Cgkodm9pZCkgcHRocmVhZF9vbmNlKCZzbGljX2JzX2lzX2luaXRpYWxpc2VkLCBQ
+b2x5RXZhbF9zdGF0aWNfaW5pdCk7CglDSEVDS19OVUxMKHN0b3JlZF9tYXhmaWxlLCAiTWF4Zmls
+ZSB3YXMgbm90IGxvYWRlZCIsICk7CgltYXhfcnVuX3QgKnJ1biA9IFBvbHlFdmFsX25vbmJsb2Nr
+KHBhcmFtX2xlbmd0aCwgaW5zdHJlYW1fZXhwLCBpbnN0cmVhbV9leHBWYWxzLCBpbnN0cmVhbV9p
+bnB1dCwgb3V0c3RyZWFtX291dHB1dCk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4g
+YWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9CgptYXhfcnVuX3QgKlBvbHlFdmFsX25vbmJs
+b2NrKAoJaW50NjRfdCBwYXJhbV9sZW5ndGgsCgljb25zdCBpbnQzMl90ICppbnN0cmVhbV9leHAs
+Cgljb25zdCBmbG9hdCAqaW5zdHJlYW1fZXhwVmFscywKCWNvbnN0IGZsb2F0ICppbnN0cmVhbV9p
+bnB1dCwKCWZsb2F0ICpvdXRzdHJlYW1fb3V0cHV0KQp7CglQb2x5RXZhbF9hY3Rpb25zX3QgaW50
+ZXJmYWNlX2FjdGlvbnM7CglpbnRlcmZhY2VfYWN0aW9ucy5wYXJhbV9sZW5ndGggPSBwYXJhbV9s
+ZW5ndGg7CglpbnRlcmZhY2VfYWN0aW9ucy5pbnN0cmVhbV9leHAgPSBpbnN0cmVhbV9leHA7Cglp
+bnRlcmZhY2VfYWN0aW9ucy5pbnN0cmVhbV9leHBWYWxzID0gaW5zdHJlYW1fZXhwVmFsczsKCWlu
+dGVyZmFjZV9hY3Rpb25zLmluc3RyZWFtX2lucHV0ID0gaW5zdHJlYW1faW5wdXQ7CglpbnRlcmZh
+Y2VfYWN0aW9ucy5vdXRzdHJlYW1fb3V0cHV0ID0gb3V0c3RyZWFtX291dHB1dDsKCSh2b2lkKSBw
+dGhyZWFkX29uY2UoJnNsaWNfYnNfaXNfaW5pdGlhbGlzZWQsIFBvbHlFdmFsX3N0YXRpY19pbml0
+KTsKCUNIRUNLX05VTEwoc3RvcmVkX21heGZpbGUsICJNYXhmaWxlIHdhcyBub3QgbG9hZGVkIiwg
+TlVMTCk7Cgl2b2lkICgqY2JfZnVuYykodm9pZCopID0gTlVMTDsKCXZvaWQgICpjYl9kYXRhICAg
+ICAgICAgPSBOVUxMOwoJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IFBvbHlFdmFsX2NvbnZlcnRf
+aW50ZXJuYWwoc3RvcmVkX21heGZpbGUsICZpbnRlcmZhY2VfYWN0aW9ucywgMSwgJmNiX2Z1bmMs
+ICZjYl9kYXRhKTsKCUNIRUNLX05VTEwoYWN0aW9ucywgIlVuYWJsZSB0byBidWlsZCBhY3Rpb25z
+IiwgTlVMTCk7CgltYXhfdmFsaWRhdGUoYWN0aW9ucyk7CglDSEVDS19FUlJPUlNfU1QoYWN0aW9u
+cywgTlVMTCk7CglDSEVDS19FUlJPUlNfU1Qoc3RvcmVkX2VuZ2luZSwgTlVMTCk7CgltYXhfcnVu
+X3QgKnJ1bjsKCWlmIChjYl9mdW5jID09IE5VTEwpIHsKCQlydW4gPSBtYXhfcnVuX25vbmJsb2Nr
+KHN0b3JlZF9lbmdpbmUsIGFjdGlvbnMpOwoJfSBlbHNlIHsKCQlydW4gPSBtYXhfcnVuX25vbmJs
+b2NrX3dpdGhfY2Ioc3RvcmVkX2VuZ2luZSwgYWN0aW9ucywgY2JfZnVuYywgY2JfZGF0YSk7Cgl9
+CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsIE5VTEwpOwoJQ0hFQ0tf
+RVJST1JTX1NUKGFjdGlvbnMsIE5VTEwpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJl
+dHVybiBydW47Cn0KCnZvaWQgUG9seUV2YWxfcnVuKAoJbWF4X2VuZ2luZV90ICplbmdpbmUsCglQ
+b2x5RXZhbF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhfcnVuX3QgKnJ1biA9
+IFBvbHlFdmFsX3J1bl9ub25ibG9jayhlbmdpbmUsIGludGVyZmFjZV9hY3Rpb25zKTsKCUNIRUNL
+X05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0KHJ1bik7Cn0K
+Cm1heF9ydW5fdCAqUG9seUV2YWxfcnVuX25vbmJsb2NrKAoJbWF4X2VuZ2luZV90ICplbmdpbmUs
+CglQb2x5RXZhbF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhfZmlsZV90ICpt
+YXhmaWxlID0gbWF4X2VuZ2luZV9nZXRfbWF4X2ZpbGUoZW5naW5lKTsgCgl2b2lkICgqY2JfZnVu
+Yykodm9pZCopID0gTlVMTDsKCXZvaWQgICpjYl9kYXRhICAgICAgICAgPSBOVUxMOwoJbWF4X2Fj
+dGlvbnNfdCAqYWN0aW9ucyA9IFBvbHlFdmFsX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50
+ZXJmYWNlX2FjdGlvbnMsIDEsICZjYl9mdW5jLCAmY2JfZGF0YSk7CglDSEVDS19OVUxMKGFjdGlv
+bnMsICJVbmFibGUgdG8gYnVpbGQgYWN0aW9ucyIsIE5VTEwpOwoJbWF4X3ZhbGlkYXRlKGFjdGlv
+bnMpOwoJQ0hFQ0tfRVJST1JTX1NUKGFjdGlvbnMsIE5VTEwpOwoJbWF4X3J1bl90ICpydW47Cglp
+ZiAoY2JfZnVuYyA9PSBOVUxMKSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9jayhlbmdpbmUsIGFj
+dGlvbnMpOwoJfSBlbHNlIHsKCQlydW4gPSBtYXhfcnVuX25vbmJsb2NrX3dpdGhfY2IoZW5naW5l
+LCBhY3Rpb25zLCBjYl9mdW5jLCBjYl9kYXRhKTsKCX0KCUNIRUNLX05VTEwocnVuLCAiVW5hYmxl
+IHRvIHJ1biBhY3Rpb25zIiwgTlVMTCk7CgltYXhfYWN0aW9uc19mcmVlKGFjdGlvbnMpOwoJcmV0
+dXJuIHJ1bjsKfQoKCi8qKgogKiBcYnJpZWYgR3JvdXAgcnVuIGFkdmFuY2VkIHN0YXRpYyBmdW5j
+dGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKiBccGFyYW0gW2luXSBncm91
+cCBHcm91cCB0byB1c2UuCiAqIFxwYXJhbSBbaW4sb3V0XSBpbnRlcmZhY2VfYWN0aW9ucyBBY3Rp
+b25zIHRvIHJ1bi4KICoKICogUnVuIHRoZSBhY3Rpb25zIG9uIHRoZSBmaXJzdCBkZXZpY2UgYXZh
+aWxhYmxlIGluIHRoZSBncm91cC4KICovCnZvaWQgUG9seUV2YWxfcnVuX2dyb3VwKG1heF9ncm91
+cF90ICpncm91cCwgUG9seUV2YWxfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4
+X3J1bl90ICpydW4gPSBQb2x5RXZhbF9ydW5fZ3JvdXBfbm9uYmxvY2soZ3JvdXAsIGludGVyZmFj
+ZV9hY3Rpb25zKTsKCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsK
+CW1heF93YWl0KHJ1bik7Cn0KCgovKioKICogXGJyaWVmIEdyb3VwIHJ1biBhZHZhbmNlZCBzdGF0
+aWMgbm9uLWJsb2NraW5nIGZ1bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4KICog
+CiAqCiAqIFNjaGVkdWxlIHRoZSBhY3Rpb25zIHRvIHJ1biBvbiB0aGUgZmlyc3QgZGV2aWNlIGF2
+YWlsYWJsZSBpbiB0aGUgZ3JvdXAgYW5kIHJldHVybiBpbW1lZGlhdGVseS4KICogVGhlIHN0YXR1
+cyBvZiB0aGUgcnVuIG11c3QgYmUgY2hlY2tlZCB3aXRoIDo6bWF4X3dhaXQuIAogKiBOb3RlIHRo
+YXQgdXNlIG9mIDo6bWF4X25vd2FpdCBpcyBwcm9oaWJpdGVkIHdpdGggbm9uLWJsb2NraW5nIHJ1
+bm5pbmcgb24gZ3JvdXBzOgogKiBzZWUgdGhlIDo6bWF4X3J1bl9ncm91cF9ub25ibG9jayBkb2N1
+bWVudGF0aW9uIGZvciBtb3JlIGV4cGxhbmF0aW9uLgogKgogKiBccGFyYW0gW2luXSBncm91cCBH
+cm91cCB0byB1c2UuCiAqIFxwYXJhbSBbaW5dIGludGVyZmFjZV9hY3Rpb25zIEFjdGlvbnMgdG8g
+cnVuLgogKiBccmV0dXJuIEEgaGFuZGxlIG9uIHRoZSBleGVjdXRpb24gc3RhdHVzIG9mIHRoZSBh
+Y3Rpb25zLCBvciBOVUxMIGluIGNhc2Ugb2YgZXJyb3IuCiAqLwptYXhfcnVuX3QgKlBvbHlFdmFs
+X3J1bl9ncm91cF9ub25ibG9jayhtYXhfZ3JvdXBfdCAqZ3JvdXAsIFBvbHlFdmFsX2FjdGlvbnNf
+dCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9maWxlX3QgKm1heGZpbGUgPSBtYXhfZ3JvdXBf
+Z2V0X21heF9maWxlKGdyb3VwKTsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBQb2x5RXZhbF9j
+b252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAxLCBOVUxMLCBOVUxM
+KTsKCWlmKGFjdGlvbnMgPT0gTlVMTCkgcmV0dXJuIE5VTEw7CglpZighbWF4X29rKGFjdGlvbnMt
+PmVycm9ycykpIHJldHVybiBOVUxMOwoJbWF4X3ZhbGlkYXRlKGFjdGlvbnMpOwoJbWF4X3J1bl90
+ICpydW4gPSBtYXhfcnVuX2dyb3VwX25vbmJsb2NrKGdyb3VwLCBhY3Rpb25zKTsKCW1heF9hY3Rp
+b25zX2ZyZWUoYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9CgoKLyoqCiAqIFxicmllZiBBcnJheSBy
+dW4gYWR2YW5jZWQgc3RhdGljIGZ1bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4K
+ICogCiAqIFxwYXJhbSBbaW5dIGVuZ2FycmF5IFRoZSBhcnJheSBvZiBkZXZpY2VzIHRvIHVzZS4K
+ICogXHBhcmFtIFtpbixvdXRdIGludGVyZmFjZV9hY3Rpb25zIFRoZSBhcnJheSBvZiBhY3Rpb25z
+IHRvIHJ1bi4KICoKICogUnVuIHRoZSBhcnJheSBvZiBhY3Rpb25zIG9uIHRoZSBhcnJheSBvZiBl
+bmdpbmVzLiAgVGhlIGxlbmd0aCBvZiBpbnRlcmZhY2VfYWN0aW9ucwogKiBtdXN0IG1hdGNoIHRo
+ZSBzaXplIG9mIGVuZ2FycmF5LgogKi8Kdm9pZCBQb2x5RXZhbF9ydW5fYXJyYXkobWF4X2VuZ2Fy
+cmF5X3QgKmVuZ2FycmF5LCBQb2x5RXZhbF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zW10p
+CnsKCW1heF9ydW5fdCAqcnVuID0gUG9seUV2YWxfcnVuX2FycmF5X25vbmJsb2NrKGVuZ2FycmF5
+LCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0
+aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9CgoKLyoqCiAqIFxicmllZiBBcnJheSBydW4gYWR2
+YW5jZWQgc3RhdGljIG5vbi1ibG9ja2luZyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVm
+YXVsdCcuCiAqIAogKgogKiBTY2hlZHVsZSB0byBydW4gdGhlIGFycmF5IG9mIGFjdGlvbnMgb24g
+dGhlIGFycmF5IG9mIGVuZ2luZXMsIGFuZCByZXR1cm4gaW1tZWRpYXRlbHkuCiAqIFRoZSBsZW5n
+dGggb2YgaW50ZXJmYWNlX2FjdGlvbnMgbXVzdCBtYXRjaCB0aGUgc2l6ZSBvZiBlbmdhcnJheS4K
+ICogVGhlIHN0YXR1cyBvZiB0aGUgcnVuIGNhbiBiZSBjaGVja2VkIGVpdGhlciBieSA6Om1heF93
+YWl0IG9yIDo6bWF4X25vd2FpdDsKICogbm90ZSB0aGF0IG9uZSBvZiB0aGVzZSAqbXVzdCogYmUg
+Y2FsbGVkLCBzbyB0aGF0IGFzc29jaWF0ZWQgbWVtb3J5IGNhbiBiZSByZWxlYXNlZC4KICoKICog
+XHBhcmFtIFtpbl0gZW5nYXJyYXkgVGhlIGFycmF5IG9mIGRldmljZXMgdG8gdXNlLgogKiBccGFy
+YW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgYXJyYXkgb2YgYWN0aW9ucyB0byBydW4uCiAq
+IFxyZXR1cm4gQSBoYW5kbGUgb24gdGhlIGV4ZWN1dGlvbiBzdGF0dXMgb2YgdGhlIGFjdGlvbnMs
+IG9yIE5VTEwgaW4gY2FzZSBvZiBlcnJvci4KICovCm1heF9ydW5fdCAqUG9seUV2YWxfcnVuX2Fy
+cmF5X25vbmJsb2NrKG1heF9lbmdhcnJheV90ICplbmdhcnJheSwgUG9seUV2YWxfYWN0aW9uc190
+ICppbnRlcmZhY2VfYWN0aW9uc1tdKQp7CgltYXhfZmlsZV90ICptYXhmaWxlID0gbWF4X2VuZ2Fy
+cmF5X2dldF9tYXhfZmlsZShlbmdhcnJheSwgMCk7CglpbnQgaTsKCW1heF9hY3RhcnJheV90ICph
+Y3RhcnJheSA9IG1heF9hY3RhcnJheV9pbml0KG1heGZpbGUsIGVuZ2FycmF5LT5zaXplKTsKCWlm
+IChhY3RhcnJheSA9PSBOVUxMKSByZXR1cm4gTlVMTDsKCW1heF9hY3Rpb25zX3QgKiphcnJfYWN0
+aW9ucyA9IG1hbGxvYyhlbmdhcnJheS0+c2l6ZSAqIHNpemVvZihtYXhfYWN0aW9uc190KikpOwoJ
+Zm9yICggaSA9IDAgOyBpIDwgYWN0YXJyYXktPnNpemU7IGkrKyApIHsKCQltYXhfYWN0aW9uc190
+ICphY3Rpb25zID0gUG9seUV2YWxfY29udmVydF9pbnRlcm5hbChtYXhmaWxlLCBpbnRlcmZhY2Vf
+YWN0aW9uc1tpXSwgMSwgTlVMTCwgTlVMTCk7CgkJaWYgKGFjdGlvbnMgPT0gTlVMTCkgcmV0dXJu
+IE5VTEw7CgkJYXJyX2FjdGlvbnNbaV0gPSBhY3Rpb25zOwoJCW1heF9zZXRfYWN0aW9uKGFjdGFy
+cmF5LCBpLCBhY3Rpb25zKTsKCX0KCW1heF9ydW5fdCAqcnVuID0gbWF4X3J1bl9hcnJheV9ub25i
+bG9jayhlbmdhcnJheSwgYWN0YXJyYXkpOwoJZm9yICggaSA9IDAgOyBpIDwgYWN0YXJyYXktPnNp
+emUgOyBpKysgKSB7IG1heF9hY3Rpb25zX2ZyZWUoYXJyX2FjdGlvbnNbaV0pOyB9CgltYXhfYWN0
+YXJyYXlfZnJlZShhY3RhcnJheSk7CglmcmVlKGFycl9hY3Rpb25zKTsKCXJldHVybiBydW47Cn0K
+CgovKioKICogXGJyaWVmIENvbnZlcnRzIGEgc3RhdGljLWludGVyZmFjZSBhY3Rpb24gc3RydWN0
+IGludG8gYSBkeW5hbWljLWludGVyZmFjZSBtYXhfYWN0aW9uc190IHN0cnVjdC4KICoKICogTm90
+ZSB0aGF0IHRoaXMgaXMgYW4gaW50ZXJuYWwgdXRpbGl0eSBmdW5jdGlvbiB1c2VkIGJ5IG90aGVy
+IGZ1bmN0aW9ucyBpbiB0aGUgc3RhdGljIGludGVyZmFjZS4KICoKICogXHBhcmFtIFtpbl0gbWF4
+ZmlsZSBUaGUgbWF4ZmlsZSB0byB1c2UuCiAqIFxwYXJhbSBbaW5dIGludGVyZmFjZV9hY3Rpb25z
+IFRoZSBpbnRlcmZhY2Utc3BlY2lmaWMgYWN0aW9ucyB0byBydW4uCiAqIFxyZXR1cm4gVGhlIGR5
+bmFtaWMtaW50ZXJmYWNlIGFjdGlvbnMgdG8gcnVuLCBvciBOVUxMIGluIGNhc2Ugb2YgZXJyb3Iu
+CiAqLwptYXhfYWN0aW9uc190KiBQb2x5RXZhbF9jb252ZXJ0KG1heF9maWxlX3QgKm1heGZpbGUs
+IFBvbHlFdmFsX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCXJldHVybiBQb2x5RXZh
+bF9jb252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAwLCBOVUxMLCBO
+VUxMKTsKfQoKI3VuZGVmIENIRUNLX0VSUk9SU19TVAojdW5kZWYgQ0hFQ0tfTlVMTAoKCg==
 #endif /* SLIC_B64_DEFINITIONS */
 
 #ifdef SLIC_EXTRA_FILES
@@ -1395,56 +1494,41 @@ ZXJmaWxlcyBmb3JtYXQtdmVyc2lvbj0iMjAxMjAyMDAiLz4=
 
 #ifdef PHOTON_NODE_ADD_DATA
 #define PHOTON_NODE_ADD_DATA_PRESENT 1
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 41, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 1, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 55, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 4, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 62, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 19, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 20, "SquashFactor", 1.0)
 PHOTON_NODE_ADD_DATA(PolyEvalKernel, 3, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 49, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 42, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 51, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 53, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 54, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 43, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 61, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 37, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 48, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 13, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 14, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 60, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 16, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 44, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 59, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 38, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 7, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 8, "SquashFactor", 1.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 9, "SquashFactor", 1.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 10, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 45, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 18, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 58, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 39, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 21, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 22, "SquashFactor", 1.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 23, "SquashFactor", 1.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 24, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 29, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 57, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 26, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 27, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 28, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 30, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 56, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 32, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 33, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 35, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 4, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 5, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 9, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 10, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 11, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 6, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 7, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 8, "SquashFactor", 0.0)
 PHOTON_NODE_ADD_DATA(PolyEvalKernel, 40, "SquashFactor", 0.0)
-PHOTON_NODE_ADD_DATA(PolyEvalKernel, 34, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 1, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 2, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 36, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 15, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 16, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 17, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 22, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 27, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 39, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 24, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 25, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 26, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 28, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 38, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 30, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 31, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 33, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 37, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PolyEvalKernel, 32, "SquashFactor", 0.0)
 #endif
 
 #ifdef MAXFILE_SIGNATURE
 #define MAXFILE_SIGNATURE_PRESENT 1
-MAXFILE_SIGNATURE("302c021433f1f9eedcd6bec259d73d5583c9d00e58b10332021471c25531fda9804c823b578a39bcbbe034b7b7aa")
+MAXFILE_SIGNATURE("302c021410fba959e68dd6e1ec79db0de1e387fb0534fb2e021445d2e40bc496da159e75eef2a710c3705720763d")
 #endif
 
