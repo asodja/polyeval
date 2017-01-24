@@ -11,10 +11,10 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
 public class PolySimpleEvalKernel extends PolyKernel {
 
-	final DFEType scalarType = dfeFloat(8, 24);
+    final DFEType scalarType = dfeFloat(8, 24);
 
-	PolySimpleEvalKernel(KernelParameters parameters) {
-		super(parameters);
+    PolySimpleEvalKernel(KernelParameters parameters) {
+        super(parameters);
 
         // Counters
         OffsetExpr loopExpr = stream.makeOffsetAutoLoop("loopExpr");
@@ -38,21 +38,22 @@ public class PolySimpleEvalKernel extends PolyKernel {
         // Output
         io.output("output", sum, scalarType, loopIndex === 0);
 
-	}
+        }
 
-	@Override
-	public EngineInterface getEngineInterface() {
-		EngineInterface ei = new EngineInterface();
+    @Override
+    public EngineInterface getEngineInterface() {
+        EngineInterface ei = new EngineInterface();
 
-		InterfaceParam length = ei.addParam("length", CPUTypes.INT);
-		InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
-		InterfaceParam loopLength = ei.getAutoLoopOffset(getName(), "loopExpr");
-		ei.ignoreAutoLoopOffset(getName(), "loopExpr");
+        InterfaceParam length = ei.addParam("length", CPUTypes.INT);
+        InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
+        InterfaceParam loopLength = ei.getAutoLoopOffset(getName(), "loopExpr");
+        ei.ignoreAutoLoopOffset(getName(), "loopExpr");
 
-		ei.setTicks(getName(), length * loopLength);
+        ei.setTicks(getName(), length * loopLength);
 
-		ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
-		ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
-		return ei;
-	}
+        ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
+        ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
+
+        return ei;
+    }
 }

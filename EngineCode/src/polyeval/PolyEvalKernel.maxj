@@ -9,16 +9,16 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
 public class PolyEvalKernel extends PolyKernel {
 
-	final DFEType scalarType = dfeFloat(8, 24);
+    final DFEType scalarType = dfeFloat(8, 24);
 
-	PolyEvalKernel(KernelParameters parameters) {
-		super(parameters);
+    PolyEvalKernel(KernelParameters parameters) {
+        super(parameters);
 
         // Counters
-		DFEVar counter = control.count.simpleCounter(32);
+        DFEVar counter = control.count.simpleCounter(32);
         DFEVar input = io.input("input", scalarType);
         DFEVar exps = io.input("exp", dfeUInt(32));
-        DFEVar expVals = io.input("expVals",scalarType);
+        DFEVar expVals = io.input("expVals", scalarType);
         DFEVar expVal = stream.offset(expVals, 0 - counter + exps, 0, 1000);
 
         // Input
@@ -27,21 +27,21 @@ public class PolyEvalKernel extends PolyKernel {
         // Output
         io.output("output", result, scalarType);
 
-	}
+    }
 
-	@Override
-	public EngineInterface getEngineInterface() {
-		EngineInterface ei = new EngineInterface();
+    @Override
+    public EngineInterface getEngineInterface() {
+        EngineInterface ei = new EngineInterface();
 
-		InterfaceParam length = ei.addParam("length", CPUTypes.INT);
-		InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
+        InterfaceParam length = ei.addParam("length", CPUTypes.INT);
+        InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
 
-		ei.setTicks(getName(), length);
+        ei.setTicks(getName(), length);
 
-		ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
-		ei.setStream("exp", CPUTypes.INT32, lengthInBytes);
-		ei.setStream("expVals", CPUTypes.FLOAT, lengthInBytes);
-		ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
-		return ei;
-	}
+        ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
+        ei.setStream("exp", CPUTypes.INT32, lengthInBytes);
+        ei.setStream("expVals", CPUTypes.FLOAT, lengthInBytes);
+        ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
+        return ei;
+    }
 }

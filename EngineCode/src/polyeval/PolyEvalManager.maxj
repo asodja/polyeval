@@ -14,23 +14,25 @@ import com.maxeler.maxcompiler.v2.managers.standard.Manager;
 import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
 
 class PolyEvalManager {
-	public static void main(String[] args) {
-		EngineParameters params = new EngineParameters(args);
-		Manager manager = new Manager(params);
+    public static void main(String[] args) {
+        EngineParameters params = new EngineParameters(args);
+        Manager manager = new Manager(params);
 
-		// Instantiate the kernel
-		// TODO pipe all kernels in one
-		PolyKernel kernel = new PolyEvalKernel(manager.makeKernelParameters());
-		// PolyKernel kernel = new PolySimpleEvalKernel(manager.makeKernelParameters());
-		// PolyKernel kernel = new PolySimpleSumKernel(manager.makeKernelParameters());
+        // Instantiate the kernel
+        // TODO pipe all kernels in one
+        PolyKernel kernel = new PolyEvalKernel(manager.makeKernelParameters());
+        // PolyKernel kernel = new
+        // PolySimpleEvalKernel(manager.makeKernelParameters());
+        // PolyKernel kernel = new
+        // PolySimpleSumKernel(manager.makeKernelParameters());
 
-		manager.setKernel(kernel);
-		manager.setIO(IOType.ALL_CPU); // Connect all kernel ports to
-		manager.createSLiCinterface(getEngineInterface(kernel));
-		manager.build();
-	}
+        manager.setKernel(kernel);
+        manager.setIO(IOType.ALL_CPU); // Connect all kernel ports to
+        manager.createSLiCinterface(getEngineInterface(kernel));
+        manager.build();
+    }
 
-	private static EngineInterface getEngineInterface(PolyKernel kernel) {
-		return kernel.getEngineInterface();
-	}
+    private static EngineInterface getEngineInterface(PolyKernel kernel) {
+        return kernel.getEngineInterface();
+    }
 }
