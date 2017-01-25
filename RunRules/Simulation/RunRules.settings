@@ -8,7 +8,7 @@
 <maxFiles>
 <maxFile buildName="PolyEval" buildOrUseExisting="build">
 <runConfiguration askBeforeAutoBuild="false">
-<mainClass>polyeval.PolyEvalManager</mainClass>
+<mainClass>polyeval.PolyEvalMultipleManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
 </runConfiguration>
 <selectEngineTarget enabled="false">MAIA</selectEngineTarget>

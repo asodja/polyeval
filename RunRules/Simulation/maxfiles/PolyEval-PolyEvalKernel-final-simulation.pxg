@@ -5,7 +5,8 @@
 		<Text>Scalar input (io_result_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:28)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>io_result_force_disabled</Name>
 	</Node>
 	<Edge dst_node_id="20" dst_node_input="a" src_node_id="19" src_node_output="io_result_force_disabled" />
@@ -15,7 +16,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>~</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:28)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="22" dst_node_input="output_control" src_node_id="20" src_node_output="result" />
 	<Node group="[]" id="3" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
@@ -23,7 +25,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Scalar input (io_constants_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:19)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>io_constants_force_disabled</Name>
 	</Node>
 	<Edge dst_node_id="4" dst_node_input="a" src_node_id="3" src_node_output="io_constants_force_disabled" />
@@ -33,7 +36,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>~</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:19)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="5" dst_node_input="enable" src_node_id="4" src_node_output="result" />
 	<Node group="[]" id="5" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
@@ -42,7 +46,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Input(constants)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:19)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>constants</Name>
 	</Node>
 	<Edge dst_node_id="17" dst_node_input="a" src_node_id="5" src_node_output="data" />
@@ -51,7 +56,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Scalar input (io_exponentValues_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:21)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>io_exponentValues_force_disabled</Name>
 	</Node>
 	<Edge dst_node_id="10" dst_node_input="a" src_node_id="9" src_node_output="io_exponentValues_force_disabled" />
@@ -61,7 +67,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>~</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:21)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="11" dst_node_input="enable" src_node_id="10" src_node_output="result" />
 	<Node group="[]" id="11" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
@@ -70,7 +77,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Input(exponentValues)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:21)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>exponentValues</Name>
 	</Node>
 	<Edge dst_node_id="16" dst_node_input="input" src_node_id="11" src_node_output="data" />
@@ -79,7 +87,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Scalar input (io_exponents_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:20)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>io_exponents_force_disabled</Name>
 	</Node>
 	<Edge dst_node_id="7" dst_node_input="a" src_node_id="6" src_node_output="io_exponents_force_disabled" />
@@ -89,7 +98,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>~</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:20)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="8" dst_node_input="enable" src_node_id="7" src_node_output="result" />
 	<Node group="[]" id="8" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
@@ -98,7 +108,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Input(exponents)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:20)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>exponents</Name>
 	</Node>
 	<Edge dst_node_id="36" dst_node_input="a" src_node_id="8" src_node_output="data" />
@@ -107,7 +118,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:18)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1</Value>
 		<HexValue>0x1</HexValue>
 		<NumericValue>1.0</NumericValue>
@@ -118,7 +130,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>{HWOffsetFix:33, 0, UNSIGNED}\n0x100000000; 4.294967296E9</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:18)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>100000000000000000000000000000000</Value>
 		<HexValue>0x100000000</HexValue>
 		<NumericValue>4.294967296E9</NumericValue>
@@ -132,7 +145,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:527)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:18)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Increment>1</Increment>
 		<WrapValue>0</WrapValue>
 		<InitValue>0</InitValue>
@@ -147,7 +161,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>-</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:881)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:22)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="15" dst_node_input="input" src_node_id="36" src_node_output="result" />
 	<Node group="[]" id="15" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeStreamOffset">
@@ -156,7 +171,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>stream offset: -1000</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:517)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:22)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="16" dst_node_input="offset" src_node_id="15" src_node_output="output" />
 	<Node group="[]" id="16" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeDynamicStreamOffset">
@@ -166,7 +182,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>dynamic offset: [0, 1000]</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:517)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:22)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<MinOffset>0</MinOffset>
 		<MaxOffset>1000</MaxOffset>
 	</Node>
@@ -178,7 +195,8 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>*</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:973)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:25)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="22" dst_node_input="data" src_node_id="17" src_node_output="result" />
 	<Node group="[]" id="22" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeOutput">
@@ -187,14 +205,16 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 		<Text>Output(result)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:28)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>result</Name>
 	</Node>
 	<Node group="[]" id="27" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1</Value>
 		<HexValue>0x1</HexValue>
 		<NumericValue>1.0</NumericValue>
@@ -203,8 +223,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 	<Node group="[]" id="39" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1</Value>
 		<HexValue>0x1</HexValue>
 		<NumericValue>1.0</NumericValue>
@@ -213,8 +234,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 	<Node group="[]" id="24" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(49, 0, UNSIGNED)" />
 		<Text>{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1000000000000000000000000000000000000000000000000</Value>
 		<HexValue>0x1000000000000</HexValue>
 		<NumericValue>2.81474976710656E14</NumericValue>
@@ -226,8 +248,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 		<Output latency="0" name="count" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Output latency="0" name="wrap" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Increment>1</Increment>
 		<WrapValue>0</WrapValue>
 		<InitValue>0</InitValue>
@@ -239,23 +262,26 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 		<Input name="input" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Output latency="1" name="output" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Text>stream offset: 1</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="28" dst_node_input="data" src_node_id="26" src_node_output="output" />
 	<Node group="[]" id="28" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeOutputMappedReg">
 		<Input name="load" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Input name="data" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Text>Scalar output (current_run_cycle_count)</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>current_run_cycle_count</Name>
 	</Node>
 	<Node group="[]" id="38" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1</Value>
 		<HexValue>0x1</HexValue>
 		<NumericValue>1.0</NumericValue>
@@ -264,8 +290,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 	<Node group="[]" id="30" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(49, 0, UNSIGNED)" />
 		<Text>{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Value>1000000000000000000000000000000000000000000000000</Value>
 		<HexValue>0x1000000000000</HexValue>
 		<NumericValue>2.81474976710656E14</NumericValue>
@@ -277,8 +304,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 		<Output latency="0" name="count" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Output latency="0" name="wrap" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Increment>1</Increment>
 		<WrapValue>0</WrapValue>
 		<InitValue>0</InitValue>
@@ -289,8 +317,9 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 	<Node group="[]" id="33" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
 		<Output latency="0" name="run_cycle_count" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Text>Scalar input (run_cycle_count)</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 		<Name>run_cycle_count</Name>
 	</Node>
 	<Edge dst_node_id="37" dst_node_input="b" src_node_id="33" src_node_output="run_cycle_count" />
@@ -299,14 +328,16 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
 		<Input name="b" type="dfeOffsetFix(48, 0, UNSIGNED)" />
 		<Output latency="1" name="result" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>==</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="32" dst_node_input="start" src_node_id="37" src_node_output="result" />
 	<Node group="[]" id="32" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeFlush">
 		<Input name="start" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Text>flush on trigger</Text>
-		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:376)
-polyeval.PolyEvalManager.main(PolyEvalManager.maxj:30)</OriginStackTrace>
+		<OriginStackTrace>com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:879)
+polyeval.PolyEvalMultipleManager.&lt;init&gt;(PolyEvalMultipleManager.maxj:16)
+polyeval.PolyEvalMultipleManager.main(PolyEvalMultipleManager.maxj:66)</OriginStackTrace>
 	</Node>
 </Graph>
