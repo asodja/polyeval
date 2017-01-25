@@ -16,16 +16,16 @@ public class PolyEvalKernel extends PolyKernel {
 
         // Counters
         DFEVar counter = control.count.simpleCounter(32);
-        DFEVar input = io.input("input", scalarType);
-        DFEVar exps = io.input("exp", dfeUInt(32));
-        DFEVar expVals = io.input("expVals", scalarType);
+        DFEVar input = io.input("constants", scalarType);
+        DFEVar exps = io.input("exponents", dfeUInt(32));
+        DFEVar expVals = io.input("exponentValues", scalarType);
         DFEVar expVal = stream.offset(expVals, 0 - counter + exps, 0, 1000);
 
         // Input
         DFEVar result = input * expVal;
 
         // Output
-        io.output("output", result, scalarType);
+        io.output("result", result, scalarType);
 
     }
 
@@ -33,15 +33,15 @@ public class PolyEvalKernel extends PolyKernel {
     public EngineInterface getEngineInterface() {
         EngineInterface ei = new EngineInterface();
 
-        InterfaceParam length = ei.addParam("length", CPUTypes.INT);
-        InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
+        InterfaceParam n = ei.addParam("n", CPUTypes.INT);
+        InterfaceParam maxExponents = ei.addParam("maxExponents", CPUTypes.INT);
 
-        ei.setTicks(getName(), length);
+        ei.setTicks(getName(), n);
 
-        ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
-        ei.setStream("exp", CPUTypes.INT32, lengthInBytes);
-        ei.setStream("expVals", CPUTypes.FLOAT, lengthInBytes);
-        ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
+        ei.setStream("constants", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponents", CPUTypes.INT32, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponentValues", CPUTypes.FLOAT, maxExponents * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
         return ei;
     }
 }

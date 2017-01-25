@@ -19,18 +19,20 @@ extern "C" {
 /**
  * \brief Basic static function for the interface 'default'.
  * 
- * \param [in] param_length Interface Parameter "length".
- * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
- * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
- * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
- * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
+ * \param [in] param_maxExponents Interface Parameter "maxExponents".
+ * \param [in] param_n Interface Parameter "n".
+ * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
+ * \param [in] instream_exponentValues The stream should be of size (param_maxExponents * 4) bytes.
+ * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  */
 void PolyEval(
-	int64_t param_length,
-	const int32_t *instream_exp,
-	const float *instream_expVals,
-	const float *instream_input,
-	float *outstream_output);
+	int64_t param_maxExponents,
+	int64_t param_n,
+	const float *instream_constants,
+	const float *instream_exponentValues,
+	const int32_t *instream_exponents,
+	float *outstream_result);
 
 /**
  * \brief Basic static non-blocking function for the interface 'default'.
@@ -40,30 +42,33 @@ void PolyEval(
  * note that one of these *must* be called, so that associated memory can be released.
  * 
  * 
- * \param [in] param_length Interface Parameter "length".
- * \param [in] instream_exp The stream should be of size (param_length * 4) bytes.
- * \param [in] instream_expVals The stream should be of size (param_length * 4) bytes.
- * \param [in] instream_input The stream should be of size (param_length * 4) bytes.
- * \param [out] outstream_output The stream should be of size (param_length * 4) bytes.
+ * \param [in] param_maxExponents Interface Parameter "maxExponents".
+ * \param [in] param_n Interface Parameter "n".
+ * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
+ * \param [in] instream_exponentValues The stream should be of size (param_maxExponents * 4) bytes.
+ * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *PolyEval_nonblock(
-	int64_t param_length,
-	const int32_t *instream_exp,
-	const float *instream_expVals,
-	const float *instream_input,
-	float *outstream_output);
+	int64_t param_maxExponents,
+	int64_t param_n,
+	const float *instream_constants,
+	const float *instream_exponentValues,
+	const int32_t *instream_exponents,
+	float *outstream_result);
 
 /**
  * \brief Advanced static interface, structure for the engine interface 'default'
  * 
  */
 typedef struct { 
-	int64_t param_length; /**<  [in] Interface Parameter "length". */
-	const int32_t *instream_exp; /**<  [in] The stream should be of size (param_length * 4) bytes. */
-	const float *instream_expVals; /**<  [in] The stream should be of size (param_length * 4) bytes. */
-	const float *instream_input; /**<  [in] The stream should be of size (param_length * 4) bytes. */
-	float *outstream_output; /**<  [out] The stream should be of size (param_length * 4) bytes. */
+	int64_t param_maxExponents; /**<  [in] Interface Parameter "maxExponents". */
+	int64_t param_n; /**<  [in] Interface Parameter "n". */
+	const float *instream_constants; /**<  [in] The stream should be of size (param_n * 4) bytes. */
+	const float *instream_exponentValues; /**<  [in] The stream should be of size (param_maxExponents * 4) bytes. */
+	const int32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
+	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
 } PolyEval_actions_t;
 
 /**

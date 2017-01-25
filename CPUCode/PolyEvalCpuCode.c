@@ -16,7 +16,7 @@ float dataOut[8];
 int main()
 {
 	printf("Running DFE\n");
-	PolyEval(8, exps, expVals, dataIn, dataOut);
+	PolyEval(8, 8, dataIn, expVals, exps, dataOut);
 
 	for (int i = 0; i < 8; i++)
 		printf("dataOut[%d] = %f\n", i, dataOut[i]);

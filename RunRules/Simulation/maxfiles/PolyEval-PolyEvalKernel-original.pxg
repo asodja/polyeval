@@ -12,14 +12,14 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="21" dst_node_input="a" src_node_id="18" src_node_output="value" />
 	<Node group="[]" id="19" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
-		<Output latency="0" name="io_output_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
-		<Text>Scalar input (io_output_force_disabled)</Text>
+		<Output latency="0" name="io_result_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
+		<Text>Scalar input (io_result_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:28)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>io_output_force_disabled</Name>
+		<Name>io_result_force_disabled</Name>
 	</Node>
-	<Edge dst_node_id="20" dst_node_input="a" src_node_id="19" src_node_output="io_output_force_disabled" />
+	<Edge dst_node_id="20" dst_node_input="a" src_node_id="19" src_node_output="io_result_force_disabled" />
 	<Node group="[]" id="20" isControl="true" isVisible="false" pipelineFactor="0.0" type="NodeNot">
 		<Input name="a" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="0" name="result" type="dfeOffsetFix(1, 0, UNSIGNED)" />
@@ -40,14 +40,14 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="22" dst_node_input="output_control" src_node_id="21" src_node_output="result" />
 	<Node group="[]" id="3" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
-		<Output latency="0" name="io_input_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
-		<Text>Scalar input (io_input_force_disabled)</Text>
+		<Output latency="0" name="io_constants_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
+		<Text>Scalar input (io_constants_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:19)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>io_input_force_disabled</Name>
+		<Name>io_constants_force_disabled</Name>
 	</Node>
-	<Edge dst_node_id="4" dst_node_input="a" src_node_id="3" src_node_output="io_input_force_disabled" />
+	<Edge dst_node_id="4" dst_node_input="a" src_node_id="3" src_node_output="io_constants_force_disabled" />
 	<Node group="[]" id="4" isControl="true" isVisible="false" pipelineFactor="0.0" type="NodeNot">
 		<Input name="a" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="0" name="result" type="dfeOffsetFix(1, 0, UNSIGNED)" />
@@ -60,22 +60,22 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	<Node group="[]" id="5" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
 		<Input name="enable" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="5" name="data" type="dfeFloat(8, 24)" />
-		<Text>Input(input)</Text>
+		<Text>Input(constants)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:19)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>input</Name>
+		<Name>constants</Name>
 	</Node>
 	<Edge dst_node_id="17" dst_node_input="a" src_node_id="5" src_node_output="data" />
 	<Node group="[]" id="9" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
-		<Output latency="0" name="io_expVals_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
-		<Text>Scalar input (io_expVals_force_disabled)</Text>
+		<Output latency="0" name="io_exponentValues_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
+		<Text>Scalar input (io_exponentValues_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:21)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>io_expVals_force_disabled</Name>
+		<Name>io_exponentValues_force_disabled</Name>
 	</Node>
-	<Edge dst_node_id="10" dst_node_input="a" src_node_id="9" src_node_output="io_expVals_force_disabled" />
+	<Edge dst_node_id="10" dst_node_input="a" src_node_id="9" src_node_output="io_exponentValues_force_disabled" />
 	<Node group="[]" id="10" isControl="true" isVisible="false" pipelineFactor="0.0" type="NodeNot">
 		<Input name="a" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="0" name="result" type="dfeOffsetFix(1, 0, UNSIGNED)" />
@@ -88,11 +88,11 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	<Node group="[]" id="11" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
 		<Input name="enable" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="5" name="data" type="dfeFloat(8, 24)" />
-		<Text>Input(expVals)</Text>
+		<Text>Input(exponentValues)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:21)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>expVals</Name>
+		<Name>exponentValues</Name>
 	</Node>
 	<Edge dst_node_id="16" dst_node_input="input" src_node_id="11" src_node_output="data" />
 	<Node group="[]" id="12" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeConstantDouble">
@@ -151,14 +151,14 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	</Node>
 	<Edge dst_node_id="14" dst_node_input="a" src_node_id="13" src_node_output="result" />
 	<Node group="[]" id="6" isControl="true" isVisible="false" pipelineFactor="1.0" type="NodeInputMappedReg">
-		<Output latency="0" name="io_exp_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
-		<Text>Scalar input (io_exp_force_disabled)</Text>
+		<Output latency="0" name="io_exponents_force_disabled" type="dfeOffsetFix(1, 0, UNSIGNED)" />
+		<Text>Scalar input (io_exponents_force_disabled)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:20)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>io_exp_force_disabled</Name>
+		<Name>io_exponents_force_disabled</Name>
 	</Node>
-	<Edge dst_node_id="7" dst_node_input="a" src_node_id="6" src_node_output="io_exp_force_disabled" />
+	<Edge dst_node_id="7" dst_node_input="a" src_node_id="6" src_node_output="io_exponents_force_disabled" />
 	<Node group="[]" id="7" isControl="true" isVisible="false" pipelineFactor="0.0" type="NodeNot">
 		<Input name="a" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="0" name="result" type="dfeOffsetFix(1, 0, UNSIGNED)" />
@@ -171,11 +171,11 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	<Node group="[]" id="8" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeInput">
 		<Input name="enable" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Output latency="5" name="data" type="dfeOffsetFix(32, 0, UNSIGNED)" />
-		<Text>Input(exp)</Text>
+		<Text>Input(exponents)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:630)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:20)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>exp</Name>
+		<Name>exponents</Name>
 	</Node>
 	<Edge dst_node_id="14" dst_node_input="b" src_node_id="8" src_node_output="data" />
 	<Node group="[]" id="14" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeAdd">
@@ -222,11 +222,11 @@ polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
 	<Node group="[]" id="22" isControl="false" isVisible="true" pipelineFactor="1.0" type="NodeOutput">
 		<Input name="output_control" type="dfeOffsetFix(1, 0, UNSIGNED)" />
 		<Input name="data" type="dfeFloat(8, 24)" />
-		<Text>Output(output)</Text>
+		<Text>Output(result)</Text>
 		<OriginStackTrace>com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:836)
 polyeval.PolyEvalKernel.&lt;init&gt;(PolyEvalKernel.maxj:28)
 polyeval.PolyEvalManager.main(PolyEvalManager.maxj:23)</OriginStackTrace>
-		<Name>output</Name>
+		<Name>result</Name>
 	</Node>
 	<Node group="[]" id="27" isControl="false" isVisible="false" pipelineFactor="1.0" type="NodeConstantRawBits">
 		<Output latency="0" name="value" type="dfeOffsetFix(1, 0, UNSIGNED)" />

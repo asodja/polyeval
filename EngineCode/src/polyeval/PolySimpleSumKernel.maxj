@@ -24,21 +24,21 @@ class PolySimpleSumKernel extends PolyKernel {
         super(parameters);
 
         // Counters
-        OffsetExpr loopExpr = stream.makeOffsetAutoLoop("loopExpr");
-        DFEVar loopLength = loopExpr.getDFEVar(this, dfeUInt(8));
+        OffsetExpr loop = stream.makeOffsetAutoLoop("loop");
+        DFEVar loopLength = loop.getDFEVar(this, dfeUInt(8));
         CounterChain chain = control.count.makeCounterChain();
         DFEVar inputIndex = chain.addCounter(8, 1);
         DFEVar loopIndex = chain.addCounter(loopLength, 1);
 
         // Input
-        DFEVar input = io.input("input", scalarType, loopIndex === 0);
+        DFEVar summand = io.input("summands", scalarType, loopIndex === 0);
         DFEVar carriedSum = scalarType.newInstance(this);
         DFEVar sum = (inputIndex === 0) ? 0.0 : carriedSum;
-        sum = input + sum;
-        carriedSum <== stream.offset(sum, -loopExpr);
+        sum = summand + sum;
+        carriedSum <== stream.offset(sum, -loop);
 
         // Output
-        io.output("output", sum, scalarType, loopIndex === loopLength - 1);
+        io.output("result", sum, scalarType, loopIndex === loopLength - 1);
 
     }
 
@@ -46,15 +46,15 @@ class PolySimpleSumKernel extends PolyKernel {
     public EngineInterface getEngineInterface() {
         EngineInterface ei = new EngineInterface();
 
-        InterfaceParam length = ei.addParam("length", CPUTypes.INT);
-        InterfaceParam lengthInBytes = length * CPUTypes.FLOAT.sizeInBytes();
-        InterfaceParam loopLength = ei.getAutoLoopOffset(getName(), "loopExpr");
-        ei.ignoreAutoLoopOffset(getName(), "loopExpr");
+        InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
+        InterfaceParam loopOffset = ei.getAutoLoopOffset(getName(), "loop");
+        ei.ignoreAutoLoopOffset(getName(), "loop");
 
-        ei.setTicks(getName(), length * loopLength);
+        ei.setStream("summands", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
 
-        ei.setStream("input", CPUTypes.FLOAT, lengthInBytes);
-        ei.setStream("output", CPUTypes.FLOAT, lengthInBytes);
+        ei.setTicks(getName(), n * loopOffset);
+
         return ei;
     }
 }
