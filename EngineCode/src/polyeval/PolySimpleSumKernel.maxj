@@ -9,7 +9,6 @@ package polyeval;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
-import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.OffsetExpr;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
@@ -18,27 +17,29 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
 class PolySimpleSumKernel extends PolyKernel {
 
-    final DFEType scalarType = dfeFloat(8, 24);
+    static final DFEType scalarType = dfeFloat(8, 24);
+
+    static final int FRAGMENTATION = 16;
 
     PolySimpleSumKernel(KernelParameters parameters) {
         super(parameters);
 
         // Counters
-        OffsetExpr loop = stream.makeOffsetAutoLoop("loop");
-        DFEVar loopLength = loop.getDFEVar(this, dfeUInt(8));
+        DFEVar n = io.scalarInput("n", dfeUInt(32));
         CounterChain chain = control.count.makeCounterChain();
-        DFEVar inputIndex = chain.addCounter(8, 1);
-        DFEVar loopIndex = chain.addCounter(loopLength, 1);
+        DFEVar fragments = n / FRAGMENTATION;
+        DFEVar inputIndex = chain.addCounter(fragments, 1);
+        chain.addCounter(FRAGMENTATION, 1);
 
         // Input
-        DFEVar summand = io.input("summands", scalarType, loopIndex === 0);
+        DFEVar summand = io.input("summands", scalarType);
         DFEVar carriedSum = scalarType.newInstance(this);
         DFEVar sum = (inputIndex === 0) ? 0.0 : carriedSum;
         sum = summand + sum;
-        carriedSum <== stream.offset(sum, -loop);
+        carriedSum <== stream.offset(sum, -FRAGMENTATION);
 
         // Output
-        io.output("result", sum, scalarType, loopIndex === loopLength - 1);
+        io.output("result", sum, scalarType, inputIndex === fragments - 1);
 
     }
 
@@ -47,13 +48,10 @@ class PolySimpleSumKernel extends PolyKernel {
         EngineInterface ei = new EngineInterface();
 
         InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
-        InterfaceParam loopOffset = ei.getAutoLoopOffset(getName(), "loop");
-        ei.ignoreAutoLoopOffset(getName(), "loop");
-
+        ei.setScalar(getName(), "n", n);
         ei.setStream("summands", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
-
-        ei.setTicks(getName(), n * loopOffset);
+        ei.setTicks(getName(), n);
 
         return ei;
     }

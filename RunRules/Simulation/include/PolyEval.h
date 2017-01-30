@@ -15,33 +15,17 @@ extern "C" {
 
 
 
-/**
- * \brief Auxiliary function to evaluate expression for "PolySimpleSumKernel.loop".
- */
-int PolyEval_get_PolySimpleSumKernel_loop( void );
-
-/**
- * \brief Auxiliary function to evaluate expression for "PolySimpleEvalKernel.loop".
- */
-int PolyEval_get_PolySimpleEvalKernel_loop( void );
-
 
 /**
  * \brief Basic static function for the interface 'default'.
  * 
- * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] param_x Interface Parameter "x".
- * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
- * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
+ * \param [in] instream_summands The stream should be of size (param_n * 4) bytes.
  * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  */
 void PolyEval(
-	uint32_t param_maxExponents,
-	int32_t param_n,
-	float param_x,
-	const float *instream_constants,
-	const int32_t *instream_exponents,
+	uint32_t param_n,
+	const float *instream_summands,
 	float *outstream_result);
 
 /**
@@ -52,20 +36,14 @@ void PolyEval(
  * note that one of these *must* be called, so that associated memory can be released.
  * 
  * 
- * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] param_x Interface Parameter "x".
- * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
- * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
+ * \param [in] instream_summands The stream should be of size (param_n * 4) bytes.
  * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *PolyEval_nonblock(
-	uint32_t param_maxExponents,
-	int32_t param_n,
-	float param_x,
-	const float *instream_constants,
-	const int32_t *instream_exponents,
+	uint32_t param_n,
+	const float *instream_summands,
 	float *outstream_result);
 
 /**
@@ -73,11 +51,8 @@ max_run_t *PolyEval_nonblock(
  * 
  */
 typedef struct { 
-	uint32_t param_maxExponents; /**<  [in] Interface Parameter "maxExponents". */
-	int32_t param_n; /**<  [in] Interface Parameter "n". */
-	float param_x; /**<  [in] Interface Parameter "x". */
-	const float *instream_constants; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	const int32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
+	uint32_t param_n; /**<  [in] Interface Parameter "n". */
+	const float *instream_summands; /**<  [in] The stream should be of size (param_n * 4) bytes. */
 	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
 } PolyEval_actions_t;
 

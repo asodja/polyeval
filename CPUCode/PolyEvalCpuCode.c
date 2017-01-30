@@ -8,19 +8,23 @@
 #include "Maxfiles.h" 			// Includes .max files
 #include <MaxSLiCInterface.h>	// Simple Live CPU interface
 
-float constants[8] = { 1, 0, 2, 0, 4, 1, 6, 3 };
+float constants[32] = { 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3 };
 int32_t exponents[8] = { 3, 1, 0, 4, 1, 2, 7, 5 };
 
 float expVals[8] = { 1, 3, 9, 27, 81, 243, 729, 2187 };
-float result[8];
+float result[32];
+
+float* getConstants(int n, float maxValue) {
+	return null;
+}
 
 int main()
 {
 	printf("Running DFE\n");
 	uint32_t maxExponents = 8;
-	int32_t n = 8;
+	int32_t n = 32;
 	float x = 3.0f;
-	PolyEval(maxExponents, n, x, constants, exponents, result);
+	PolyEval(n, constants, result);
 
 	for (int i = 0; i < n; i++) {
 		printf("result[%d] = %f\n", i, result[i]);
