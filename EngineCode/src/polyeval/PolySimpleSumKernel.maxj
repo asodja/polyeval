@@ -50,7 +50,7 @@ class PolySimpleSumKernel extends PolyKernel {
         InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
         ei.setScalar(getName(), "n", n);
         ei.setStream("summands", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
-        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, n / FRAGMENTATION * CPUTypes.FLOAT.sizeInBytes());
         ei.setTicks(getName(), n);
 
         return ei;

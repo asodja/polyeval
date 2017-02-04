@@ -21,7 +21,7 @@ extern "C" {
  * 
  * \param [in] param_n Interface Parameter "n".
  * \param [in] instream_summands The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size ((param_n / 16) * 4) bytes.
  */
 void PolyEval(
 	uint32_t param_n,
@@ -38,7 +38,7 @@ void PolyEval(
  * 
  * \param [in] param_n Interface Parameter "n".
  * \param [in] instream_summands The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size ((param_n / 16) * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *PolyEval_nonblock(
@@ -53,7 +53,7 @@ max_run_t *PolyEval_nonblock(
 typedef struct { 
 	uint32_t param_n; /**<  [in] Interface Parameter "n". */
 	const float *instream_summands; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
+	float *outstream_result; /**<  [out] The stream should be of size ((param_n / 16) * 4) bytes. */
 } PolyEval_actions_t;
 
 /**

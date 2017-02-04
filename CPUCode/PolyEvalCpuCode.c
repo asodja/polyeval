@@ -5,31 +5,75 @@
  * Summary:
  *   CPU code for the three point moving average design.
  */
+#include <time.h>
+#include <stdlib.h>
 #include "Maxfiles.h" 			// Includes .max files
 #include <MaxSLiCInterface.h>	// Simple Live CPU interface
 
-float constants[32] = { 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3, 1, 0, 2, 0, 4, 1, 6, 3 };
-int32_t exponents[8] = { 3, 1, 0, 4, 1, 2, 7, 5 };
-
-float expVals[8] = { 1, 3, 9, 27, 81, 243, 729, 2187 };
-float result[32];
-
 float* getConstants(int n, float maxValue) {
-	return null;
+	srand(time(NULL));
+	float* constants = malloc(sizeof(float) * n);
+	for (int i = 0; i < n; i++) {
+		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
+		constants[i] = constant;
+	}
+	return constants;
+}
+
+int32_t* getExponents(int n, int32_t maxValue) {
+	srand(time(NULL));
+	int32_t* exponents =  malloc(sizeof(int32_t) * n);
+	for (int i = 0; i < n; i++) {
+		exponents[i] = rand() % maxValue;
+	}
+	return exponents;
+}
+
+void printIntArray(int* array, int n) {
+	for (int i = 0; i < n; i++) {
+		if (i == 0) {
+			printf("{");
+		}
+		printf("%d", array[i]);
+		if (i == n - 1) {
+			printf("}\n");
+		} else {
+			printf(", ");
+		}
+	}
+}
+
+void printFloatArray(float* array, int n) {
+	for (int i = 0; i < n; i++) {
+		if (i == 0) {
+			printf("{");
+		}
+		printf("%f", array[i]);
+		if (i == n - 1) {
+			printf("}\n");
+		} else {
+			printf(", ");
+		}
+	}
 }
 
 int main()
 {
 	printf("Running DFE\n");
 	uint32_t maxExponents = 8;
-	int32_t n = 32;
+	int32_t n = 256;
 	float x = 3.0f;
-	PolyEval(n, constants, result);
+	float* constants = getConstants(n, 15.0);
+	int* exponents = getExponents(n, 15.0);
+	float result[n];
 
-	for (int i = 0; i < n; i++) {
-		printf("result[%d] = %f\n", i, result[i]);
-	}
-	printf("Polynomial result = %f\n", result[n - 1]);
+	printf("Constants: ");
+	printFloatArray(constants, n);
+	printf("Exponents: ");
+	printIntArray(exponents, n);
+
+	PolyEval(n, constants, result);
+	printFloatArray(result, n);
 
 	return 0;
 }
