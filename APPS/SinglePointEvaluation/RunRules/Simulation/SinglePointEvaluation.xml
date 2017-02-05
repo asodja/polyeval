@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PolyEval_EngineCode_run_script" default="all" basedir="../../EngineCode">
+<project name="SinglePointEvaluation_EngineCode_run_script" default="all" basedir="../../EngineCode">
     <property environment="env"/>
     <condition property="maxcompilerdirpath" value="${env.MAXCOMPILERJCP}">
         <isset property="env.MAXCOMPILERJCP"/>
@@ -37,7 +37,7 @@
     </condition>
     <target name="all" depends="runresult"/>
     <target name="build">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/PolyEval_Build.xml"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/SinglePointEvaluation_Build.xml"/>
     </target>
     <target name="run" depends="build">
         <condition property="args" value="">
@@ -45,7 +45,7 @@
                 <isset property="args"/>
             </not>
         </condition>
-        <java classname="polyeval.PolyEvalManager" fork="true" failonerror="false" resultproperty="java.result">
+        <java classname="polyeval.Manager" fork="true" failonerror="false" resultproperty="java.result">
             <env key="MAXSOURCEDIRS" value="src"/>
             <jvmarg value="-Xmx2048m"/>
             <arg line="${args}"/>
@@ -68,25 +68,25 @@
         <fail if="java.run.fail" message="java run stage failed."/>
     </target>
     <target name="clean">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/PolyEval_Build.xml" target="clean"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/SinglePointEvaluation_Build.xml" target="clean"/>
     </target>
     <target name="jar" depends="build">
         <mkdir dir="../RunRules/Simulation/dist/jar"/>
         <copy includeemptydirs="false" todir="../RunRules/Simulation/dist/jar">
             <fileset dir="../RunRules/Simulation/dist/bin" excludes="**/*.uad, **/*.ucd, **/*.uld, **/*.upd, **/*.udd, **/*.uod, **/*.usd, **/*.utd, **/*.uud, **/*.odd, **/*.ead, **/*.ecd, **/*.eld, **/*.epd, **/*.edd, **/*.eod, **/*.esd, **/*.etd, **/*.eud, **/*.urd*.uml, **/*.ecore, **/*.launch, **/*.java, **/*.maxj, **/package.html"/>
         </copy>
-        <jar destfile="PolyEvalManager.jar" basedir="../RunRules/Simulation/dist/jar">
+        <jar destfile="Manager.jar" basedir="../RunRules/Simulation/dist/jar">
             <manifest>
-                <attribute name="Main-Class" value="polyeval.PolyEvalManager"/>
+                <attribute name="Main-Class" value="polyeval.Manager"/>
             </manifest>
         </jar>
     </target>
     <target name="help">
-        <echo message="ant -f PolyEval.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f PolyEval.xml build&#9;&#9;&#9;Compile project"/>
-        <echo message="ant -f PolyEval.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f PolyEval.xml clean&#9;&#9;&#9;Delete temp folders"/>
-        <echo message="ant -f PolyEval.xml jar&#9;&#9;&#9;Create jar package"/>
-        <echo message="ant -f PolyEval.xml help&#9;&#9;&#9;Print help message"/>
+        <echo message="ant -f SinglePointEvaluation.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f SinglePointEvaluation.xml build&#9;&#9;&#9;Compile project"/>
+        <echo message="ant -f SinglePointEvaluation.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f SinglePointEvaluation.xml clean&#9;&#9;&#9;Delete temp folders"/>
+        <echo message="ant -f SinglePointEvaluation.xml jar&#9;&#9;&#9;Create jar package"/>
+        <echo message="ant -f SinglePointEvaluation.xml help&#9;&#9;&#9;Print help message"/>
     </target>
 </project>

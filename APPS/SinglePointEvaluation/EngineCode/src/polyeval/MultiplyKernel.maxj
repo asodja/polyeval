@@ -1,0 +1,49 @@
+package polyeval;
+
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
+
+public class MultiplyKernel extends PolyKernel {
+
+    final DFEType scalarType = dfeFloat(8, 24);
+
+    MultiplyKernel(KernelParameters parameters) {
+        super(parameters);
+
+        // Counters
+        DFEVar counter = control.count.simpleCounter(32);
+        DFEVar input = io.input("constants", scalarType);
+        DFEVar exps = io.input("exponents", dfeUInt(32));
+        DFEVar expVals = io.input("exponentValues", scalarType);
+        // TODO fix this, read from memory
+        DFEVar expVal = stream.offset(expVals, 0 - counter + exps, 0, 1000);
+
+        // Input
+        DFEVar result = input * expVal;
+
+        // Output
+        io.output("result", result, scalarType);
+
+    }
+
+    @Override
+    public EngineInterface getEngineInterface() {
+        EngineInterface ei = new EngineInterface();
+
+        InterfaceParam n = ei.addParam("n", CPUTypes.INT);
+        InterfaceParam maxExponents = ei.addParam("maxExponents", CPUTypes.INT);
+
+        ei.setTicks(getName(), n);
+
+        ei.setStream("constants", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponents", CPUTypes.INT32, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponentValues", CPUTypes.FLOAT, maxExponents * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        return ei;
+    }
+}

@@ -8,13 +8,13 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
-public class PolyEvalMultipleManager extends CustomManager {
+public class Manager extends CustomManager {
 
-    public PolyEvalMultipleManager(EngineParameters engineParams) {
+    public Manager(EngineParameters engineParams) {
         super(engineParams);
-        KernelBlock exponentsKernel = addKernel(new PolySimpleEvalKernel(makeKernelParameters("PolySimpleEvalKernel")));
-        KernelBlock multiplyKernel = addKernel(new PolyEvalKernel(makeKernelParameters("PolyEvalKernel")));
-        KernelBlock sumKernel = addKernel(new PolySimpleSumKernel(makeKernelParameters("PolySimpleSumKernel")));
+        KernelBlock exponentsKernel = addKernel(new ExponentsKernel(makeKernelParameters("ExponentsKernel")));
+        KernelBlock multiplyKernel = addKernel(new MultiplyKernel(makeKernelParameters("MultiplyKernel")));
+        KernelBlock sumKernel = addKernel(new SumKernel(makeKernelParameters("SumKernel")));
 
         // Stream from CPU
         DFELink constants = addStreamFromCPU("constants");
@@ -39,31 +39,31 @@ public class PolyEvalMultipleManager extends CustomManager {
         InterfaceParam x = ei.addParam("x", CPUTypes.FLOAT);
         InterfaceParam n = ei.addParam("n", CPUTypes.INT32);
 
-        ei.setScalar("PolySimpleEvalKernel", "maxExponents", maxExponents);
-        ei.setScalar("PolySimpleEvalKernel", "x", x);
+        ei.setScalar("ExponentsKernel", "maxExponents", maxExponents);
+        ei.setScalar("ExponentsKernel", "x", x);
         ei.setStream("constants", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("exponents", CPUTypes.INT32, n * CPUTypes.INT32.sizeInBytes());
         ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
 
         // Set ticks
         // Kernel 1
-        InterfaceParam loopOffset = ei.getAutoLoopOffset("PolySimpleEvalKernel", "loop");
-        ei.ignoreAutoLoopOffset("PolySimpleEvalKernel", "loop");
-        ei.setTicks("PolySimpleEvalKernel", maxExponents * loopOffset);
+        InterfaceParam loopOffset = ei.getAutoLoopOffset("ExponentsKernel", "loop");
+        ei.ignoreAutoLoopOffset("ExponentsKernel", "loop");
+        ei.setTicks("ExponentsKernel", maxExponents * loopOffset);
 
         // Kernel 2
-        ei.setTicks("PolyEvalKernel", n);
+        ei.setTicks("MultiplyKernel", n);
 
         // Kernel 3
-        loopOffset = ei.getAutoLoopOffset("PolySimpleSumKernel", "loop");
-        ei.ignoreAutoLoopOffset("PolySimpleSumKernel", "loop");
-        ei.setTicks("PolySimpleSumKernel", n * loopOffset);
+        loopOffset = ei.getAutoLoopOffset("SumKernel", "loop");
+        ei.ignoreAutoLoopOffset("SumKernel", "loop");
+        ei.setTicks("SumKernel", n * loopOffset);
         return ei;
     }
 
     public static void main(String[] args) {
         EngineParameters params = new EngineParameters(args);
-        PolyEvalMultipleManager manager = new PolyEvalMultipleManager(params);
+        Manager manager = new Manager(params);
         manager.createSLiCinterface(getEngineInterface());
         manager.build();
     }

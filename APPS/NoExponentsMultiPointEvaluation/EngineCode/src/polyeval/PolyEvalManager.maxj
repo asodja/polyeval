@@ -1,11 +1,3 @@
-/**
- * Document: MaxCompiler Tutorial (maxcompiler-tutorial)
- * Chapter: 3      Example: 1      Name: Moving Average Simple
- * MaxFile name: MovingAverageSimple
- * Summary:
- * 	Manager for the three point moving average kernel design.
- *  All IO is between the CPU and the DFE.
- */
 package polyeval;
 
 import com.maxeler.maxcompiler.v2.build.EngineParameters;

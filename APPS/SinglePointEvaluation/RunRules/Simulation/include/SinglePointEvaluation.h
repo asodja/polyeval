@@ -1,12 +1,12 @@
 /**\file */
-#ifndef SLIC_DECLARATIONS_PolyEval_H
-#define SLIC_DECLARATIONS_PolyEval_H
+#ifndef SLIC_DECLARATIONS_SinglePointEvaluation_H
+#define SLIC_DECLARATIONS_SinglePointEvaluation_H
 #include "MaxSLiCInterface.h"
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-#define PolyEval_PCIE_ALIGNMENT (16)
+#define SinglePointEvaluation_PCIE_ALIGNMENT (16)
 
 
 /*----------------------------------------------------------------------------*/
@@ -15,22 +15,32 @@ extern "C" {
 
 
 
+/**
+ * \brief Auxiliary function to evaluate expression for "ExponentsKernel.loop".
+ */
+int SinglePointEvaluation_get_ExponentsKernel_loop( void );
+
+/**
+ * \brief Auxiliary function to evaluate expression for "SumKernel.loop".
+ */
+int SinglePointEvaluation_get_SumKernel_loop( void );
+
 
 /**
  * \brief Basic static function for the interface 'default'.
  * 
  * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
+ * \param [in] param_x Interface Parameter "x".
  * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
- * \param [in] instream_exponentValues The stream should be of size (param_maxExponents * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
  * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  */
-void PolyEval(
-	int64_t param_maxExponents,
-	int64_t param_n,
+void SinglePointEvaluation(
+	uint32_t param_maxExponents,
+	int32_t param_n,
+	float param_x,
 	const float *instream_constants,
-	const float *instream_exponentValues,
 	const int32_t *instream_exponents,
 	float *outstream_result);
 
@@ -44,17 +54,17 @@ void PolyEval(
  * 
  * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
+ * \param [in] param_x Interface Parameter "x".
  * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
- * \param [in] instream_exponentValues The stream should be of size (param_maxExponents * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
  * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
-max_run_t *PolyEval_nonblock(
-	int64_t param_maxExponents,
-	int64_t param_n,
+max_run_t *SinglePointEvaluation_nonblock(
+	uint32_t param_maxExponents,
+	int32_t param_n,
+	float param_x,
 	const float *instream_constants,
-	const float *instream_exponentValues,
 	const int32_t *instream_exponents,
 	float *outstream_result);
 
@@ -63,13 +73,13 @@ max_run_t *PolyEval_nonblock(
  * 
  */
 typedef struct { 
-	int64_t param_maxExponents; /**<  [in] Interface Parameter "maxExponents". */
-	int64_t param_n; /**<  [in] Interface Parameter "n". */
+	uint32_t param_maxExponents; /**<  [in] Interface Parameter "maxExponents". */
+	int32_t param_n; /**<  [in] Interface Parameter "n". */
+	float param_x; /**<  [in] Interface Parameter "x". */
 	const float *instream_constants; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	const float *instream_exponentValues; /**<  [in] The stream should be of size (param_maxExponents * 4) bytes. */
 	const int32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
 	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
-} PolyEval_actions_t;
+} SinglePointEvaluation_actions_t;
 
 /**
  * \brief Advanced static function for the interface 'default'.
@@ -77,9 +87,9 @@ typedef struct {
  * \param [in] engine The engine on which the actions will be executed.
  * \param [in,out] interface_actions Actions to be executed.
  */
-void PolyEval_run(
+void SinglePointEvaluation_run(
 	max_engine_t *engine,
-	PolyEval_actions_t *interface_actions);
+	SinglePointEvaluation_actions_t *interface_actions);
 
 /**
  * \brief Advanced static non-blocking function for the interface 'default'.
@@ -93,9 +103,9 @@ void PolyEval_run(
  * \param [in] interface_actions Actions to be executed.
  * \return A handle on the execution status of the actions, or NULL in case of error.
  */
-max_run_t *PolyEval_run_nonblock(
+max_run_t *SinglePointEvaluation_run_nonblock(
 	max_engine_t *engine,
-	PolyEval_actions_t *interface_actions);
+	SinglePointEvaluation_actions_t *interface_actions);
 
 /**
  * \brief Group run advanced static function for the interface 'default'.
@@ -105,7 +115,7 @@ max_run_t *PolyEval_run_nonblock(
  *
  * Run the actions on the first device available in the group.
  */
-void PolyEval_run_group(max_group_t *group, PolyEval_actions_t *interface_actions);
+void SinglePointEvaluation_run_group(max_group_t *group, SinglePointEvaluation_actions_t *interface_actions);
 
 /**
  * \brief Group run advanced static non-blocking function for the interface 'default'.
@@ -120,7 +130,7 @@ void PolyEval_run_group(max_group_t *group, PolyEval_actions_t *interface_action
  * \param [in] interface_actions Actions to run.
  * \return A handle on the execution status of the actions, or NULL in case of error.
  */
-max_run_t *PolyEval_run_group_nonblock(max_group_t *group, PolyEval_actions_t *interface_actions);
+max_run_t *SinglePointEvaluation_run_group_nonblock(max_group_t *group, SinglePointEvaluation_actions_t *interface_actions);
 
 /**
  * \brief Array run advanced static function for the interface 'default'.
@@ -131,7 +141,7 @@ max_run_t *PolyEval_run_group_nonblock(max_group_t *group, PolyEval_actions_t *i
  * Run the array of actions on the array of engines.  The length of interface_actions
  * must match the size of engarray.
  */
-void PolyEval_run_array(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[]);
+void SinglePointEvaluation_run_array(max_engarray_t *engarray, SinglePointEvaluation_actions_t *interface_actions[]);
 
 /**
  * \brief Array run advanced static non-blocking function for the interface 'default'.
@@ -146,7 +156,7 @@ void PolyEval_run_array(max_engarray_t *engarray, PolyEval_actions_t *interface_
  * \param [in] interface_actions The array of actions to run.
  * \return A handle on the execution status of the actions, or NULL in case of error.
  */
-max_run_t *PolyEval_run_array_nonblock(max_engarray_t *engarray, PolyEval_actions_t *interface_actions[]);
+max_run_t *SinglePointEvaluation_run_array_nonblock(max_engarray_t *engarray, SinglePointEvaluation_actions_t *interface_actions[]);
 
 /**
  * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
@@ -157,26 +167,26 @@ max_run_t *PolyEval_run_array_nonblock(max_engarray_t *engarray, PolyEval_action
  * \param [in] interface_actions The interface-specific actions to run.
  * \return The dynamic-interface actions to run, or NULL in case of error.
  */
-max_actions_t* PolyEval_convert(max_file_t *maxfile, PolyEval_actions_t *interface_actions);
+max_actions_t* SinglePointEvaluation_convert(max_file_t *maxfile, SinglePointEvaluation_actions_t *interface_actions);
 
 /**
  * \brief Initialise a maxfile.
  */
-max_file_t* PolyEval_init(void);
+max_file_t* SinglePointEvaluation_init(void);
 
 /* Error handling functions */
-int PolyEval_has_errors(void);
-const char* PolyEval_get_errors(void);
-void PolyEval_clear_errors(void);
+int SinglePointEvaluation_has_errors(void);
+const char* SinglePointEvaluation_get_errors(void);
+void SinglePointEvaluation_clear_errors(void);
 /* Free statically allocated maxfile data */
-void PolyEval_free(void);
+void SinglePointEvaluation_free(void);
 /* returns: -1 = error running command; 0 = no error reported */
-int PolyEval_simulator_start(void);
+int SinglePointEvaluation_simulator_start(void);
 /* returns: -1 = error running command; 0 = no error reported */
-int PolyEval_simulator_stop(void);
+int SinglePointEvaluation_simulator_stop(void);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-#endif /* SLIC_DECLARATIONS_PolyEval_H */
+#endif /* SLIC_DECLARATIONS_SinglePointEvaluation_H */
 

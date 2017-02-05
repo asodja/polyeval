@@ -9,11 +9,11 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
-class PolySimpleSumKernel extends PolyKernel {
+class SumKernel extends PolyKernel {
 
     final DFEType scalarType = dfeFloat(8, 24);
 
-    PolySimpleSumKernel(KernelParameters parameters) {
+    SumKernel(KernelParameters parameters) {
         super(parameters);
 
         // Counters
