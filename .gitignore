@@ -10,3 +10,6 @@ binaries
 dist
 maxfiles
 objects
+.metadata
+.metadata-MaxIDE-3.0
+debug/
