@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="ExponentEvaluation_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/ExponentEvaluation_EngineCode/bin" projectName="ExponentEvaluation"/>
+<cpuPart internalCpuSubproject="ExponentEvaluation_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

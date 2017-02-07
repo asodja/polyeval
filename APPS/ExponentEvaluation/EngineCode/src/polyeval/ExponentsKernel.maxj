@@ -1,0 +1,42 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+
+public class ExponentsKernel extends PolyKernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    ExponentsKernel(KernelParameters parameters) {
+        super(parameters);
+
+        DFEVar x = io.input("x", FLOAT);
+        DFEVar exp = constant.var(UINT_32, 50);
+        DFEVar result = constant.var(FLOAT, 1.0);
+        for (int i = 0; i < 10; ++i) {
+        	result = ((exp > 0) & ((exp & 1) === 1)) ? result * x : result;
+        	exp = exp >> 1;
+        	x = x * x;
+        }
+
+        // Output
+        io.output("result", result, FLOAT);
+    }
+
+    @Override
+    public EngineInterface getEngineInterface() {
+        EngineInterface ei = new EngineInterface();
+
+        ei.setStream("x", CPUTypes.FLOAT, CPUTypes.FLOAT.sizeInBytes() * 8);
+        ei.setStream("result", CPUTypes.FLOAT, CPUTypes.FLOAT.sizeInBytes() * 8);
+
+        ei.setTicks(getName(), 8);
+
+        return ei;
+    }
+}
