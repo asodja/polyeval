@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="SumOptimization_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/SumOptimization_EngineCode/bin" projectName="SumOptimization"/>
+<cpuPart internalCpuSubproject="SumOptimization_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

@@ -1,0 +1,28 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+public class PartialSumKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    PartialSumKernel(KernelParameters parameters, int fragments) {
+        super(parameters);
+
+        DFEVar counter = control.count.simpleCounter(64);
+        DFEVar n = io.scalarInput("n", UINT_32);
+        DFEVar summand = io.input("summands", FLOAT);
+        DFEVar partialSum = FLOAT.newInstance(this);
+        DFEVar sum = (counter === 0) ? 0.0 : partialSum;
+        DFEVar result = sum + summand;
+        partialSum <== stream.offset(result, -fragments);
+
+        // Output
+        io.output("result", result, FLOAT, counter >= (n - fragments).cast(dfeUInt(64)));
+    }
+}
