@@ -17,12 +17,12 @@ public class FullSumKernel extends Kernel {
         DFEVar sum = (counter === 0) ? count(summand, fragments) : 0.0;
 
         // Output
-        io.output("result", sum, FLOAT);
+        io.output("result", sum, FLOAT, counter < 4);
     }
 
     public DFEVar count(DFEVar summand, int fragments) {
-    	DFEVar sum = constant.var(FLOAT, 0.0);
-        for (int i = 0; i < fragments; i++) {
+    	DFEVar sum = summand;
+        for (int i = 1; i < fragments; i++) {
         	sum += stream.offset(summand, i);
         }
         return sum;

@@ -14,7 +14,7 @@ public class PartialSumKernel extends Kernel {
     PartialSumKernel(KernelParameters parameters, int fragments) {
         super(parameters);
 
-        DFEVar counter = control.count.simpleCounter(64);
+        DFEVar counter = control.count.simpleCounter(32);
         DFEVar n = io.scalarInput("n", UINT_32);
         DFEVar summand = io.input("summands", FLOAT);
         DFEVar partialSum = FLOAT.newInstance(this);
@@ -23,6 +23,6 @@ public class PartialSumKernel extends Kernel {
         partialSum <== stream.offset(result, -fragments);
 
         // Output
-        io.output("result", result, FLOAT, counter >= (n - fragments).cast(dfeUInt(64)));
+        io.output("result", result, FLOAT, counter >= (n - fragments));
     }
 }

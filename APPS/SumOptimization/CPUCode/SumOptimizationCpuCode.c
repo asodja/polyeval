@@ -17,7 +17,7 @@ float* getRandomFloatArray(uint32_t n, float maxValue) {
 	float* constants = malloc(sizeof(float) * n);
 	for (uint32_t i = 0; i < n; i++) {
 		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
-		constants[i] = (float) (constant);
+		constants[i] = (float) constant;
 	}
 	return constants;
 }
@@ -31,9 +31,16 @@ int areFloatsEqual(float first, float second, float epsilon) {
 }
 
 float cpuSum(uint32_t n, float* summands) {
+	float partialSum[16];
+	for (uint32_t i = 0; i < 16 && i < n; i++) {
+		partialSum[i] = summands[i];
+	}
+	for (uint32_t i = 16; i < n; i++) {
+		partialSum[i % 16] += summands[i];
+	}
 	float sum = 0.0;
-	for (uint32_t i = 0; i < n; i++) {
-		sum += summands[i];
+	for (uint32_t i = 0; i < 16; i++) {
+		sum += partialSum[i];
 	}
 	return sum;
 }
@@ -53,14 +60,14 @@ int main()
 {
 	double* r;
 	printf("Running DFE\n");
-	uint32_t n = 32;
+	uint32_t n = 4096;
 	float result[4];
 	float* summands = getRandomFloatArray(n, 10.0);
 	Sum(n, summands, result);
 
 	printFloatArray(n, summands, "Summands");
-	float actualSum = result[0];
+	float actual = result[0];
 	float expectedSum = cpuSum(n, summands);
-	checkResult(actualSum, expectedSum);
+	checkResult(actual, expectedSum);
 	return 0;
 }

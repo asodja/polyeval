@@ -20,7 +20,8 @@ class PolySimpleSumKernel extends PolyKernel {
         OffsetExpr loop = stream.makeOffsetAutoLoop("loop");
         DFEVar loopLength = loop.getDFEVar(this, dfeUInt(8));
         CounterChain chain = control.count.makeCounterChain();
-        DFEVar inputIndex = chain.addCounter(8, 1);
+        DFEVar n = io.scalarInput("n", dfeUInt(32));
+        DFEVar inputIndex = chain.addCounter(n, 1);
         DFEVar loopIndex = chain.addCounter(loopLength, 1);
 
         // Input
@@ -43,6 +44,7 @@ class PolySimpleSumKernel extends PolyKernel {
         InterfaceParam loopOffset = ei.getAutoLoopOffset(getName(), "loop");
         ei.ignoreAutoLoopOffset(getName(), "loop");
 
+        ei.setScalar(getName(), "n", n);
         ei.setStream("summands", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
 

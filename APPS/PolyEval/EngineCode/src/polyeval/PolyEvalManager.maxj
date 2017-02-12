@@ -12,7 +12,7 @@ class PolyEvalManager {
 
         // Instantiate the kernel
         // TODO pipe all kernels in one
-        PolyKernel kernel = new PolyEvalKernel(manager.makeKernelParameters());
+        PolySimpleSumKernel kernel = new PolySimpleSumKernel(manager.makeKernelParameters());
          // PolyKernel kernel = new PolySimpleEvalKernel(manager.makeKernelParameters());
         // PolyKernel kernel = new PolySimpleSumKernel(manager.makeKernelParameters());
 
