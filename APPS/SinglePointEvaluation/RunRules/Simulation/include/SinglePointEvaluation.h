@@ -15,33 +15,21 @@ extern "C" {
 
 
 
-/**
- * \brief Auxiliary function to evaluate expression for "ExponentsKernel.loop".
- */
-int SinglePointEvaluation_get_ExponentsKernel_loop( void );
-
-/**
- * \brief Auxiliary function to evaluate expression for "SumKernel.loop".
- */
-int SinglePointEvaluation_get_SumKernel_loop( void );
-
 
 /**
  * \brief Basic static function for the interface 'default'.
  * 
- * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
  * \param [in] param_x Interface Parameter "x".
  * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size 16 bytes.
  */
 void SinglePointEvaluation(
-	uint32_t param_maxExponents,
-	int32_t param_n,
+	uint32_t param_n,
 	float param_x,
 	const float *instream_constants,
-	const int32_t *instream_exponents,
+	const uint32_t *instream_exponents,
 	float *outstream_result);
 
 /**
@@ -52,20 +40,18 @@ void SinglePointEvaluation(
  * note that one of these *must* be called, so that associated memory can be released.
  * 
  * 
- * \param [in] param_maxExponents Interface Parameter "maxExponents".
  * \param [in] param_n Interface Parameter "n".
  * \param [in] param_x Interface Parameter "x".
  * \param [in] instream_constants The stream should be of size (param_n * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [out] outstream_result The stream should be of size 16 bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *SinglePointEvaluation_nonblock(
-	uint32_t param_maxExponents,
-	int32_t param_n,
+	uint32_t param_n,
 	float param_x,
 	const float *instream_constants,
-	const int32_t *instream_exponents,
+	const uint32_t *instream_exponents,
 	float *outstream_result);
 
 /**
@@ -73,12 +59,11 @@ max_run_t *SinglePointEvaluation_nonblock(
  * 
  */
 typedef struct { 
-	uint32_t param_maxExponents; /**<  [in] Interface Parameter "maxExponents". */
-	int32_t param_n; /**<  [in] Interface Parameter "n". */
+	uint32_t param_n; /**<  [in] Interface Parameter "n". */
 	float param_x; /**<  [in] Interface Parameter "x". */
 	const float *instream_constants; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	const int32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
+	const uint32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
+	float *outstream_result; /**<  [out] The stream should be of size 16 bytes. */
 } SinglePointEvaluation_actions_t;
 
 /**

@@ -2,7 +2,6 @@ package polyeval;
 
 import com.maxeler.maxcompiler.v2.build.EngineParameters;
 import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
-import com.maxeler.maxcompiler.v2.managers.custom.DFELink;
 import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
 import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
@@ -10,22 +9,16 @@ import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
 
 public class Manager extends CustomManager {
 
+	static final int FRAGMENTS = 16;
+
     public Manager(EngineParameters engineParams) {
         super(engineParams);
-        KernelBlock exponentsKernel = addKernel(new ExponentsKernel(makeKernelParameters("ExponentsKernel")));
-        KernelBlock multiplyKernel = addKernel(new MultiplyKernel(makeKernelParameters("MultiplyKernel")));
-        KernelBlock sumKernel = addKernel(new SumKernel(makeKernelParameters("SumKernel")));
+        KernelBlock multiplyKernel = addKernel(new MultiplyKernel(makeKernelParameters("MultiplyKernel"), FRAGMENTS));
+        KernelBlock sumKernel = addKernel(new SumKernel(makeKernelParameters("SumKernel"), FRAGMENTS));
 
-        // Stream from CPU
-        DFELink constants = addStreamFromCPU("constants");
-        DFELink exponents = addStreamFromCPU("exponents");
-
-        // Set second kernel inputs
-        multiplyKernel.getInput("exponentValues") <== exponentsKernel.getOutput("result");
-        multiplyKernel.getInput("constants") <== constants;
-        multiplyKernel.getInput("exponents") <== exponents;
-
-        // Set third kernel inputs
+        // Set inputs
+        multiplyKernel.getInput("constants") <== addStreamFromCPU("constants");
+        multiplyKernel.getInput("exponents") <== addStreamFromCPU("exponents");
         sumKernel.getInput("summands") <== multiplyKernel.getOutput("result");
 
         // Output to CPU
@@ -35,29 +28,19 @@ public class Manager extends CustomManager {
     private static EngineInterface getEngineInterface() {
         EngineInterface ei = new EngineInterface();
 
-        InterfaceParam maxExponents = ei.addParam("maxExponents", CPUTypes.UINT32);
         InterfaceParam x = ei.addParam("x", CPUTypes.FLOAT);
-        InterfaceParam n = ei.addParam("n", CPUTypes.INT32);
+        InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
 
-        ei.setScalar("ExponentsKernel", "maxExponents", maxExponents);
-        ei.setScalar("ExponentsKernel", "x", x);
+        ei.setScalar("MultiplyKernel", "n", n);
+        ei.setScalar("MultiplyKernel", "x", x);
         ei.setStream("constants", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
-        ei.setStream("exponents", CPUTypes.INT32, n * CPUTypes.INT32.sizeInBytes());
-        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponents", CPUTypes.UINT32, n * CPUTypes.UINT32.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, 4 * CPUTypes.FLOAT.sizeInBytes());
 
         // Set ticks
-        // Kernel 1
-        InterfaceParam loopOffset = ei.getAutoLoopOffset("ExponentsKernel", "loop");
-        ei.ignoreAutoLoopOffset("ExponentsKernel", "loop");
-        ei.setTicks("ExponentsKernel", maxExponents * loopOffset);
-
-        // Kernel 2
         ei.setTicks("MultiplyKernel", n);
+        ei.setTicks("SumKernel", FRAGMENTS);
 
-        // Kernel 3
-        loopOffset = ei.getAutoLoopOffset("SumKernel", "loop");
-        ei.ignoreAutoLoopOffset("SumKernel", "loop");
-        ei.setTicks("SumKernel", n * loopOffset);
         return ei;
     }
 
