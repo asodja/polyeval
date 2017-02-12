@@ -24,6 +24,8 @@ public class MultiplyKernel extends Kernel {
         // Calculate pow(x)
         DFEVar exp = io.input("exponents", dfeUInt(32));
         DFEVar powX = constant.var(FLOAT, 1.0);
+        // Calculate max exponent of 2^10 = 1024,
+        // this means we can do x^1024 at max
         for (int i = 0; i < 10; ++i) {
         	powX = ((exp > 0) & ((exp & 1) === 1)) ? powX * x : powX;
         	exp = exp >> 1;
@@ -35,7 +37,7 @@ public class MultiplyKernel extends Kernel {
 
         // Do sum
         DFEVar partialSum = FLOAT.newInstance(this);
-        DFEVar sum = (counter === 0) ? 0.0 : partialSum;
+        DFEVar sum = (counter < fragments) ? 0.0 : partialSum;
         sum += multiply;
         partialSum <== stream.offset(sum, -fragments);
 

@@ -36,10 +36,10 @@ int areFloatsEqual(float first, float second, float epsilon) {
 float getCpuValue(uint32_t n, float* polynomial, uint32_t* exponents, float x) {
 	float partialResult[16];
 	for (uint32_t i = 0; i < 16; i++) {
-		partialResult[i] = polynomial[i] * pow(x, exponents[i]);
+		partialResult[i] = polynomial[i] * powf(x, exponents[i]);
  	}
 	for (uint32_t i = 16; i < n; i++) {
-		partialResult[i % 16] += polynomial[i] * pow(x, exponents[i]);
+		partialResult[i % 16] += polynomial[i] * powf(x, exponents[i]);
 	}
 	float result = 0.0;
 	for (uint32_t i = 0; i < 16; i++) {
@@ -74,9 +74,9 @@ static inline void stop() {
 int main()
 {
 	printf("Running DFE\n");
-	uint32_t n = 1024;
+	uint32_t n = 64;
 	uint32_t maxExponent = 5;
-	float maxConstant = 10;
+	float maxConstant = 20;
 	float* constants = getRandomFloatArray(n, maxConstant);
 	uint32_t* exponents = getRandomUIntArray(n, maxExponent);
 	float x = 3.0f;
