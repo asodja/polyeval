@@ -3,6 +3,10 @@
 #include <MaxSLiCInterface.h>	// Simple Live CPU interface
 #include <stdio.h>
 #include <math.h>
+#include <sys/time.h>
+
+
+static struct timeval tm1;
 
 float* getRandomFloatArray(uint32_t n, float maxValue) {
 	float* constants = malloc(sizeof(float) * n);
@@ -55,11 +59,22 @@ void checkResult(float actual, float expected) {
 	}
 }
 
+static inline void start() {
+    gettimeofday(&tm1, NULL);
+}
+
+static inline void stop() {
+    struct timeval tm2;
+    gettimeofday(&tm2, NULL);
+
+    unsigned long long t = 1000 * (tm2.tv_sec - tm1.tv_sec) + (tm2.tv_usec - tm1.tv_usec) / 1000;
+    printf("%llu ms\n", t);
+}
 
 int main()
 {
 	printf("Running DFE\n");
-	uint32_t n = 1000;
+	uint32_t n = 1024;
 	uint32_t maxExponent = 5;
 	float maxConstant = 10;
 	float* constants = getRandomFloatArray(n, maxConstant);
@@ -69,7 +84,9 @@ int main()
 	SinglePointEvaluation(n, x, constants, exponents, result);
 
 	float actual = result[0];
+	start();
 	float expected = getCpuValue(n, constants, exponents, x);
+	stop();
 	checkResult(actual, expected);
 	free(constants);
 	free(exponents);
