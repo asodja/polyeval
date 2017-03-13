@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<maxCompilerManager version="2">
-<enginePart internalEngineSubproject="NoExponentsMultiPointEvaluation_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/NoExponentsMultiPointEvaluation_EngineCode/bin" projectName="NoExponentsMultiPointEvaluation"/>
-<cpuPart internalCpuSubproject="NoExponentsMultiPointEvaluation_CPUCode"/>
-<watchedFiles/>
-</maxCompilerManager>
