@@ -7,16 +7,16 @@ cd cpu
 make
 cd ..
 cd bench
-./bench.sh ../cpu/SingleSparseReal
+./bench.sh cpu ../cpu/SingleSparseReal
 
 # Alternative Make and run CPU Automatically (script with all upper commands)
 cd polyeval
 ./make-cpu-and-run.sh
 
 # DF use correct RUNRULE
-cd SingleSparseReal/RunRules/…
-make RUNRULE=…
+cd SingleSparseReal/RunRules/DFE
+make
 
-cd bench
-./bench.sh ../SingleSparseReal/RunRules/…
+cd ../../../bench
+./bench.sh dfe "../SingleSparseReal/RunRules/DFE/binaries/DefaultApplication" 
 
