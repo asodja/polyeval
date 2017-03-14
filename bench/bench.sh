@@ -36,7 +36,7 @@ bench() {
   local filename="$(basename "$exe")"
   local logfile="${filename%.*}-$type.log"
   echo "Running $exe, log is written to $logfile"
-  for n in 32 512 8192; do
+  for n in 32 512 8192 131072 2097152 33554432 536870912; do
     $exe -n "$n" >> $logfile 2>&1
   done
 }
