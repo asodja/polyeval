@@ -49,24 +49,10 @@ target_dfe() {
   bench "dfe" "$@"
 }
 
-TEMP=$(getopt -o h --long help -n "$MYNAME" -- "$@")
-test "$?" != "0" && fail "Command line error"
-eval set -- "$TEMP"
-while true; do
-  case $1 in
-    -h|--help)
-      help
-      exit 0
-      ;;
-   --)
-      shift
-      break
-      ;;
-   *)
-      fail "Invalid command: $1"
-      ;;
-  esac
-done
+if [ "$1" = "-h" -o "$1" = "--help" ]; then
+  help
+  exit 0
+fi
 
 run "$@"
 
