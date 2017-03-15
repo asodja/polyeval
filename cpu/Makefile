@@ -5,7 +5,7 @@ LIBS=-lm
 all: SingleSparseReal clean
 
 SingleSparseReal: common.o SingleSparseReal.o
-	$(CC) $(CFLAGS) $(LIBS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 common.o: common.c common.h
 	$(CC) $(CFLAGS) -c common.c $(LIBS)
