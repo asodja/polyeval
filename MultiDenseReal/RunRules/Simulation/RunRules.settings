@@ -6,9 +6,9 @@
 <enableMPCX enabled="false"/>
 </common>
 <maxFiles>
-<maxFile buildName="SinglePointEvaluation" buildOrUseExisting="build">
+<maxFile buildName="MultiDenseReal" buildOrUseExisting="build">
 <runConfiguration askBeforeAutoBuild="false">
-<mainClass>polyeval.Manager</mainClass>
+<mainClass>polyeval.PolyEvalManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
 </runConfiguration>
 <selectEngineTarget enabled="false">MAIA</selectEngineTarget>

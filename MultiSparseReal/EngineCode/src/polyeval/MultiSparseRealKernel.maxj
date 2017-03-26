@@ -1,0 +1,82 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFix;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.utils.MathUtils;
+
+public class MultiSparseRealKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    MultiSparseRealKernel(KernelParameters parameters, int fragments, int maxPolynomialLength) {
+        super(parameters);
+
+        // Memory address type DFEUINT(bitsToAddress(maxPolynomialLength)
+        DFEFix addressType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
+
+        // Input
+        // n is length of polynomial, m is number of xs
+        DFEVar n = io.scalarInput("n", UINT_32);
+        DFEVar m = io.scalarInput("m", UINT_32);
+
+        // We calculate polynomial values first for first "fragments" points,
+        // then for next "fragments" points etc. Polynomial is saved in lmem
+        // but points cycle in loop with offset of "fragments"
+        CounterChain chain = control.count.makeCounterChain();
+        DFEVar fragmentIndex = chain.addCounter(m / fragments, 1);
+        DFEVar polynomialIndex = chain.addCounter(n, 1);
+        DFEVar pointIndex = chain.addCounter(fragments, 1);
+
+        DFEVar k = io.input("coefficients", FLOAT, fragmentIndex === 0 & pointIndex === 0);
+        DFEVar exp = io.input("exponents", UINT_32, fragmentIndex === 0 & pointIndex === 0);
+        DFEVar x = io.input("xs", FLOAT, polynomialIndex === 0);
+        Memory<DFEVar> kMemory = mem.alloc(FLOAT, maxPolynomialLength);
+        Memory<DFEVar> expMemory = mem.alloc(UINT_32, maxPolynomialLength);
+
+        // In first loop we save exp and k into lmem
+        kMemory.write(polynomialIndex.cast(addressType), k, fragmentIndex === 0 & pointIndex === 0);
+        expMemory.write(polynomialIndex.cast(addressType), exp, fragmentIndex === 0 & pointIndex === 0);
+        DFEVar currentK = (fragmentIndex === 0)
+        		? k
+        		: kMemory.read(polynomialIndex.cast(addressType));
+        DFEVar currentExp = (fragmentIndex === 0)
+        		? exp
+        		: expMemory.read(polynomialIndex.cast(addressType));
+
+        // Loop
+        DFEVar loopX = FLOAT.newInstance(this);
+        DFEVar result = FLOAT.newInstance(this);
+        DFEVar currentX = (polynomialIndex === 0) ? x : loopX;
+        DFEVar powX = powX(currentX, currentExp);
+        DFEVar multiply = (polynomialIndex === 0)
+        		? (powX * currentK)
+        		: (powX * currentK + result);
+
+        loopX <== stream.offset(currentX, -fragments);
+        result <== stream.offset(multiply, -fragments);
+
+        // Output
+        io.output("result", multiply, FLOAT, polynomialIndex === n - 1);
+    }
+
+    private DFEVar powX(DFEVar x, DFEVar exp) {
+    	DFEVar xTemp = 1.0 * x;
+        DFEVar powX = constant.var(FLOAT, 1.0);
+        // Calculate max exponent of 2^10 = 1024,
+        // this means we can do x^1024 at max
+        for (int i = 0; i < 10; ++i) {
+        	powX = ((exp > 0) & ((exp & 1) === 1)) ? powX * xTemp : powX;
+        	exp = exp >> 1;
+        	xTemp = xTemp * xTemp;
+        }
+        return powX;
+    }
+
+}
