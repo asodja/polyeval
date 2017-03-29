@@ -1,0 +1,56 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.build.EngineParameters;
+import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
+import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
+
+public class Manager extends CustomManager {
+
+	static final int FRAGMENTS = 16;
+
+    public Manager(EngineParameters engineParams) {
+        super(engineParams);
+        KernelBlock multiplyKernel = addKernel(new MultiplyKernel(makeKernelParameters("MultiplyKernel"), FRAGMENTS));
+        KernelBlock sumKernel = addKernel(new SumKernel(makeKernelParameters("SumKernel"), FRAGMENTS));
+
+        // Set inputs
+        multiplyKernel.getInput("constants") <== addStreamFromCPU("constants");
+        multiplyKernel.getInput("exponents") <== addStreamFromCPU("exponents");
+        sumKernel.getInput("summands") <== multiplyKernel.getOutput("result");
+
+        // Output to CPU
+        addStreamToCPU("result") <== sumKernel.getOutput("result");
+    }
+
+    private static EngineInterface getEngineInterface() {
+        EngineInterface ei = new EngineInterface();
+
+        InterfaceParam xReal = ei.addParam("xReal", CPUTypes.FLOAT);
+        InterfaceParam xImg = ei.addParam("xImg", CPUTypes.FLOAT);
+        InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
+
+        ei.setScalar("MultiplyKernel", "n", n);
+        ei.setScalar("MultiplyKernel", "xReal", xReal);
+        ei.setScalar("MultiplyKernel", "xImg", xImg);
+        ei.setStream("constants", CPUTypes.FLOAT, 2 * n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("exponents", CPUTypes.UINT32, n * CPUTypes.UINT32.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, 8 * CPUTypes.FLOAT.sizeInBytes());
+
+        // Set ticks
+        ei.setTicks("MultiplyKernel", n);
+        ei.setTicks("SumKernel", FRAGMENTS);
+
+        return ei;
+    }
+
+    public static void main(String[] args) {
+        EngineParameters params = new EngineParameters(args);
+        Manager manager = new Manager(params);
+        manager.createSLiCinterface(getEngineInterface());
+        manager.build();
+    }
+
+}

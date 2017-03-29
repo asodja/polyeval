@@ -1,0 +1,35 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplex;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplexType;
+
+class SumKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEComplexType COMPLEX_FLOAT = new DFEComplexType(FLOAT);
+
+    SumKernel(KernelParameters parameters, int fragments) {
+        super(parameters);
+
+        DFEVar counter = control.count.simpleCounter(64);
+        DFEComplex summand = io.input("summands", COMPLEX_FLOAT);
+        DFEComplex sum = (counter === 0) ? count(summand, fragments) : 0.0;
+
+        // Output
+        io.output("result", sum, COMPLEX_FLOAT, counter < 4);
+    }
+
+    public DFEComplex count(DFEComplex summand, int fragments) {
+    	DFEComplex sum = summand;
+        for (int i = 1; i < fragments; i++) {
+        	sum += stream.offset(summand, i);
+        }
+        return sum;
+    }
+
+}

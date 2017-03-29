@@ -1,0 +1,67 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFix;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplex;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplexType;
+import com.maxeler.maxcompiler.v2.utils.MathUtils;
+
+public class MultiDenseComplexKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    static final DFEComplexType COMPLEX_FLOAT = new DFEComplexType(FLOAT);
+
+    MultiDenseComplexKernel(KernelParameters parameters, int fragments, int maxPolynomialLength) {
+        super(parameters);
+
+        // Memory address type DFEUINT(bitsToAddress(maxPolynomialLength)
+        DFEFix addressType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
+
+        // Input
+        // n is length of polynomial, m is number of xs
+        DFEVar n = io.scalarInput("n", UINT_32);
+        DFEVar m = io.scalarInput("m", UINT_32);
+
+        // We calculate polynomial values first for first "fragments" points,
+        // then for next "fragments" points etc. Polynomial is saved in lmem
+        // but x and powX cycle in loop with offset of "fragments"
+        CounterChain chain = control.count.makeCounterChain();
+        DFEVar fragmentIndex = chain.addCounter(m / fragments, 1);
+        DFEVar kIndex = chain.addCounter(n, 1);
+        DFEVar xIndex = chain.addCounter(fragments, 1);
+
+        DFEComplex k = io.input("coefficients", COMPLEX_FLOAT, fragmentIndex === 0 & xIndex === 0);
+        DFEComplex x = io.input("xs", COMPLEX_FLOAT, kIndex === 0);
+        Memory<DFEComplex> memory = mem.alloc(COMPLEX_FLOAT, maxPolynomialLength);
+        memory.write(kIndex.cast(addressType), k, fragmentIndex === 0 & xIndex === 0);
+        DFEComplex currentK = (fragmentIndex === 0)
+        		? k
+        		: memory.read(kIndex.cast(addressType));
+
+        // Loop
+        DFEComplex loopX = COMPLEX_FLOAT.newInstance(this);
+        DFEComplex loopPowX = COMPLEX_FLOAT.newInstance(this);
+        DFEComplex currentX = (kIndex === 0) ? x : loopX;
+        DFEComplex currentPowX = (kIndex === 0) ? 1.0 : currentX * loopPowX;
+        DFEComplex result = COMPLEX_FLOAT.newInstance(this);
+        DFEComplex multiply = (kIndex === 0)
+        		? (currentPowX * currentK)
+        		: (currentPowX * currentK + result);
+
+        loopX <== stream.offset(currentX, -fragments);
+        loopPowX <== stream.offset(currentPowX, -fragments);
+        result <== stream.offset(multiply, -fragments);
+
+        // Output
+        io.output("result", multiply, COMPLEX_FLOAT, kIndex === n - 1);
+    }
+
+}

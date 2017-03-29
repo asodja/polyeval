@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="MultiSparseComplex_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/MultiSparseComplex_EngineCode/bin" projectName="MultiSparseComplex"/>
+<cpuPart internalCpuSubproject="MultiSparseComplex_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>
