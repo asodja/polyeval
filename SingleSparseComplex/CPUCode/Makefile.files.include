@@ -1,5 +1,5 @@
 #
 # This file is managed by MaxIDE. Do NOT change.
 #
-HEADERS:= common.h 
-SOURCES:= SingleSparseComplex.c common.c 
+HEADERS:= common.h singleparse.h 
+SOURCES:= SingleSparseComplex.c common.c singleparse.c 

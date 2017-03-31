@@ -1,5 +1,5 @@
 #
 # This file is managed by MaxIDE. Do NOT change.
 #
-HEADERS:= common.h 
-SOURCES:= MultiSparseReal.c common.c 
+HEADERS:= common.h multiparse.h 
+SOURCES:= MultiSparseReal.c common.c multiparse.c 

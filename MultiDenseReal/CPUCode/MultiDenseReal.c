@@ -4,6 +4,7 @@
 #include "Maxfiles.h" 			// Includes .max files
 #include <MaxSLiCInterface.h>	// Simple Live CPU interface
 #include "common.h"
+#include "multiparse.h"
 
 
 float* getRandomFloatArray(uint32_t n, float maxValue) {
@@ -60,18 +61,22 @@ void checkResult(uint32_t n_points, float* points, uint32_t polynomial_length, f
 	}
 }
 
-int main()
+int main(int argc, char * argv[])
 {
-	printf("Running DFE\n");
+	uint32_t* out = parse_args(argc, argv);
+	uint32_t n = out[0]; // length of polynomial
+	uint32_t m = out[1]; // number of xs
+	if ((int32_t) n <= 0 || (int32_t) m <= 0) {
+		error(1, "N and M cannot be less than 0", ' ');
+	}
+
 	// Setup points, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	uint32_t m = 48; // number of xs
 	float* points = get_random_float_array(m, 5.0, 2);
 	printFloatArray(m, points, "POINTS");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	uint32_t n = 12; // length of polynomial
 	float* polynomial = get_random_float_array(n, 5.0, 3);
 	print_dense_rpoly(n, polynomial);
 
