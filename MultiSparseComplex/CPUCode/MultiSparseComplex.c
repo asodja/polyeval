@@ -54,20 +54,31 @@ int main(int argc, char * argv[])
 		error(1, "N and M cannot be less than 0", ' ');
 	}
 
-	float* xs = get_random_float_array(m * 2, 5.0, 2);
-	print_complex_array(m, xs, "X");
+	int seed = 15;
+	float* xs = get_random_float_array(m * 2, 10.0, seed + 1);
+	// print_complex_array(m, xs, "X");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	float* coefficients = get_random_float_array(n * 2, 5.0, 3);
-	uint32_t* exponents = get_random_uint_array(n, 5, 1);
-	print_sparse_complex_poly(n, coefficients, exponents);
+	float* coefficients = get_random_float_array(n * 2, 10.0, seed);
+	uint32_t* exponents = get_random_uint_array(n, 7, seed + 2);
+	// print_sparse_complex_poly(n, coefficients, exponents);
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m * 2);
+	timing_t timer;
+	timer_start(&timer);
 	MultiSparseComplex(m, n, coefficients, exponents, xs, result);
+	timer_stop(&timer);
 
-	print_complex_array(m, result, "Result");
+	// print_complex_array(m, result, "Result");
+	float real = 0.0;
+	float img = 0.0;
+	for (uint32_t i = 0; i < m*2; i+=2) {
+		real += result[i];
+		img += result[i + 1];
+	}
+	printf("n: %d, m: %d, t: %dms, r: %f+%fi\n", n, m, timer.realtime, real, img);
 
 
 	return 0;

@@ -24,7 +24,7 @@ extern "C" {
  * \param [in] param_xReal Interface Parameter "xReal".
  * \param [in] instream_constants The stream should be of size ((param_n * 2) * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size 32 bytes.
+ * \param [out] outstream_result The stream should be of size 16 bytes.
  */
 void SinglePointEvaluation(
 	uint32_t param_n,
@@ -47,7 +47,7 @@ void SinglePointEvaluation(
  * \param [in] param_xReal Interface Parameter "xReal".
  * \param [in] instream_constants The stream should be of size ((param_n * 2) * 4) bytes.
  * \param [in] instream_exponents The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size 32 bytes.
+ * \param [out] outstream_result The stream should be of size 16 bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *SinglePointEvaluation_nonblock(
@@ -68,7 +68,7 @@ typedef struct {
 	float param_xReal; /**<  [in] Interface Parameter "xReal". */
 	const float *instream_constants; /**<  [in] The stream should be of size ((param_n * 2) * 4) bytes. */
 	const uint32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	float *outstream_result; /**<  [out] The stream should be of size 32 bytes. */
+	float *outstream_result; /**<  [out] The stream should be of size 16 bytes. */
 } SinglePointEvaluation_actions_t;
 
 /**

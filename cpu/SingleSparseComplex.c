@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <math.h>
+#include <complex.h>
 #include <sys/time.h>
 #include <stdarg.h>
 #include <getopt.h>
@@ -68,18 +68,11 @@ void parse_args(int argc, char * argv[]) {
 }
 
 
-float eval_single_real_poly(uint32_t n, float* polynomial, uint32_t* exponents, float x) {
-	float partialResult[16];
-	for (uint32_t i = 0; i < 16; i++) {
-		partialResult[i] = polynomial[i] * powf(x, exponents[i]);
- 	}
-	for (uint32_t i = 16; i < n; i++) {
-		partialResult[i % 16] += polynomial[i] * powf(x, exponents[i]);
+float complex eval_single_complex_poly(uint32_t n, float complex* polynomial, uint32_t* exponents, float complex x) {
+	float complex result = 0.0 + 0.0*I;
+	for (uint32_t i = 0; i < n; i++) {
+		result += (polynomial[i] * cpowf(x, exponents[i]));
 	}
-	float result = 0.0;
-	for (uint32_t i = 0; i < 16; i++) {
-		result += partialResult[i];
- 	}
 	return result;
 }
 
@@ -93,16 +86,17 @@ int main(int argc, char * argv[])
 	int seed = 15;
 	uint32_t maxExponent = 7;
 	float maxConstant = 10;
-	float x = 3.0f;
-	float* constants = get_random_float_array(n, maxConstant, seed);
+	float complex x = 3.0 + 4.0*I;
+	float complex* constants = get_random_complex_array(n, maxConstant, seed);
 	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed+1);
+	print_cpe_sparse_complex_poly(n, constants, exponents);
 
 	timing_t timer;
 	timer_start(&timer);
-	float expected = eval_single_real_poly(n, constants, exponents, x);
+	float complex expected = eval_single_complex_poly(n, constants, exponents, x);
  	timer_stop(&timer);
 
-	printf("n: %d, t: %dms, r: %f\n", n, timer.realtime, expected);
+	printf("n: %d, t: %dms, r: %f+%fi\n", n, timer.realtime, creal(expected), cimag(expected));
 
 	return 0;
 }

@@ -53,21 +53,30 @@ int main(int argc, char * argv[])
 		error(1, "N and M cannot be less than 0", ' ');
 	}
 
+	int seed = 15;
 	// Setup points, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	float* points = get_random_float_array(m, 5.0, 2);
-	print_real_array(m, points, "POINTS");
+	float* points = get_random_float_array(m, 10.0, seed + 1);
+	// print_real_array(m, points, "POINTS");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	float* polynomial = get_random_float_array(n, 5.0, 3);
-	print_dense_real_poly(n, polynomial);
+	float* polynomial = get_random_float_array(n, 10.0, seed);
+	// print_dense_real_poly(n, polynomial);
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m);
+	timing_t timer;
+	timer_start(&timer);
 	MultiDenseReal(m, n, polynomial, points, result);
+	timer_stop(&timer);
 
-	checkResult(m, points, n, polynomial, result);
+	//checkResult(m, points, n, polynomial, result);
+	long double real = 0.0;
+	for (uint32_t i = 0; i < m; i++) {
+		real += result[i];
+	}
+	printf("n: %d, m: %d, t: %dms, r: %Lf\n", n, m, timer.realtime, real);
 
 
 	return 0;

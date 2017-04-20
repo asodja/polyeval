@@ -18,7 +18,7 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>DefaultApplication</exeName>
+<exeName>MultiDenseReal</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>

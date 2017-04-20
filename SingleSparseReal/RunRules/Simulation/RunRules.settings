@@ -17,13 +17,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>DefaultApplication</exeName>
+<exeName>SingleSparseReal</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 32</arguments>
+<arguments/>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

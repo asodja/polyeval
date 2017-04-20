@@ -18,7 +18,7 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>DefaultApplication</exeName>
+<exeName>SingleSparseComplex</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>

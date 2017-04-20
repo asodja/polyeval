@@ -11,7 +11,7 @@ RUNRULE_MAXFILES_H  := MultiDenseReal.h
 RUNRULE_CFLAGS      := 
 RUNRULE_LDFLAGS     := 
 
-TARGET_EXEC         := DefaultApplication
+TARGET_EXEC         := MultiDenseComplex
 TARGET_LIBRARY      := 
 
 

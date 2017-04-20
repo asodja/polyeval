@@ -11,7 +11,7 @@ float* get_random_float_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float* constants = malloc(sizeof(float) * n);
 	for (uint32_t i = 0; i < n; i++) {
-		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
+		float constant = ((rand() & 1) ? -1 : 1) * ((float) rand() / (float) RAND_MAX) * maxValue;
 		constants[i] = (int) constant;
 	}
 	return constants;
@@ -21,8 +21,8 @@ float complex* get_random_complex_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float complex* constants = malloc(sizeof(float complex) * n);
 	for (uint32_t i = 0; i < n; i++) {
-		float real = ((float) rand() / (float) RAND_MAX) * maxValue;
-		float imaginary = ((float) rand() / (float) RAND_MAX) * maxValue;
+		float real = ((rand() & 1) ? -1 : 1) * ((float) rand() / (float) RAND_MAX) * maxValue;
+		float imaginary = ((rand() & 1) ? -1 : 1) * ((float) rand() / (float) RAND_MAX) * maxValue;
 		constants[i] = (int) real + (int) imaginary * I;
 	}
 	return constants;
@@ -32,8 +32,8 @@ float* get_dfe_random_complex_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float* coefficients = malloc(sizeof(float complex) * n * 2);
 	for (uint32_t i = 0; i < (n * 2); i+=2) {
-		float real = ((float) rand() / (float) RAND_MAX) * maxValue;
-		float imaginary = ((float) rand() / (float) RAND_MAX) * maxValue;
+		float real = ((rand() & 1) ? -1 : 1) * ((float) rand() / (float) RAND_MAX) * maxValue;
+		float imaginary = ((rand() & 1) ? -1 : 1) * ((float) rand() / (float) RAND_MAX) * maxValue;
 		coefficients[i] = (int) real;
 		coefficients[i + 1] = (int) imaginary;
 	}
@@ -67,7 +67,17 @@ void print_sparse_complex_poly(uint32_t n, float* polynomial, uint32_t* exponent
 		if (i > 0) {
 			printf(" + ");
 		}
-		printf("(%f + %f * i) * x^(%d)", polynomial[i], polynomial[i + 1], exponents[i]);
+		printf("(%f + %f * i) * x^(%d)", polynomial[i], polynomial[i + 1], exponents[i / 2]);
+	}
+	printf("\n");
+}
+
+void print_cpe_sparse_complex_poly(uint32_t n, float complex* array, uint32_t* exponents) {
+	for (uint32_t i = 0; i < n; i++) {
+		if (i > 0) {
+			printf(" + ");
+		}
+		printf("(%f + %f * i) * x^(%d)", creal(array[i]), cimag(array[i]), exponents[i]);
 	}
 	printf("\n");
 }

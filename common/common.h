@@ -16,6 +16,8 @@ void print_sparse_real_poly(uint32_t n, float* array, uint32_t* exponents);
 
 void print_sparse_complex_poly(uint32_t n, float* array, uint32_t* exponents);
 
+void print_cpe_sparse_complex_poly(uint32_t n, float complex* array, uint32_t* exponents);
+
 void print_dense_real_poly(uint32_t n, float* polynomial);
 
 void print_dense_complex_poly(uint32_t n, float* polynomial);

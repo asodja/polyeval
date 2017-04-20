@@ -17,13 +17,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>DefaultApplication</exeName>
+<exeName>MultiSparseReal</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 8 -m 32</arguments>
+<arguments>-n 256 -m 8192</arguments>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

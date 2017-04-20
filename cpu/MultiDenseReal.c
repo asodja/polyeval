@@ -1,7 +1,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include <math.h>
 #include <sys/time.h>
 #include <stdarg.h>
 #include <getopt.h>
@@ -9,12 +8,14 @@
 
 #include "common.h"
 
-#define SHORTOPT "hn:"
+#define SHORTOPT "hn:m:"
 
 
 int help_flag = 0;
 
 uint32_t n = 0;
+
+uint32_t m = 0;
 
 struct option options[] = {
    	{"help",    no_argument, &help_flag, 1},
@@ -37,6 +38,7 @@ void help(const char * cmd) {
     printf("\nOptions:\n");
     printf("  -h, --help\n\tPrint short help\n");
     printf("  -n, --number-of-terms\n\tThis is length of polynomial\n");
+    printf("  -m, --number-of-xs\n\tThis is number of xs to evaluate in\n");
 }
 
 void parse_args(int argc, char * argv[]) {
@@ -51,6 +53,9 @@ void parse_args(int argc, char * argv[]) {
 			break;
 		case 'n':
 			n = atoi(optarg);
+			break;
+		case 'm':
+			m = atoi(optarg);
 			break;
 		case 0:
 		break;
@@ -68,18 +73,16 @@ void parse_args(int argc, char * argv[]) {
 }
 
 
-float eval_single_real_poly(uint32_t n, float* polynomial, uint32_t* exponents, float x) {
-	float partialResult[16];
-	for (uint32_t i = 0; i < 16; i++) {
-		partialResult[i] = polynomial[i] * powf(x, exponents[i]);
- 	}
-	for (uint32_t i = 16; i < n; i++) {
-		partialResult[i % 16] += polynomial[i] * powf(x, exponents[i]);
+float* eval_multi_real_poly(uint32_t n, uint32_t m, float* polynomial, float* xs) {
+	float* result = malloc(sizeof(float) * m);
+	for (uint32_t j = 0; j < m; j++) {
+		float x = xs[j];
+		float x_result = 0.0f;
+		for (uint32_t i = n; i > 0; i--) {
+			x_result = x_result * x + polynomial[i - 1];
+		}
+		result[j] = x_result;
 	}
-	float result = 0.0;
-	for (uint32_t i = 0; i < 16; i++) {
-		result += partialResult[i];
- 	}
 	return result;
 }
 
@@ -88,21 +91,27 @@ int main(int argc, char * argv[])
 	parse_args(argc, argv);
 	if (n <= 0) {
 		error(1, "N cannot be 0", ' ');	
+	}
+	if (m <= 0) {
+		error(1, "M cannot be 0", ' ');	
 	}	
 
 	int seed = 15;
 	uint32_t maxExponent = 7;
 	float maxConstant = 10;
-	float x = 3.0f;
-	float* constants = get_random_float_array(n, maxConstant, seed);
-	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed+1);
+	float* polynomial = get_random_float_array(n, maxConstant, seed);
+	float* xs = get_random_float_array(m, maxConstant, seed+1);
 
 	timing_t timer;
 	timer_start(&timer);
-	float expected = eval_single_real_poly(n, constants, exponents, x);
+	float* expected = eval_multi_real_poly(n, m, polynomial, xs);
  	timer_stop(&timer);
-
-	printf("n: %d, t: %dms, r: %f\n", n, timer.realtime, expected);
+	
+	double r = 0.0;
+	for (uint32_t i = 0; i < m; i++) {
+		r += (double) expected[i];
+	}
+	printf("n: %d, m: %d, t: %dms, r: %f\n", n, m, timer.realtime, r);
 
 	return 0;
 }

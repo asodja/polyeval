@@ -17,21 +17,20 @@ int main(int argc, char * argv[])
 	if ((int32_t) n <= 0) {
 		error(1, "N cannot be less than 0", ' ');
 	}
-	int seed = 1;
+	int seed = 15;
 	uint32_t maxExponent = 7;
 	float maxConstant = 10;
 	float x = 3.0f;
 	float* constants = get_random_float_array(n, maxConstant, seed);
-	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed);
+	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed+1);
 
 	timing_t timer;
 	timer_start(&timer);
 	float result[4];
 	SinglePointEvaluation(n, x, constants, exponents, result);
  	timer_stop(&timer);
-	free(constants);
-	free(exponents);
-	printf("[DF SINGLE POINT REAL SPARSE]: n: %d, t: %dms, r: %f\n", n, timer.realtime, result[0]);
+
+	printf("n: %d, t: %dms, r: %f\n", n, timer.realtime, result[0]);
 
 	return 0;
 }

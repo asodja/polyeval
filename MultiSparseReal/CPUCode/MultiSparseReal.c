@@ -53,16 +53,17 @@ int main(int argc, char * argv[])
 		error(1, "N and M cannot be less than 0", ' ');
 	}
 
+	int seed = 15;
 	// Setup points m, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	float* xs = get_random_float_array(m, 15.0, 2);
-	print_real_array(m, xs, "POINTS");
+	float* xs = get_random_float_array(m, 10.0, seed+1);
+	// print_real_array(m, xs, "POINTS");
 
 	// Setup polynomials n, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	float* coefficients = get_random_float_array(n, 10.0, 3);
-	uint32_t* exponents = get_random_uint_array(n, 5, 1);
-	print_real_array(n, coefficients, "Polynomial");
+	float* coefficients = get_random_float_array(n, 10.0, seed);
+	uint32_t* exponents = get_random_uint_array(n, 7, seed+2);
+	// print_real_array(n, coefficients, "Polynomial");
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m);
@@ -71,7 +72,12 @@ int main(int argc, char * argv[])
 	MultiSparseReal(m, n, coefficients, exponents, xs, result);
  	timer_stop(&timer);
 
-	checkResult(m, xs, n, coefficients, exponents, result);
+	// checkResult(m, xs, n, coefficients, exponents, result);
+	float real = 0.0;
+	for (uint32_t i = 0; i < m; i++) {
+		real += result[i];
+	}
+	printf("n: %d, m: %d, t: %dms, r: %f\n", n, m, timer.realtime, real);
 
 
 	return 0;

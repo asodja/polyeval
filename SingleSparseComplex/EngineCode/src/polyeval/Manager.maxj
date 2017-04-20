@@ -37,7 +37,7 @@ public class Manager extends CustomManager {
         ei.setScalar("MultiplyKernel", "xImg", xImg);
         ei.setStream("constants", CPUTypes.FLOAT, 2 * n * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("exponents", CPUTypes.UINT32, n * CPUTypes.UINT32.sizeInBytes());
-        ei.setStream("result", CPUTypes.FLOAT, 8 * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, 4 * CPUTypes.FLOAT.sizeInBytes());
 
         // Set ticks
         ei.setTicks("MultiplyKernel", n);

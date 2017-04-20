@@ -12,7 +12,7 @@ class PolyEvalManager {
 
 	static final int FRAGMENTS = 32;
 
-	static final int MAX_POLYNOMIAL_LENGTH = 1024;
+	static final int MAX_POLYNOMIAL_LENGTH = 8192;
 
     public static void main(String[] args) {
         EngineParameters params = new EngineParameters(args);

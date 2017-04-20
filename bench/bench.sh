@@ -1,16 +1,20 @@
 #!/bin/bash
 
 MYNAME=$(basename "$0")
+BENCH_MAX="536870912"
 
 help() {
 cat <<EOF
-Example usage: $MYNAME cpu ../SingleSparseReal
+Example usage: $MYNAME cpusin ../SingleSparseReal
 
 TARGETS:
-  * cpu <path to executable>     Runs cpu bench
-  * dfe <path to executable>     Runs dfe bench
+  * cpusin <path to executable>     Runs single point cpu bench
+  * dfesin <path to executable>     Runs single point dfe bench
+  * cpumul <path to executable>     Runs multi point cpu bench
+  * dfemul <path to executable>     Runs multi point dfe bench
 
 OPTIONS:
+  -d --debug   Run debug with small number of inputs
   -h --help    Prints this help
 
 EOF
@@ -29,25 +33,55 @@ run() {
   ${func_name} "$@" || fail "Error running target: $target"
 }
 
-bench() {
+single_bench() {
   local type="$1"
   local exe="$2"
   test -z "$exe" && fail "No executable given"
   local filename="$(basename "$exe")"
   local logfile="${filename%.*}-$type.log"
   echo "Running $exe, log is written to $logfile"
-  for n in 32 512 8192 131072 2097152 33554432 536870912; do
+  for (( n=16; n <= BENCH_MAX; n=n*2 )); do
     $exe -n "$n" >> $logfile 2>&1
+    sleep 2
   done
 }
 
-target_cpu() {
-  bench "cpu" "$@"
+multi_bench() {
+  local type="$1"
+  local exe="$2"
+  test -z "$exe" && fail "No executable given"
+  local filename="$(basename "$exe")"
+  local logfile="${filename%.*}-$type.log"
+  echo "Running $exe, log is written to $logfile"
+  for n in 32 256 1024 4096 8192; do
+	for (( m=n; m*n <= BENCH_MAX; m=m*2 )); do
+		$exe -n "$n" -m "$m" >> $logfile 2>&1
+    		sleep 2
+	done
+  done
 }
 
-target_dfe() {
-  bench "dfe" "$@"
+target_cpusin() {
+  single_bench "cpu" "$@"
 }
+
+target_dfesin() {
+  single_bench "dfe" "$@"
+}
+
+target_cpumul() {
+  multi_bench "cpu" "$@"
+}
+
+target_dfemul() {
+  multi_bench "dfe" "$@"
+}
+
+
+if [ "$1" = "-d" -o "$1" = "--debug" ]; then
+  BENCH_MAX="131072"
+  shift
+fi
 
 if [ "$1" = "-h" -o "$1" = "--help" ]; then
   help
