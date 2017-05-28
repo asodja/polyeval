@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MultiDenseComplex_EngineCode_run_script" default="all" basedir="../../EngineCode">
+<project name="VecMultiDenseComplex8_EngineCode_run_script" default="all" basedir="../../EngineCode">
     <property environment="env"/>
     <condition property="maxcompilerdirpath" value="${env.MAXCOMPILERJCP}">
         <isset property="env.MAXCOMPILERJCP"/>
@@ -19,6 +19,7 @@
         <pathelement path="${env.ANT_MAXELER_INTERNAL_MAXIDE_JARS}"/>
         <pathelement path="../RunRules/Simulation/dist/bin"/>
         <pathelement path="${maxcompilerdirpath}"/>
+        <pathelement path="/home/demo/git/maxpower/bin"/>
         <pathelement path="${EnvClassPath}"/>
     </path>
     <path id="maxnetclasspath">
@@ -37,7 +38,7 @@
     </condition>
     <target name="all" depends="runresult"/>
     <target name="build">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/MultiDenseReal_Build.xml"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiDenseComplex_Build.xml"/>
     </target>
     <target name="run" depends="build">
         <condition property="args" value="">
@@ -68,7 +69,7 @@
         <fail if="java.run.fail" message="java run stage failed."/>
     </target>
     <target name="clean">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/MultiDenseReal_Build.xml" target="clean"/>
+        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiDenseComplex_Build.xml" target="clean"/>
     </target>
     <target name="jar" depends="build">
         <mkdir dir="../RunRules/Simulation/dist/jar"/>
@@ -82,11 +83,11 @@
         </jar>
     </target>
     <target name="help">
-        <echo message="ant -f MultiDenseReal.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f MultiDenseReal.xml build&#9;&#9;&#9;Compile project"/>
-        <echo message="ant -f MultiDenseReal.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
-        <echo message="ant -f MultiDenseReal.xml clean&#9;&#9;&#9;Delete temp folders"/>
-        <echo message="ant -f MultiDenseReal.xml jar&#9;&#9;&#9;Create jar package"/>
-        <echo message="ant -f MultiDenseReal.xml help&#9;&#9;&#9;Print help message"/>
+        <echo message="ant -f VecMultiDenseComplex.xml -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f VecMultiDenseComplex.xml build&#9;&#9;&#9;Compile project"/>
+        <echo message="ant -f VecMultiDenseComplex.xml run -Dargs=&quot;${Value}&quot;&#9;Run project"/>
+        <echo message="ant -f VecMultiDenseComplex.xml clean&#9;&#9;&#9;Delete temp folders"/>
+        <echo message="ant -f VecMultiDenseComplex.xml jar&#9;&#9;&#9;Create jar package"/>
+        <echo message="ant -f VecMultiDenseComplex.xml help&#9;&#9;&#9;Print help message"/>
     </target>
 </project>

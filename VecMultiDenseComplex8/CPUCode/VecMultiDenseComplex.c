@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
 	float* result = malloc(sizeof(float) * m * 2);
 	timing_t timer;
 	timer_start(&timer);
-	MultiDenseComplex(m, n, polynomial, points, result);
+	VecMultiDenseComplex(m, n, polynomial, points, result);
 	timer_stop(&timer);
 
 	// print_complex_array(m, result, "Y");

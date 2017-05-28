@@ -7,7 +7,7 @@
 <programArgument argument="MPPREndCT" value="4"/>
 </common>
 <maxFiles>
-<maxFile buildName="MultiDenseComplex" buildOrUseExisting="build">
+<maxFile buildName="VecMultiDenseComplex" buildOrUseExisting="build">
 <runConfiguration askBeforeAutoBuild="true">
 <mainClass>polyeval.PolyEvalManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
@@ -18,7 +18,7 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>MultiDenseComplex</exeName>
+<exeName>VecMultiDenseComplex8</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>

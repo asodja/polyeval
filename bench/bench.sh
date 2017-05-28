@@ -45,7 +45,7 @@ single_bench() {
     sleep 2
   done
 }
-
+# 3145632 6291360 12582816 25165728 50331552 67108704
 multi_bench() {
   local type="$1"
   local exe="$2"

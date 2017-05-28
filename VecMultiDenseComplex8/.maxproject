@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="VecMultiDenseComplex8_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/VecMultiDenseComplex8_EngineCode/bin" projectName="VecMultiDenseComplex8"/>
+<cpuPart internalCpuSubproject="VecMultiDenseComplex8_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

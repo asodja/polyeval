@@ -16,6 +16,10 @@ uint32_t next_multiple_of(uint32_t n, uint32_t larger_then);
 
 float complex* get_random_complex_array(uint32_t n, float maxValue, int seed);
 
+float complex* get_random_oninterval_complex_array(uint32_t n, float rMinValue, float rMaxValue, float iMinValue, float iMaxValue, int seed);
+
+float* get_random_oninterval_complex_array_as_float(uint32_t n, float rMinValue, float rMaxValue, float iMinValue, float iMaxValue, int seed);
+
 uint32_t* get_random_uint_array(uint32_t n, uint32_t maxValue, int seed);
 
 void print_sparse_real_poly(uint32_t n, float* array, uint32_t* exponents);

@@ -49,20 +49,20 @@ build: maxfiles
 maxfiles: $(MAXFILES_MAX)
 
 #
-# MaxFile: MultiDenseComplex
+# MaxFile: VecMultiDenseComplex
 #
 
 
-BUILDNAME_MAXFILE_1:=MultiDenseComplex
-MAXFILE_1:=MultiDenseComplex.max
+BUILDNAME_MAXFILE_1:=VecMultiDenseComplex
+MAXFILE_1:=VecMultiDenseComplex.max
 
-include/MultiDenseComplex.h: maxfiles/MultiDenseComplex.h
+include/VecMultiDenseComplex.h: maxfiles/VecMultiDenseComplex.h
 	cp $< $@
 
-maxfiles/MultiDenseComplex.max maxfiles/MultiDenseComplex.h:
+maxfiles/VecMultiDenseComplex.max maxfiles/VecMultiDenseComplex.h:
 # Ensure that maxfiles do not get build by this Makefile when running in MaxIDE
 ifndef MAXIDE_RUN
-	env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE_SIM  maxFileName=MultiDenseComplex "  ant -v -f MultiDenseComplex.xml
+	env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE_SIM  maxFileName=VecMultiDenseComplex "  ant -v -f VecMultiDenseComplex.xml
 else
 	test -f $@ || ( echo 'Maxfile unavailable: $@' >/dev/stderr ; exit 1 )
 endif

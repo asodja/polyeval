@@ -1,0 +1,5 @@
+#
+# This file is managed by MaxIDE. Do NOT change.
+#
+HEADERS:= common.h multiparse.h 
+SOURCES:= VecMultiDenseComplex.c common.c multiparse.c 

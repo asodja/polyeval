@@ -98,21 +98,22 @@ int main(int argc, char * argv[])
 	}	
 
 	int seed = 15;
-	uint32_t maxExponent = 7;
-	float maxConstant = 10;
-	float complex* polynomial = get_random_complex_array(n, maxConstant, seed);
-	float complex* xs = get_random_complex_array(m, maxConstant, seed+1);
+	float complex* polynomial = get_random_oninterval_complex_array(n, 0, 5.0, 0, 0.5, seed);
+	float complex* xs = get_random_oninterval_complex_array(m, 0.95, 1.05, 0.0, 0.01, seed + 1);
+	// print_dense_complex_poly(n, polynomial);
 
 	timing_t timer;
 	timer_start(&timer);
 	float complex* expected = eval_multi_complex_poly(n, m, polynomial, xs);
  	timer_stop(&timer);
 	
-	double complex r = 0.0;
+	long double real = 0.0;
+	long double img = 0.0;
 	for (uint32_t i = 0; i < m; i++) {
-		r += expected[i];
+		real += creal(expected[i]);
+		img += cimag(expected[i]);
 	}
-	printf("n: %d, m: %d, t: %dms, r: %f+%fi\n", n, m, timer.realtime, creal(r), cimag(r));
+	printf("n: %d, m: %d, t: %dms, r: %Lf+%Lfi\n", n, m, timer.realtime, real, img);
 
 	return 0;
 }

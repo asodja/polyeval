@@ -18,8 +18,8 @@ export ANT_MAXELER_INTERNAL_MAXIDE_JARS = $(subst :,;,$(MAXELER_INTERNAL_MAXIDE_
 # include custom definitions before including MAXCOMPILER include file
 include Makefile.settings
 
-IS_SIMULATION_PROFILE := 1
-IS_HARDWARE_PROFILE := 0
+IS_SIMULATION_PROFILE := 0
+IS_HARDWARE_PROFILE := 1
 
 ifeq ($(IS_SIMULATION_PROFILE),1)
   MAXELEROSDIR=$(MAXCOMPILERDIR)/lib/maxeleros-sim
@@ -49,20 +49,20 @@ build: maxfiles
 maxfiles: $(MAXFILES_MAX)
 
 #
-# MaxFile: MultiDenseComplex
+# MaxFile: MultiDenseReal
 #
 
 
-BUILDNAME_MAXFILE_1:=MultiDenseComplex
-MAXFILE_1:=MultiDenseComplex.max
+BUILDNAME_MAXFILE_1:=MultiDenseReal
+MAXFILE_1:=MultiDenseReal.max
 
-include/MultiDenseComplex.h: maxfiles/MultiDenseComplex.h
+include/MultiDenseReal.h: maxfiles/MultiDenseReal.h
 	cp $< $@
 
-maxfiles/MultiDenseComplex.max maxfiles/MultiDenseComplex.h:
+maxfiles/MultiDenseReal.max maxfiles/MultiDenseReal.h:
 # Ensure that maxfiles do not get build by this Makefile when running in MaxIDE
 ifndef MAXIDE_RUN
-	env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE_SIM  maxFileName=MultiDenseComplex "  ant -v -f MultiDenseComplex.xml
+	test -f $@ || env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE  maxFileName=MultiDenseReal MPPREndCT='4' "  ant -v -f MultiDenseReal.xml
 else
 	test -f $@ || ( echo 'Maxfile unavailable: $@' >/dev/stderr ; exit 1 )
 endif
@@ -70,10 +70,10 @@ endif
 
 
 startsim:
-	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n ch01mvavgsimpl -c VECTIS -d 1  restart
+		true
 
 stopsim:
-	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n ch01mvavgsimpl -c VECTIS -d 1  stop
+		true
 
 clean: clean-dist clean-objects clean-installers
 distclean: clean clean-maxfiles

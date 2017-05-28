@@ -61,6 +61,29 @@ float complex* get_random_complex_array(uint32_t n, float maxValue, int seed) {
 	return constants;
 }
 
+float complex* get_random_oninterval_complex_array(uint32_t n, float rMinValue, float rMaxValue, float iMinValue, float iMaxValue, int seed) {
+	srand(seed);
+	float complex* constants = malloc(sizeof(float complex) * n);
+	for (uint32_t i = 0; i < n; i++) {
+		float real = ((rand() & 1) ? -1 : 1) * (rMinValue + ((float) rand() / (float) RAND_MAX) * (rMaxValue - rMinValue));
+		float imaginary = ((rand() & 1) ? -1 : 1) * (iMinValue + ((float) rand() / (float) RAND_MAX) * (iMaxValue - iMinValue));
+		constants[i] = real + imaginary * I;
+	}
+	return constants;
+}
+
+float* get_random_oninterval_complex_array_as_float(uint32_t n, float rMinValue, float rMaxValue, float iMinValue, float iMaxValue, int seed) {
+	srand(seed);
+	float* constants = malloc(sizeof(float) * n * 2);
+	for (uint32_t i = 0; i < n * 2; i+=2) {
+		float real = ((rand() & 1) ? -1 : 1) * (rMinValue + ((float) rand() / (float) RAND_MAX) * (rMaxValue - rMinValue));
+		float imaginary = ((rand() & 1) ? -1 : 1) * (iMinValue + ((float) rand() / (float) RAND_MAX) * (iMaxValue - iMinValue));
+		constants[i] = real;
+		constants[i + 1] = imaginary;
+ 	}
+	return constants;
+}
+
 float* get_dfe_random_complex_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float* coefficients = malloc(sizeof(float complex) * n * 2);
