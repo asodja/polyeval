@@ -1,0 +1,46 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.build.EngineParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
+
+class PolyEvalManager {
+
+	static final int LATENCY = 16;
+
+	static final int TILE_SIZE = 8;
+
+	static final int XS_PER_TICK_SIZE = 1;
+
+	static final int MAX_POLYNOMIAL_LENGTH = 16384;
+
+    public static void main(String[] args) {
+        EngineParameters params = new EngineParameters(args);
+        Manager manager = new Manager(params);
+        // Instantiate the kernel
+        Kernel kernel = new DFTKernel(manager.makeKernelParameters(), LATENCY, MAX_POLYNOMIAL_LENGTH, TILE_SIZE, XS_PER_TICK_SIZE);
+
+        manager.setKernel(kernel);
+        manager.setIO(IOType.ALL_CPU); // Connect all kernel ports to
+        manager.createSLiCinterface(getEngineInterface(kernel));
+        manager.build();
+    }
+
+    private static EngineInterface getEngineInterface(Kernel kernel) {
+        EngineInterface ei = new EngineInterface();
+
+        // n is length of polynomial, m is number of xs
+        InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
+        ei.setScalar(kernel.getName(), "n", n);
+        InterfaceParam m = ei.addParam("m", CPUTypes.UINT32);
+        ei.setScalar(kernel.getName(), "m", m);
+
+        ei.setStream("xs", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        return ei;
+    }
+}
