@@ -1,0 +1,64 @@
+package polyeval;
+
+
+import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVector;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVectorType;
+
+public class MultiplyKernel extends Kernel {
+
+    final DFEType FLOAT = dfeFloat(8, 24);
+
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    MultiplyKernel(KernelParameters parameters, int fragments, int vecSize) {
+        super(parameters);
+        DFEVar tickCount = control.count.simpleCounter(64);
+        DFEVectorType<DFEVar> floatVec = new DFEVectorType<DFEVar>(FLOAT, vecSize);
+        DFEVectorType<DFEVar> uint16Vec = new DFEVectorType<DFEVar>(dfeUInt(32), vecSize);
+
+        // Counters
+        DFEVar counter = control.count.simpleCounter(32);
+        DFEVar n = io.scalarInput("n", UINT_32) / vecSize;
+        DFEVar enableReadFromStream = tickCount < n.cast(dfeUInt(64));
+        DFEVector<DFEVar> k = io.input("constants", floatVec, enableReadFromStream);
+        DFEVector<DFEVar> exp = io.input("exponents", uint16Vec, enableReadFromStream);
+        DFEVar x = io.scalarInput("x", FLOAT);
+
+        // Calculate pow(x)
+        DFEVar[] summands = new DFEVar[vecSize];
+        for (int i = 0; i < vecSize; i++) {
+        	DFEVar powX = pow(x, exp[i]);
+        	summands[i] = k[i] * powX;
+        }
+
+        // Do sum
+        DFEVar partialSum = FLOAT.newInstance(this);
+        DFEVar sum = (counter < fragments) ? 0.0 : partialSum;
+        sum += FloatingPointMultiAdder.add(summands);
+        partialSum <== stream.offset(sum, -fragments);
+
+        // Output
+        io.output("result", sum, FLOAT, counter >= (n - fragments));
+
+    }
+
+    private DFEVar pow(DFEVar x, DFEVar exp) {
+        // Calculate max exponent of 2^10 = 1024,
+        // this means we can do x^1024 at max
+    	DFEVar powX = constant.var(FLOAT, 1.0);
+        for (int i = 0; i < 10; ++i) {
+        	powX = ((exp > 0) & ((exp & 1) === 1)) ? powX * x : powX;
+        	exp = exp >> 1;
+        	x = x * x;
+        }
+        return powX;
+    }
+
+}

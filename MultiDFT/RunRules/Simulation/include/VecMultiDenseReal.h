@@ -21,14 +21,14 @@ extern "C" {
  * 
  * \param [in] param_m Interface Parameter "m".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] ticks_VecMultiDenseRealKernel The number of ticks for which kernel "VecMultiDenseRealKernel" will run.
- * \param [in] instream_xs The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [in] param_n16 Interface Parameter "n16".
+ * \param [in] instream_xs The stream should be of size ((param_m * param_n) * 4) bytes.
+ * \param [out] outstream_result The stream should be of size ((param_m * param_n) * 4) bytes.
  */
 void VecMultiDenseReal(
 	uint32_t param_m,
 	uint32_t param_n,
-	uint64_t ticks_VecMultiDenseRealKernel,
+	uint32_t param_n16,
 	const float *instream_xs,
 	float *outstream_result);
 
@@ -42,15 +42,15 @@ void VecMultiDenseReal(
  * 
  * \param [in] param_m Interface Parameter "m".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] ticks_VecMultiDenseRealKernel The number of ticks for which kernel "VecMultiDenseRealKernel" will run.
- * \param [in] instream_xs The stream should be of size (param_n * 4) bytes.
- * \param [out] outstream_result The stream should be of size (param_n * 4) bytes.
+ * \param [in] param_n16 Interface Parameter "n16".
+ * \param [in] instream_xs The stream should be of size ((param_m * param_n) * 4) bytes.
+ * \param [out] outstream_result The stream should be of size ((param_m * param_n) * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *VecMultiDenseReal_nonblock(
 	uint32_t param_m,
 	uint32_t param_n,
-	uint64_t ticks_VecMultiDenseRealKernel,
+	uint32_t param_n16,
 	const float *instream_xs,
 	float *outstream_result);
 
@@ -61,9 +61,9 @@ max_run_t *VecMultiDenseReal_nonblock(
 typedef struct { 
 	uint32_t param_m; /**<  [in] Interface Parameter "m". */
 	uint32_t param_n; /**<  [in] Interface Parameter "n". */
-	uint64_t ticks_VecMultiDenseRealKernel; /**<  [in] The number of ticks for which kernel "VecMultiDenseRealKernel" will run. */
-	const float *instream_xs; /**<  [in] The stream should be of size (param_n * 4) bytes. */
-	float *outstream_result; /**<  [out] The stream should be of size (param_n * 4) bytes. */
+	uint32_t param_n16; /**<  [in] Interface Parameter "n16". */
+	const float *instream_xs; /**<  [in] The stream should be of size ((param_m * param_n) * 4) bytes. */
+	float *outstream_result; /**<  [out] The stream should be of size ((param_m * param_n) * 4) bytes. */
 } VecMultiDenseReal_actions_t;
 
 /**

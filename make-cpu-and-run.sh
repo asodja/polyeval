@@ -8,6 +8,6 @@ cd ..
 cd bench
 echo "In ./bench"
 echo "Will run, be ready!"
-#./bench.sh cpumul "../cpu/MultiDenseReal"
-./bench.sh cpumul "../cpu/MultiDenseComplex"
+./bench.sh cpusin "../cpu/FastSingleSparseReal"
+./bench.sh cpusin "../cpu/SingleSparseReal"
 echo "Done"

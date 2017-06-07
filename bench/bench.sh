@@ -40,7 +40,7 @@ single_bench() {
   local filename="$(basename "$exe")"
   local logfile="${filename%.*}-$type.log"
   echo "Running $exe, log is written to $logfile"
-  for (( n=16; n <= BENCH_MAX; n=n*2 )); do
+  for (( n=256; n <= BENCH_MAX; n=n*2 )); do
     $exe -n "$n" >> $logfile 2>&1
     sleep 2
   done

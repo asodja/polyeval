@@ -12,7 +12,7 @@ class PolyEvalManager {
 
 	static final int LATENCY = 16;
 
-	static final int TILE_SIZE = 8;
+	static final int TILE_SIZE = 2;
 
 	static final int XS_PER_TICK_SIZE = 1;
 
@@ -36,11 +36,13 @@ class PolyEvalManager {
         // n is length of polynomial, m is number of xs
         InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
         ei.setScalar(kernel.getName(), "n", n);
+        InterfaceParam n16 = ei.addParam("n16", CPUTypes.UINT32);
         InterfaceParam m = ei.addParam("m", CPUTypes.UINT32);
         ei.setScalar(kernel.getName(), "m", m);
 
-        ei.setStream("xs", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
-        ei.setStream("result", CPUTypes.FLOAT, n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("xs", CPUTypes.FLOAT, m * n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setStream("result", CPUTypes.FLOAT, m * n * CPUTypes.FLOAT.sizeInBytes());
+        ei.setTicks(kernel.getName(), (n16 * n16 / TILE_SIZE + n16) * m);
         return ei;
     }
 }

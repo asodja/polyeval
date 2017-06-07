@@ -15,18 +15,11 @@ int areFloatsEqual(float first, float second, float epsilon) {
 	}
 }
 
-void checkResult(uint32_t n_points, float* points, uint32_t polynomial_length, float* constants, float* result) {
+/*
+void checkResult(uint32_t n, float* xs, uint32_t m, float* result) {
 	printf("================================================\n");
 	printf("Checking result\n");
-	float* expected = malloc(sizeof(float) * n_points);
-	for (uint32_t j = 0; j < n_points; j++) {
-		float x = points[j];
-		float x_result = 0.0f;
-		for (uint32_t i = polynomial_length; i > 0; i--) {
-			x_result = x_result * x + constants[i - 1];
-		}
-		expected[j] = x_result;
-	}
+	float* expected = malloc(sizeof(float) * n * m);
 
 	int valid = 1;
 	long double real = 0.0;
@@ -46,6 +39,7 @@ void checkResult(uint32_t n_points, float* points, uint32_t polynomial_length, f
 	}
 	printf("cpu-score: %Lf\n", real);
 }
+*/
 
 int main(int argc, char * argv[])
 {
@@ -59,24 +53,25 @@ int main(int argc, char * argv[])
 	int seed = 15;
 	// Setup points, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	float* points = get_random_oninterval_float_array(n, 0.95, 1.05, seed + 1);
+	float* points = get_random_oninterval_float_array(n * m, 0.95, 1.05, seed + 1);
 	// print_real_array(m, points, "POINTS");
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n * m; i++) {
 		points[i] = (float) i + 1;
 	}
 
 	// Setup result
 	uint32_t tile_size = 16;
 	uint32_t tick_count = 16;
-	float* result = malloc(sizeof(float) * n);
+	uint32_t n16 = (n - 1 + 16) / 16 * 16;
+	float* result = malloc(sizeof(float) * n * m);
 	timing_t timer;
 	timer_start(&timer);
-	VecMultiDenseReal(1, n, n * n / 8 + n,points,result);
+	VecMultiDenseReal(m, n, n16, points, result);
 	timer_stop(&timer);
 
 	// checkResult(m, points, n, polynomial, result);
 	long double real = 0.0;
-	for (uint32_t i = 0; i < n; i++) {
+	for (uint32_t i = 0; i < n * m; i++) {
 		printf("%d: %f\n", i, result[i]);
 		real += result[i];
 	}

@@ -1,0 +1,31 @@
+package polyeval;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class SumKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    SumKernel(KernelParameters parameters, int fragments) {
+        super(parameters);
+
+        DFEVar counter = control.count.simpleCounter(64);
+        DFEVar summand = io.input("summands", FLOAT);
+        DFEVar sum = (counter === 0) ? count(summand, fragments) : 0.0;
+
+        // Output
+        io.output("result", sum, FLOAT, counter < 4);
+    }
+
+    public DFEVar count(DFEVar summand, int fragments) {
+    	DFEVar sum = summand;
+        for (int i = 1; i < fragments; i++) {
+        	sum += stream.offset(summand, i);
+        }
+        return sum;
+    }
+
+}

@@ -7,7 +7,7 @@ import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
-import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.KernelMath;
+import com.maxeler.maxcompiler.v2.kernelcompiler.RoundingMode;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.Counter;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
@@ -42,30 +42,34 @@ public class DFTKernel extends Kernel {
 
         // Main loop counter, first read n xs and do nothing
         // Number of iterations per one in dynamic loop
-        DFEVar iterations = KernelMath.max(constant.var(1), n / tileSize);
+        optimization.pushRoundingMode(RoundingMode.TRUNCATE);
+        DFEVar js = (n - 1 + latency) / latency;
+        DFEVar is = (n - 1 + tileSize) / tileSize;
+        optimization.popRoundingMode();
+        is.simWatch("iss");
         CounterChain cc = control.count.makeCounterChain(~initStream);
-        DFEVar readParity = cc.addCounter(2, 1);
-        DFEVar i = cc.addCounter(iterations, 1);
-        cc.addCounter(latency, 1).setReportOnUnused(false);
+        DFEVar parity = cc.addCounter(2, 1);
+        DFEVar j = cc.addCounter(js, 1); // current latency number xs
+        DFEVar i = cc.addCounter(is, 1); // current tileSize xs for current latency tick
+        DFEVar l = cc.addCounter(latency, 1); // currently latency tick
 
         // Start reading only when
         // we evaluate first iteration
-        DFEVar readXs = (i === 0);
+        DFEVar subtick = initStream
+        		? tickCount.cast(UINT_32)
+        		: j.cast(UINT_32) * latency + l.cast(UINT_32);
+        DFEVar readXs = (subtick < n);
         // Counter to control how many xs we have read
         Counter xCounter = getXCounter(nPoints, readXs);
-        // Parity since we use two sized buffer
-        CounterChain parityChain = control.count.makeCounterChain(readXs);
-        DFEVar parity = parityChain.addCounter(2, 1);
-        DFEVar xIndex = parityChain.addCounter(n, 1);
         // Since Main loop starts when first n xs are read,
         // read and write addresses are switched
-        DFEVar readAddress = (readParity === 0) ? constant.zero(UINT_32) : constant.var(UINT_32, maxPolynomialLength);
-        DFEVar writeAddress = (parity === 0) ? constant.zero(UINT_32) : constant.var(UINT_32, maxPolynomialLength);
+        DFEVar readAddress = (parity === 0) ? constant.zero(UINT_32) : constant.var(UINT_32, maxPolynomialLength);
+        DFEVar writeAddress = (initStream | parity === 1) ? constant.zero(UINT_32) : constant.var(UINT_32, maxPolynomialLength);
 
         // Read and write xs into mem until all are read
         DFEVar xIn = io.input("xs", FLOAT, readXs & xCounter.getCount() < nPoints);
     	Memory<DFEVar> xBuf = mem.alloc(FLOAT, maxPolynomialLength * 2);
-    	xBuf.write((writeAddress + xIndex).cast(addrType), xIn, readXs & xCounter.getCount() < nPoints);
+    	xBuf.write((writeAddress + subtick).cast(addrType), xIn, readXs & xCounter.getCount() < nPoints);
 
     	DFEVar initLoop = (i === 0);
     	DFEVar memReadOffset = (readAddress + i * tileSize);
@@ -76,9 +80,7 @@ public class DFTKernel extends Kernel {
         	DFEVar address = (memReadOffset + t);
         	DFEVar x = xBuf.read(address.cast(addrType));
         	summands.add(x); // * e
-        	if (t == 0) {
-        		debug.simPrintf("tick: %d, address: %d, x: %f\n", tickCount, address, x);
-        	}
+    		debug.simPrintf("tick: %d, address: %d, x: %f\n", tickCount, address, x);
         }
         DFEVar sum = FloatingPointMultiAdder.add(summands) + previousSum;
         partialSum <== stream.offset(sum, -latency);
@@ -87,12 +89,16 @@ public class DFTKernel extends Kernel {
         // debug.simPrintf("tick: %d, i: %d\n", tickCount, i);
         sum.simWatch("sum");
         i.simWatch("i");
+        is.simWatch("ssss");
         initStream.simWatch("initStream");
-        readParity.simWatch("readParity");
+        parity.simWatch("parity");
+        subtick.simWatch("subtick");
+        xIn.simWatch("xIn");
     	// debug.simPrintf("readXs: %f, xCounter: %d, nPoints: %d\n", readXs, xCounter.getCount(), nPoints);
 
         // Output
-        io.output("result", sum, FLOAT, i === iterations - 1);
+        DFEVar out = ~initStream & (i === is - 1) & (subtick < n);
+        io.output("result", sum, FLOAT, out);
     }
 
 	private Counter getXCounter(DFEVar nPoints, DFEVar enable) {
@@ -101,6 +107,5 @@ public class DFTKernel extends Kernel {
     			.withEnable(enable)
     			.withWrapMode(WrapMode.STOP_AT_MAX));
 	}
-
 
 }

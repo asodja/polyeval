@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="VecSingleSparseReal8_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/VecSingleSparseReal8_EngineCode/bin" projectName="VecSingleSparseReal8"/>
+<cpuPart internalCpuSubproject="VecSingleSparseReal8_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>
