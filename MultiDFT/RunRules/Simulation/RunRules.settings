@@ -6,7 +6,7 @@
 <enableMPCX enabled="false"/>
 </common>
 <maxFiles>
-<maxFile buildName="VecMultiDenseReal" buildOrUseExisting="build">
+<maxFile buildName="MultiDFT" buildOrUseExisting="build">
 <runConfiguration askBeforeAutoBuild="false">
 <mainClass>polyeval.PolyEvalManager</mainClass>
 <maxHeapSize>2</maxHeapSize>
@@ -17,13 +17,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>DFT</exeName>
+<exeName>MultiDFT</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 26 -m 4</arguments>
+<arguments>-n 16 -m 2</arguments>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

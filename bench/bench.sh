@@ -12,6 +12,7 @@ TARGETS:
   * dfesin <path to executable>     Runs single point dfe bench
   * cpumul <path to executable>     Runs multi point cpu bench
   * dfemul <path to executable>     Runs multi point dfe bench
+  * dfedft <path to executable>     Runs dft dfe bench
 
 OPTIONS:
   -d --debug   Run debug with small number of inputs
@@ -61,6 +62,24 @@ multi_bench() {
   done
 }
 
+multi_dft() {
+  local type="$1"
+  local exe="$2"
+  test -z "$exe" && fail "No executable given"
+  local filename="$(basename "$exe")"
+  local logfile="${filename%.*}-$type.log"
+  echo "Running $exe, log is written to $logfile"
+  for n in 16 32 64 128 256 512 1024 2048 4096 8192; do
+	for m in 1 1 8192 131072 524288 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456 536870912; do
+		if (( $m > 1 )); then
+			((m=$m/$n))		
+		fi
+		$exe -n "$n" -m "$m" >> $logfile 2>&1
+    		sleep 2
+	done
+  done
+}
+
 target_cpusin() {
   single_bench "cpu" "$@"
 }
@@ -76,6 +95,11 @@ target_cpumul() {
 target_dfemul() {
   multi_bench "dfe" "$@"
 }
+
+target_dfedft() {
+  multi_dft "dft" "$@"
+}
+
 
 
 if [ "$1" = "-d" -o "$1" = "--debug" ]; then

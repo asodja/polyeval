@@ -2,12 +2,15 @@ CC=gcc
 CFLAGS=-O3 -std=c99
 LIBS=-lm
 
-all: SingleSparseReal FastSingleSparseReal SingleSparseComplex MultiSparseReal MultiSparseComplex MultiDenseReal MultiDenseComplex clean
+all: SingleSparseReal FastSingleSparseReal FastSingleSparseComplex SingleSparseComplex MultiSparseReal MultiSparseComplex MultiDenseReal MultiDenseComplex clean
 
 SingleSparseReal: common.o SingleSparseReal.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 FastSingleSparseReal: common.o FastSingleSparseReal.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+
+FastSingleSparseComplex: common.o FastSingleSparseComplex.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 SingleSparseComplex: common.o SingleSparseComplex.o

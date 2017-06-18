@@ -14,13 +14,19 @@ import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplex;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplexType;
 import com.maxeler.maxcompiler.v2.utils.MathUtils;
 
 public class DFTKernel extends Kernel {
 
     static final DFEType FLOAT = dfeFloat(8, 24);
 
+    static final DFEComplexType CPLX_FLOAT = new DFEComplexType(FLOAT);
+
     static final DFEType UINT_32 = dfeUInt(32);
+
+    static final DFEType UINT_16 = dfeUInt(16);
 
     static final DFEType UINT_63 = dfeUInt(63);
 
@@ -31,6 +37,7 @@ public class DFTKernel extends Kernel {
 			int xsPerTick) {
         super(parameters);
     	DFEType addrType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength * 2));
+    	DFEType esAddrType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
 
         // n - size of DFT
         DFEVar n = io.scalarInput("n", UINT_32);
@@ -49,16 +56,19 @@ public class DFTKernel extends Kernel {
         is.simWatch("iss");
         CounterChain cc = control.count.makeCounterChain(~initStream);
         DFEVar parity = cc.addCounter(2, 1);
-        DFEVar j = cc.addCounter(js, 1); // current latency number xs
-        DFEVar i = cc.addCounter(is, 1); // current tileSize xs for current latency tick
-        DFEVar l = cc.addCounter(latency, 1); // currently latency tick
+        DFEVar j = cc.addCounter(js, 1);
+        DFEVar i = cc.addCounter(is, 1);
+        DFEVar l = cc.addCounter(latency, 1);
+
+        DFEVar writeIndex = initStream
+        		? tickCount.cast(UINT_32)
+        		// Current tick for this DFT
+        		: l.cast(UINT_32) + i.cast(UINT_32) * latency + j.cast(UINT_32) * is * latency;
 
         // Start reading only when
         // we evaluate first iteration
-        DFEVar subtick = initStream
-        		? tickCount.cast(UINT_32)
-        		: j.cast(UINT_32) * latency + l.cast(UINT_32);
-        DFEVar readXs = (subtick < n);
+        DFEVar readXs = (writeIndex < n);
+        DFEVar readEs = (tickCount.cast(UINT_32) < n);
         // Counter to control how many xs we have read
         Counter xCounter = getXCounter(nPoints, readXs);
         // Since Main loop starts when first n xs are read,
@@ -67,39 +77,54 @@ public class DFTKernel extends Kernel {
         DFEVar writeAddress = (initStream | parity === 1) ? constant.zero(UINT_32) : constant.var(UINT_32, maxPolynomialLength);
 
         // Read and write xs into mem until all are read
-        DFEVar xIn = io.input("xs", FLOAT, readXs & xCounter.getCount() < nPoints);
-    	Memory<DFEVar> xBuf = mem.alloc(FLOAT, maxPolynomialLength * 2);
-    	xBuf.write((writeAddress + subtick).cast(addrType), xIn, readXs & xCounter.getCount() < nPoints);
+        DFEComplex xIn = io.input("xs", CPLX_FLOAT, readXs & xCounter.getCount() < nPoints);
+    	Memory<DFEComplex> xBuf = mem.alloc(CPLX_FLOAT, maxPolynomialLength * 2);
+    	xBuf.write((writeAddress + writeIndex).cast(addrType), xIn, readXs & xCounter.getCount() < nPoints);
+        DFEComplex eIn = io.input("es", CPLX_FLOAT, readEs);
+    	Memory<DFEComplex> eBuf = mem.alloc(CPLX_FLOAT, maxPolynomialLength);
+    	eBuf.write(tickCount.cast(esAddrType), eIn, readEs);
 
     	DFEVar initLoop = (i === 0);
+    	DFEVar nUInt16 = n.cast(UINT_16);
+    	DFEVar equationN = i.cast(UINT_16) * tileSize;
+        DFEVar equationK = j.cast(UINT_16) * latency + l.cast(UINT_16);
+        DFEVar kAddress = mod(equationN * equationK, nUInt16);
     	DFEVar memReadOffset = (readAddress + i * tileSize);
-    	DFEVar partialSum = FLOAT.newInstance(this);
-    	DFEVar previousSum = initLoop ? constant.var(FLOAT, 0.0) : partialSum;
-    	List<DFEVar> summands = new ArrayList<DFEVar>();
+    	DFEComplex partialSum = CPLX_FLOAT.newInstance(this);
+    	DFEComplex previousSum = initLoop ? constant.cplx(FLOAT, 0.0, 0.0) : partialSum;
+    	List<DFEComplex> summands = new ArrayList<DFEComplex>();
         for (int t = 0; t < tileSize; t++) {
         	DFEVar address = (memReadOffset + t);
-        	DFEVar x = xBuf.read(address.cast(addrType));
-        	summands.add(x); // * e
-    		debug.simPrintf("tick: %d, address: %d, x: %f\n", tickCount, address, x);
+        	DFEComplex x = xBuf.read(address.cast(addrType));
+        	// Poor man's modulo
+        	kAddress = kAddress >= nUInt16 ? (kAddress - nUInt16) : kAddress;
+        	DFEComplex e = eBuf.read(kAddress.cast(esAddrType));
+        	kAddress = kAddress + equationK;
+        	DFEComplex xTimesE = x * e;
+        	summands.add(xTimesE);
         }
-        DFEVar sum = FloatingPointMultiAdder.add(summands) + previousSum;
+        DFEComplex sum = FloatingPointMultiAdder.add(summands) + previousSum;
         partialSum <== stream.offset(sum, -latency);
 
 
         // debug.simPrintf("tick: %d, i: %d\n", tickCount, i);
-        sum.simWatch("sum");
-        i.simWatch("i");
-        is.simWatch("ssss");
-        initStream.simWatch("initStream");
+        writeAddress.simWatch("writeAddress");
         parity.simWatch("parity");
-        subtick.simWatch("subtick");
-        xIn.simWatch("xIn");
+        equationN.simWatch("equationN");
+        equationK.simWatch("equationK");
     	// debug.simPrintf("readXs: %f, xCounter: %d, nPoints: %d\n", readXs, xCounter.getCount(), nPoints);
 
         // Output
-        DFEVar out = ~initStream & (i === is - 1) & (subtick < n);
-        io.output("result", sum, FLOAT, out);
+        DFEVar out = ~initStream & (i === is - 1);
+        io.output("result", sum, CPLX_FLOAT, out);
     }
+
+	private DFEVar mod(DFEVar v, DFEVar m) {
+        optimization.pushRoundingMode(RoundingMode.TRUNCATE);
+        DFEVar div = v / m;
+        optimization.popRoundingMode();
+		return v - m * div;
+	}
 
 	private Counter getXCounter(DFEVar nPoints, DFEVar enable) {
         return control.count.makeCounter(control.count.makeParams(32)
