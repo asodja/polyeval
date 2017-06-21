@@ -3,7 +3,8 @@ package polyeval;
 import java.util.ArrayList;
 import java.util.List;
 
-import maxpower.kernel.arithmetic.FloatingPointMultiAdder;
+import maxpower.kernel.KernelBinaryOp.Add;
+import maxpower.utils.TreeReduce;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
@@ -12,6 +13,7 @@ import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.Counter;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
 import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFix.SignMode;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplex;
@@ -22,7 +24,11 @@ public class DFTKernel extends Kernel {
 
     static final DFEType FLOAT = dfeFloat(8, 24);
 
+    static final DFEType FIXED_FLOAT = dfeFix(26, 31, SignMode.TWOSCOMPLEMENT);
+
     static final DFEComplexType CPLX_FLOAT = new DFEComplexType(FLOAT);
+
+    static final DFEComplexType CPLX_FIXED_FLOAT = new DFEComplexType(FIXED_FLOAT);
 
     static final DFEType UINT_32 = dfeUInt(32);
 
@@ -77,11 +83,11 @@ public class DFTKernel extends Kernel {
 
         // Read and write xs into mem until all are read
         DFEComplex xIn = io.input("xs", CPLX_FLOAT, readXs & xCounter.getCount() < nPoints);
-    	Memory<DFEComplex> xBuf = mem.alloc(CPLX_FLOAT, maxPolynomialLength * 2);
-    	xBuf.write((writeAddress + writeIndex).cast(addrType), xIn, readXs & xCounter.getCount() < nPoints);
+    	Memory<DFEComplex> xBuf = mem.alloc(CPLX_FIXED_FLOAT, maxPolynomialLength * 2);
+    	xBuf.write((writeAddress + writeIndex).cast(addrType), xIn.cast(CPLX_FIXED_FLOAT), readXs & xCounter.getCount() < nPoints);
         DFEComplex eIn = io.input("es", CPLX_FLOAT, readEs);
-    	Memory<DFEComplex> eBuf = mem.alloc(CPLX_FLOAT, maxPolynomialLength);
-    	eBuf.write(tickCount.cast(esAddrType), eIn, readEs);
+    	Memory<DFEComplex> eBuf = mem.alloc(CPLX_FIXED_FLOAT, maxPolynomialLength);
+    	eBuf.write(tickCount.cast(esAddrType), eIn.cast(CPLX_FIXED_FLOAT), readEs);
 
     	DFEVar initLoop = (i === 0);
     	DFEVar nUInt16 = n.cast(UINT_16);
@@ -89,8 +95,8 @@ public class DFTKernel extends Kernel {
         DFEVar equationK = j.cast(UINT_16) * latency + l.cast(UINT_16);
         DFEVar kAddress = mod(equationN * equationK, nUInt16);
     	DFEVar memReadOffset = (readAddress + i * tileSize);
-    	DFEComplex partialSum = CPLX_FLOAT.newInstance(this);
-    	DFEComplex previousSum = initLoop ? constant.cplx(FLOAT, 0.0, 0.0) : partialSum;
+    	DFEComplex partialSum = CPLX_FIXED_FLOAT.newInstance(this);
+    	DFEComplex previousSum = initLoop ? constant.cplx(FIXED_FLOAT, 0.0, 0.0) : partialSum;
     	List<DFEComplex> summands = new ArrayList<DFEComplex>();
         for (int t = 0; t < tileSize; t++) {
         	DFEVar address = (memReadOffset + t);
@@ -102,7 +108,7 @@ public class DFTKernel extends Kernel {
         	DFEComplex xTimesE = x * e;
         	summands.add(xTimesE);
         }
-        DFEComplex sum = FloatingPointMultiAdder.add(summands) + previousSum;
+        DFEComplex sum = TreeReduce.reduce(new Add<DFEComplex>(), summands) + previousSum;
         partialSum <== stream.offset(sum, -latency);
 
 
@@ -112,10 +118,10 @@ public class DFTKernel extends Kernel {
         // equationN.simWatch("equationN");
         // equationK.simWatch("equationK");
     	// debug.simPrintf("readXs: %f, xCounter: %d, nPoints: %d\n", readXs, xCounter.getCount(), nPoints);
-
+        
         // Output
         DFEVar out = ~initStream & (i === is - 1);
-        io.output("result", sum, CPLX_FLOAT, out);
+        io.output("result", sum.cast(CPLX_FLOAT), CPLX_FLOAT, out);
     }
 
 	private DFEVar mod(DFEVar v, DFEVar m) {
