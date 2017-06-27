@@ -7,23 +7,6 @@
 #include "multiparse.h"
 
 
-float* getRandomFloatArray(uint32_t n, float maxValue) {
-	float* constants = malloc(sizeof(float) * n);
-	for (uint32_t i = 0; i < n; i++) {
-		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
-		constants[i] = (float) (constant);
-	}
-	return constants;
-}
-
-void printFloatArray(uint32_t n, float* array, char* arrayName) {
-	printf("================================================\n");
-	printf("PRINTING FLOAT ARRAY '%s'\n", arrayName);
-	for (uint32_t i = 0; i < n; i++) {
-		printf("%s[%d] == %f\n", arrayName, i, array[i]);
-	}
-}
-
 int areFloatsEqual(float first, float second, float epsilon) {
 	if (fabs(first - second) < epsilon) {
 		return 1;
@@ -61,13 +44,6 @@ void checkResult(uint32_t n_points, float* points, uint32_t polynomial_length, f
 	}
 }
 
-void printComplexArray(uint32_t n, float* array, char* arrayName) {
-	printf("================================================\n");
-	printf("PRINTING FLOAT ARRAY '%s'\n", arrayName);
-	for (uint32_t i = 0; i < (n * 2); i+=2) {
-		printf("%s[%d] == %f + %f * i\n", arrayName, i / 2, array[i], array[i + 1]);
-	}
-}
 
 int main(int argc, char * argv[])
 {
@@ -79,19 +55,19 @@ int main(int argc, char * argv[])
 	}
 
 	float* xs = get_random_float_array(m * 2, 5.0, 2);
-	printComplexArray(m, xs, "Result");
+	print_complex_array(m, xs, "X");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
 	float* coefficients = get_random_float_array(n * 2, 5.0, 3);
 	uint32_t* exponents = get_random_uint_array(n, 5, 1);
-	print_dfe_sparse_complex_rpoly(n, exponents, coefficients);
+	print_sparse_complex_poly(n, coefficients, exponents);
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m * 2);
 	MultiSparseComplex(m, n, coefficients, exponents, xs, result);
 
-	printComplexArray(m, result, "Result");
+	print_complex_array(m, result, "Result");
 
 
 	return 0;

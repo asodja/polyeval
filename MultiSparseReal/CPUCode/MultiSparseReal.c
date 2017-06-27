@@ -7,23 +7,6 @@
 #include "multiparse.h"
 
 
-float* getRandomFloatArray(uint32_t n, float maxValue) {
-	float* constants = malloc(sizeof(float) * n);
-	for (uint32_t i = 0; i < n; i++) {
-		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
-		constants[i] = (float) (constant);
-	}
-	return constants;
-}
-
-void printFloatArray(uint32_t n, float* array, char* arrayName) {
-	printf("================================================\n");
-	printf("PRINTING FLOAT ARRAY '%s'\n", arrayName);
-	for (uint32_t i = 0; i < n; i++) {
-		printf("%s[%d] == %f\n", arrayName, i, array[i]);
-	}
-}
-
 int areFloatsEqual(float first, float second, float epsilon) {
 	if (fabs(first - second) < epsilon) {
 		return 1;
@@ -64,26 +47,29 @@ void checkResult(uint32_t n_points, float* points, uint32_t polynomial_length, f
 int main(int argc, char * argv[])
 {
 	uint32_t* out = parse_args(argc, argv);
-	uint32_t n = out[0];
-	uint32_t m = out[1];
+	uint32_t n = out[0]; // length of polynomial
+	uint32_t m = out[1]; // number of xs
 	if ((int32_t) n <= 0 || (int32_t) m <= 0) {
 		error(1, "N and M cannot be less than 0", ' ');
 	}
 
-	// Setup points, should be >= polynomial_length
+	// Setup points m, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
-	float* xs = get_random_float_array(m, 5.0, 2);
-	printFloatArray(m, xs, "POINTS");
+	float* xs = get_random_float_array(m, 15.0, 2);
+	print_real_array(m, xs, "POINTS");
 
-	// Setup polynomials, size should be
+	// Setup polynomials n, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
-	float* coefficients = get_random_float_array(n, 5.0, 3);
-	uint32_t* exponents = get_random_uint_array(n, 20, 1);
-	printFloatArray(n, coefficients, "Polynomial");
+	float* coefficients = get_random_float_array(n, 10.0, 3);
+	uint32_t* exponents = get_random_uint_array(n, 5, 1);
+	print_real_array(n, coefficients, "Polynomial");
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m);
+	timing_t timer;
+	timer_start(&timer);
 	MultiSparseReal(m, n, coefficients, exponents, xs, result);
+ 	timer_stop(&timer);
 
 	checkResult(m, xs, n, coefficients, exponents, result);
 

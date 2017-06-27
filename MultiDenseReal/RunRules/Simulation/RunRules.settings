@@ -23,7 +23,7 @@
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-m 48 -n 32</arguments>
+<arguments/>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

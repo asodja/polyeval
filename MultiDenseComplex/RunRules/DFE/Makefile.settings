@@ -6,8 +6,8 @@ MAXCOMPILER_QUOTE   := $(shell printf %q "$(MAXCOMPILERDIR)")
 
 RUNRULE_ARGS        := 
 RUNRULE_RUNENV      := LD_LIBRARY_PATH="$(MAXELEROSDIR)/lib:$(LD_LIBRARY_PATH)" 
-RUNRULE_MAXFILES    := SinglePointEvaluation.max  
-RUNRULE_MAXFILES_H  := SinglePointEvaluation.h 
+RUNRULE_MAXFILES    := MultiDenseReal.max  
+RUNRULE_MAXFILES_H  := MultiDenseReal.h 
 RUNRULE_CFLAGS      := 
 RUNRULE_LDFLAGS     := 
 

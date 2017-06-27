@@ -7,23 +7,6 @@
 #include "multiparse.h"
 
 
-float* getRandomFloatArray(uint32_t n, float maxValue) {
-	float* constants = malloc(sizeof(float) * n);
-	for (uint32_t i = 0; i < n; i++) {
-		float constant = ((float) rand() / (float) RAND_MAX) * maxValue;
-		constants[i] = (float) (constant);
-	}
-	return constants;
-}
-
-void printFloatArray(uint32_t n, float* array, char* arrayName) {
-	printf("================================================\n");
-	printf("PRINTING FLOAT ARRAY '%s'\n", arrayName);
-	for (uint32_t i = 0; i < n; i++) {
-		printf("%s[%d] == %f\n", arrayName, i, array[i]);
-	}
-}
-
 int areFloatsEqual(float first, float second, float epsilon) {
 	if (fabs(first - second) < epsilon) {
 		return 1;
@@ -73,12 +56,12 @@ int main(int argc, char * argv[])
 	// Setup points, should be >= polynomial_length
 	// and multiple of 16, so 16, 32, 48 etc.
 	float* points = get_random_float_array(m, 5.0, 2);
-	printFloatArray(m, points, "POINTS");
+	print_real_array(m, points, "POINTS");
 
 	// Setup polynomials, size should be
 	// of size 8, 12, 16, 20, 24, 28, 32 etc. <= 1024
 	float* polynomial = get_random_float_array(n, 5.0, 3);
-	print_dense_rpoly(n, polynomial);
+	print_dense_real_poly(n, polynomial);
 
 	// Setup result
 	float* result = malloc(sizeof(float) * m);

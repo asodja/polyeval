@@ -49,20 +49,20 @@ build: maxfiles
 maxfiles: $(MAXFILES_MAX)
 
 #
-# MaxFile: SinglePointEvaluation
+# MaxFile: MultiDenseReal
 #
 
 
-BUILDNAME_MAXFILE_1:=SinglePointEvaluation
-MAXFILE_1:=SinglePointEvaluation.max
+BUILDNAME_MAXFILE_1:=MultiDenseReal
+MAXFILE_1:=MultiDenseReal.max
 
-include/SinglePointEvaluation.h: maxfiles/SinglePointEvaluation.h
+include/MultiDenseReal.h: maxfiles/MultiDenseReal.h
 	cp $< $@
 
-maxfiles/SinglePointEvaluation.max maxfiles/SinglePointEvaluation.h:
+maxfiles/MultiDenseReal.max maxfiles/MultiDenseReal.h:
 # Ensure that maxfiles do not get build by this Makefile when running in MaxIDE
 ifndef MAXIDE_RUN
-	test -f $@ || env  MAX_BUILDPARAMS=" DFEModel=MAIA  target=DFE  maxFileName=SinglePointEvaluation MPPREndCT='4' "  ant -v -f SinglePointEvaluation.xml
+	test -f $@ || env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE  maxFileName=MultiDenseReal MPPREndCT='4' "  ant -v -f MultiDenseReal.xml
 else
 	test -f $@ || ( echo 'Maxfile unavailable: $@' >/dev/stderr ; exit 1 )
 endif

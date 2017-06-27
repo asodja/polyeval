@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 	float yImg = 4.0f;
 	float* constants = get_random_float_array(n * 2, maxConstant, seed);
 	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed);
-	print_dfe_sparse_complex(n, exponents, constants);
+	print_sparse_complex_poly(n, constants, exponents);
 
 	timing_t timer;
 	timer_start(&timer);
