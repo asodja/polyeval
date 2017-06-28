@@ -17,13 +17,13 @@
 </maxFiles>
 <cpuCode targetType="executable">
 <libraryName/>
-<exeName>MultiDFT64</exeName>
+<exeName>MultiDFT32</exeName>
 <skin>
 <ancillaryReleaseInformation enabled="false">
 <dir name=""/>
 </ancillaryReleaseInformation>
 </skin>
-<arguments>-n 256 -m 2</arguments>
+<arguments>-n 64 -m 1</arguments>
 <remoteExecution enabled="false">
 <remoteMachineName/>
 <scriptName/>

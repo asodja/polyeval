@@ -12,7 +12,7 @@ class PolyEvalManager {
 
 	static final int LATENCY = 16;
 
-	static final int TILE_SIZE = 64;
+	static final int TILE_SIZE = 32;
 
 	static final int MAX_POLYNOMIAL_LENGTH = 4096;
 

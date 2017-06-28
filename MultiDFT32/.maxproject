@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="MultiDFT32_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/MultiDFT32_EngineCode/bin" projectName="MultiDFT32"/>
+<cpuPart internalCpuSubproject="MultiDFT32_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>
