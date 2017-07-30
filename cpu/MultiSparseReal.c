@@ -73,14 +73,25 @@ void parse_args(int argc, char * argv[]) {
 	}
 }
 
+float pow_exp(float x, uint32_t e) {
+	float result = 1.0f;
+	while (e > 0) {
+		if ((e & 1) != 0) {
+			result = x * result;		
+		}
+		x = x * x;
+		e = e / 2;
+	}
+	return result;
+}
 
 float* eval_multi_real_poly(uint32_t n, uint32_t m, float* polynomial, uint32_t* exponents, float* xs) {
 	float* result = malloc(sizeof(float) * m);
 	for (uint32_t j = 0; j < m; j++) {
 		float x = xs[j];
-		float x_result = 0.0f + 0.0f * I;
+		float x_result = 0.0f;
 		for (uint32_t i = 0; i < n; i++) {
-			x_result += (polynomial[i] * powf(x, exponents[i]));
+			x_result += (polynomial[i] * pow_exp(x, exponents[i]));
 		}
 		result[j] = x_result;
 	}
@@ -100,9 +111,9 @@ int main(int argc, char * argv[])
 	int seed = 15;
 	uint32_t maxExponent = 7;
 	float maxConstant = 10;
-	float* constants = get_random_float_array(n, maxConstant, seed);
-	float* xs = get_random_float_array(m, maxConstant, seed+1);
-	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed+2);
+	float* constants = get_random_oninterval_float_array(n, 0, 5.5, seed);
+	float* xs = get_random_oninterval_float_array(m, 0.95, 1.05, seed + 1);
+	uint32_t* exponents = get_uint32_interval_array(n, 0);
 
 	timing_t timer;
 	timer_start(&timer);

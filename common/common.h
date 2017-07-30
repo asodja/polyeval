@@ -6,6 +6,12 @@
 #include <stdint.h>
 #include <complex.h>
 
+float* get_padded(float* points, uint32_t original_m, uint32_t m, uint32_t xsPerTick);
+
+float* get_padded_cplx(float* points, uint32_t original_m, uint32_t m, uint32_t xsPerTick);
+
+uint32_t* get_uint32_interval_array(uint32_t n, uint32_t minValue);
+
 float* get_random_float_array(uint32_t n, float maxValue, int seed);
 
 float* get_random_oninterval_float_array(uint32_t n, float minValue, float maxValue, int seed);

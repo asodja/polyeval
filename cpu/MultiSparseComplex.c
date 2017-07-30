@@ -73,6 +73,17 @@ void parse_args(int argc, char * argv[]) {
 	}
 }
 
+float complex pow_exp(float complex x, uint32_t e) {
+	float complex result = 1.0f + 0.0f * I;
+	while (e > 0) {
+		if ((e & 1) != 0) {
+			result = x * result;		
+		}
+		x = x * x;
+		e = e / 2;
+	}
+	return result;
+}
 
 float complex* eval_multi_complex_poly(uint32_t n, uint32_t m, float complex* polynomial, uint32_t* exponents, float complex* xs) {
 	float complex* result = malloc(sizeof(float complex) * m);
@@ -80,7 +91,7 @@ float complex* eval_multi_complex_poly(uint32_t n, uint32_t m, float complex* po
 		float complex x = xs[j];
 		float complex x_result = 0.0f + 0.0f * I;
 		for (uint32_t i = 0; i < n; i++) {
-			x_result += (polynomial[i] * (x == 0 && exponents[i] == 0 ? 1.0 : cpowf(x, exponents[i])));
+			x_result += (polynomial[i] * pow_exp(x, exponents[i]));
 		}
 		result[j] = x_result;
 	}
@@ -98,22 +109,22 @@ int main(int argc, char * argv[])
 	}	
 
 	int seed = 15;
-	uint32_t maxExponent = 7;
-	float maxConstant = 10;
-	float complex* constants = get_random_complex_array(n, maxConstant, seed);
-	float complex* xs = get_random_complex_array(m, maxConstant, seed+1);
-	uint32_t* exponents = get_random_uint_array(n, maxExponent, seed+2);
+	float complex* constants = get_random_oninterval_complex_array(n, 0, 5.0, 0, 0.5, seed);
+	float complex* xs = get_random_oninterval_complex_array(m, 0.95, 1.05, 0.0, 0.01, seed + 1);
+	uint32_t* exponents = get_uint32_interval_array(n, 0);
 
 	timing_t timer;
 	timer_start(&timer);
 	float complex* expected = eval_multi_complex_poly(n, m, constants, exponents, xs);
  	timer_stop(&timer);
 	
-	float complex r = 0.0;
+	long double real = 0.0;
+	long double img = 0.0;
 	for (uint32_t i = 0; i < m; i++) {
-		r += (float complex) expected[i];
+		real += creal(expected[i]);
+		img += cimag(expected[i]);
 	}
-	printf("n: %d, m: %d, t: %dms, r: %f+%fi\n", n, m, timer.realtime, creal(r), cimag(r));
+	printf("n: %d, m: %d, t: %dms, r: %Lf+%Lfi\n", n, m, timer.realtime, real, img);
 
 	return 0;
 }

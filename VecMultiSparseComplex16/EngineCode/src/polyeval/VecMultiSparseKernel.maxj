@@ -1,0 +1,132 @@
+package polyeval;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.Counter;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.memory.Memory;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFix;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplex;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEComplexType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVector;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVectorType;
+import com.maxeler.maxcompiler.v2.utils.MathUtils;
+
+public class VecMultiSparseKernel extends Kernel {
+
+    static final DFEType FLOAT = dfeFloat(8, 24);
+
+    static final DFEComplexType COMPLEX_FLOAT = new DFEComplexType(FLOAT);
+
+    static final DFEType UINT_32 = dfeUInt(32);
+
+    static final DFEType UINT_64 = dfeUInt(64);
+
+	VecMultiSparseKernel(KernelParameters parameters,
+			int latency,
+			int maxPolynomialLength,
+			int xsPerTick) {
+        super(parameters);
+
+        // Memory address type DFEUINT(bitsToAddress(maxPolynomialLength)
+        DFEFix addressType = dfeUInt(MathUtils.bitsToAddress(maxPolynomialLength));
+        DFEVectorType<DFEComplex> floatVec = new DFEVectorType<DFEComplex>(COMPLEX_FLOAT, xsPerTick);
+
+        // Input
+        // n is length of polynomial, m is number of xs
+        DFEVar n = io.scalarInput("n", UINT_32);
+        DFEVar m = io.scalarInput("m", UINT_32).cast(UINT_64);
+        DFEVar originalM = io.scalarInput("original_m", UINT_32).cast(UINT_64);
+        DFEVar unpaddedM = (m > originalM) ? m - xsPerTick : m;
+
+        // We calculate polynomial values first for first "fragments" points,
+        // then for next "fragments" points etc. Polynomial is saved in fmem
+        // but points cycle in loop with offset of "fragments"
+        CounterChain chain = control.count.makeCounterChain();
+        DFEVar fragmentIndex = chain.addCounter(m, 1);
+        DFEVar polynomialIndex = chain.addCounter(n, 1);
+        DFEVar pointIndex = chain.addCounter(latency, 1);
+        DFEVar isFirstCoefficient = polynomialIndex === 0;
+        DFEVar isLastCoefficient = polynomialIndex === (n - 1);
+        DFEVar isFirstFragment = fragmentIndex === 0;
+        DFEVar isFirstPoint = pointIndex === 0;
+        Counter readXCounter = getReadXCounter(isFirstCoefficient, xsPerTick, m);
+        DFEVar nReadXs = readXCounter.getCount();
+        // Read all xs that fall in last multiple of xsPerTick
+        // from original stream else read from padded stream
+        // Example: xsPerTick * latency is 16, we have 24 xs:
+        //          - we will read first 16 xs from "xs" stream
+        //          - we will read last 8 xs from "padded_xs" stream
+        DFEVar isXAvailable = nReadXs < unpaddedM;
+        DFEVar isPaddedXAvaliable = nReadXs >= unpaddedM & nReadXs < m;
+
+        DFEComplex k = io.input("coefficients", COMPLEX_FLOAT, isFirstFragment & isFirstPoint);
+        DFEVar exp = io.input("exponents", UINT_32, isFirstFragment & isFirstPoint);
+        DFEVector<DFEComplex> xs = io.input("xs", floatVec, isFirstCoefficient & isXAvailable);
+        DFEVector<DFEComplex> paddedXs = io.input("padded_xs", floatVec, isFirstCoefficient & isPaddedXAvaliable);
+        DFEVector<DFEComplex> x = isXAvailable ? xs : paddedXs;
+        Memory<DFEComplex> kMemory = mem.alloc(COMPLEX_FLOAT, maxPolynomialLength);
+        Memory<DFEVar> expMemory = mem.alloc(UINT_32, maxPolynomialLength);
+
+        // In first loop we save exp and k into fmem
+        kMemory.write(polynomialIndex.cast(addressType), k, isFirstFragment & isFirstPoint);
+        expMemory.write(polynomialIndex.cast(addressType), exp, isFirstFragment & isFirstPoint);
+        DFEComplex currentK = isFirstFragment
+        		? k
+        		: kMemory.read(polynomialIndex.cast(addressType));
+        DFEVar currentExp = isFirstFragment
+        		? exp
+        		: expMemory.read(polynomialIndex.cast(addressType));
+
+        // Loop
+        DFEVector<DFEComplex> loopX = floatVec.newInstance(this);
+        DFEVector<DFEComplex> result = floatVec.newInstance(this);
+        DFEVector<DFEComplex> currentX = isFirstCoefficient ? x : loopX;
+        DFEVector<DFEComplex> powX = powX(currentX, currentExp, xsPerTick);
+        DFEVector<DFEComplex> multiply = powX * currentK;
+        DFEVector<DFEComplex> currentResult = isFirstCoefficient
+        		? multiply
+        		: multiply + result;
+        loopX <== stream.offset(currentX, -latency);
+        result <== stream.offset(currentResult, -latency);
+
+        // Output
+        io.output("result", currentResult, floatVec, isLastCoefficient);
+    }
+
+    private DFEVector<DFEComplex> powX(DFEVector<DFEComplex> currentX, DFEVar exp, int xsPerTick) {
+    	DFEVector<DFEComplex> powX = cplxVec(xsPerTick, 1.0, 0.0);
+        // Calculate max exponent of 2^10 = 1024,
+        // this means we can do x^1024 at max
+        for (int i = 0; i < 10; ++i) {
+        	powX = ((exp > 0) & ((exp & 1) === 1)) ? powX * currentX : powX;
+        	exp = exp >> 1;
+        	currentX = currentX * currentX;
+        }
+        return powX;
+    }
+
+    private DFEVector<DFEComplex> cplxVec(int n, double real, double img) {
+    	DFEComplex one = constant.cplx(COMPLEX_FLOAT, real, img);
+    	List<DFEComplex> cplx = new ArrayList<DFEComplex>();
+    	for (int i = 0; i < n; i++) {
+    		cplx.add(one);
+    	}
+    	return DFEVectorType.newInstance(cplx);
+    }
+
+    private Counter getReadXCounter(DFEVar enable, int xsPerTick, DFEVar max) {
+    	return control.count.makeCounter(control.count.makeParams(64)
+    			.withEnable(enable)
+    			.withMax(max)
+    			.withInc(xsPerTick)
+    			.withWrapMode(WrapMode.STOP_AT_MAX));
+    }
+
+}

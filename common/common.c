@@ -7,6 +7,27 @@
 #include <complex.h> 
 #include "common.h"
 
+float* get_padded(float* points, uint32_t original_m, uint32_t m, uint32_t xsPerTick) {
+	float* padded = malloc(sizeof(float) * xsPerTick);
+	uint32_t point_index = m > original_m ? m - xsPerTick : m;
+	for (uint32_t i = 0; i < xsPerTick; i++) {
+		padded[i] = ((point_index + i) < original_m) ? points[point_index + i] : 0.0;
+	}
+	return padded;
+}
+
+float* get_padded_cplx(float* points, uint32_t original_m, uint32_t m, uint32_t xsPerTick) {
+	return get_padded(points, original_m * 2, m * 2, xsPerTick * 2);
+}
+
+uint32_t* get_uint32_interval_array(uint32_t n, uint32_t minValue) {
+	uint32_t* values = malloc(sizeof(uint32_t) * n);
+	for (uint32_t i = 0; i < n; i++) {
+		values[i] = minValue + i;
+	}
+	return values;
+}
+
 float* get_random_float_array(uint32_t n, float maxValue, int seed) {
 	srand(seed);
 	float* constants = malloc(sizeof(float) * n);
