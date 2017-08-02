@@ -12,7 +12,7 @@ class PolyEvalManager {
 
 	static final int LATENCY = 16;
 
-	static final int XS_PER_TICK_SIZE = 16;
+	static final int XS_PER_TICK_SIZE = 8;
 
 	static final int MAX_POLYNOMIAL_LENGTH = 8192;
 
@@ -32,9 +32,9 @@ class PolyEvalManager {
         EngineInterface ei = new EngineInterface();
 
         // n is length of polynomial, m is number of xs
-        InterfaceParam n = ei.addParam("n", CPUTypes.UINT32);
-        InterfaceParam m = ei.addParam("m", CPUTypes.UINT32);
-        InterfaceParam originalM = ei.addParam("original_m", CPUTypes.UINT32);
+        InterfaceParam n = ei.addParam("n", CPUTypes.UINT64);
+        InterfaceParam m = ei.addParam("m", CPUTypes.UINT64);
+        InterfaceParam originalM = ei.addParam("original_m", CPUTypes.UINT64);
         ei.setScalar(kernel.getName(), "n", n);
         ei.setScalar(kernel.getName(), "original_m", originalM);
         ei.setScalar(kernel.getName(), "m", m);

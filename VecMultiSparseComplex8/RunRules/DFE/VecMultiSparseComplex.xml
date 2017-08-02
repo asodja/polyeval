@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="VecMultiSparseComplex16_EngineCode_run_script" default="all" basedir="../../EngineCode">
+<project name="VecMultiSparseComplex8_EngineCode_run_script" default="all" basedir="../../EngineCode">
     <property environment="env"/>
     <condition property="maxcompilerdirpath" value="${env.MAXCOMPILERJCP}">
         <isset property="env.MAXCOMPILERJCP"/>
@@ -17,7 +17,7 @@
     </condition>
     <path id="maxclasspath">
         <pathelement path="${env.ANT_MAXELER_INTERNAL_MAXIDE_JARS}"/>
-        <pathelement path="../RunRules/Simulation/dist/bin"/>
+        <pathelement path="../RunRules/DFE/dist/bin"/>
         <pathelement path="${maxcompilerdirpath}"/>
         <pathelement path="/home/demo/git/maxpower/bin"/>
         <pathelement path="${EnvClassPath}"/>
@@ -38,7 +38,7 @@
     </condition>
     <target name="all" depends="runresult"/>
     <target name="build">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiSparseComplex_Build.xml"/>
+        <ant inheritAll="false" antfile="../RunRules/DFE/VecMultiSparseComplex_Build.xml"/>
     </target>
     <target name="run" depends="build">
         <condition property="args" value="">
@@ -54,9 +54,9 @@
                 <pathelement path="${finalclasspath}"/>
             </classpath>
         </java>
-        <exec executable="${env.MAXCOMPILERDIR}/lib/MaxIDE/copyBuildResults.sh" newenvironment="false" dir="../RunRules/Simulation">
+        <exec executable="${env.MAXCOMPILERDIR}/lib/MaxIDE/copyBuildResults.sh" newenvironment="false" dir="../RunRules/DFE">
             <arg value="-p"/>
-            <arg value="Simulation"/>
+            <arg value="DFE"/>
         </exec>
     </target>
     <target name="runresult" depends="run">
@@ -69,14 +69,14 @@
         <fail if="java.run.fail" message="java run stage failed."/>
     </target>
     <target name="clean">
-        <ant inheritAll="false" antfile="../RunRules/Simulation/VecMultiSparseComplex_Build.xml" target="clean"/>
+        <ant inheritAll="false" antfile="../RunRules/DFE/VecMultiSparseComplex_Build.xml" target="clean"/>
     </target>
     <target name="jar" depends="build">
-        <mkdir dir="../RunRules/Simulation/dist/jar"/>
-        <copy includeemptydirs="false" todir="../RunRules/Simulation/dist/jar">
-            <fileset dir="../RunRules/Simulation/dist/bin" excludes="**/*.uad, **/*.ucd, **/*.uld, **/*.upd, **/*.udd, **/*.uod, **/*.usd, **/*.utd, **/*.uud, **/*.odd, **/*.ead, **/*.ecd, **/*.eld, **/*.epd, **/*.edd, **/*.eod, **/*.esd, **/*.etd, **/*.eud, **/*.urd*.uml, **/*.ecore, **/*.launch, **/*.java, **/*.maxj, **/package.html"/>
+        <mkdir dir="../RunRules/DFE/dist/jar"/>
+        <copy includeemptydirs="false" todir="../RunRules/DFE/dist/jar">
+            <fileset dir="../RunRules/DFE/dist/bin" excludes="**/*.uad, **/*.ucd, **/*.uld, **/*.upd, **/*.udd, **/*.uod, **/*.usd, **/*.utd, **/*.uud, **/*.odd, **/*.ead, **/*.ecd, **/*.eld, **/*.epd, **/*.edd, **/*.eod, **/*.esd, **/*.etd, **/*.eud, **/*.urd*.uml, **/*.ecore, **/*.launch, **/*.java, **/*.maxj, **/package.html"/>
         </copy>
-        <jar destfile="PolyEvalManager.jar" basedir="../RunRules/Simulation/dist/jar">
+        <jar destfile="PolyEvalManager.jar" basedir="../RunRules/DFE/dist/jar">
             <manifest>
                 <attribute name="Main-Class" value="polyeval.PolyEvalManager"/>
             </manifest>

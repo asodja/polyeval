@@ -70,14 +70,14 @@ int main(int argc, char * argv[])
 
 	// We use poor man's padding because we read vectors:
     // We have two streams of points,
-	// first stream "xs" are all xs that fall in multiple of xsPerTick,
+	// first stream "xs" are all xs that fall in multiple of xsPerTick * latency,
     // second stream "padded_xs" are all xs that overflow multiple
 	// (padded xs have last elements equal to 0)
-    // Example: xsPerTick is 16, we have 41 xs:
+    // Example: xsPerTick * latency is 16, we have 41 xs:
     // - we will read first 32 xs from "xs" stream
     // - we will read last 9 xs from "padded_xs" stream
 	//   ("padded_xs" stream has 7 padded zeros at the end)
-	int latency = 16;
+	int latency = 8;
 	int xsPerTick = 16;
 	int num_of_padded = latency * xsPerTick;
 	timing_t timer;

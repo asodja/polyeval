@@ -29,9 +29,9 @@ extern "C" {
  * \param [out] outstream_result The stream should be of size (param_m * 4) bytes.
  */
 void VecMultiSparseReal(
-	uint32_t param_m,
-	uint32_t param_n,
-	uint32_t param_original_m,
+	uint64_t param_m,
+	uint64_t param_n,
+	uint64_t param_original_m,
 	const float *instream_coefficients,
 	const uint32_t *instream_exponents,
 	const float *instream_padded_xs,
@@ -57,9 +57,9 @@ void VecMultiSparseReal(
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *VecMultiSparseReal_nonblock(
-	uint32_t param_m,
-	uint32_t param_n,
-	uint32_t param_original_m,
+	uint64_t param_m,
+	uint64_t param_n,
+	uint64_t param_original_m,
 	const float *instream_coefficients,
 	const uint32_t *instream_exponents,
 	const float *instream_padded_xs,
@@ -71,9 +71,9 @@ max_run_t *VecMultiSparseReal_nonblock(
  * 
  */
 typedef struct { 
-	uint32_t param_m; /**<  [in] Interface Parameter "m". */
-	uint32_t param_n; /**<  [in] Interface Parameter "n". */
-	uint32_t param_original_m; /**<  [in] Interface Parameter "original_m". */
+	uint64_t param_m; /**<  [in] Interface Parameter "m". */
+	uint64_t param_n; /**<  [in] Interface Parameter "n". */
+	uint64_t param_original_m; /**<  [in] Interface Parameter "original_m". */
 	const float *instream_coefficients; /**<  [in] The stream should be of size (param_n * 4) bytes. */
 	const uint32_t *instream_exponents; /**<  [in] The stream should be of size (param_n * 4) bytes. */
 	const float *instream_padded_xs; /**<  [in] The stream should be of size 2048 bytes. */

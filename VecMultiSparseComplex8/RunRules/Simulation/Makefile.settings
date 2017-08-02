@@ -4,14 +4,14 @@ USE_SLIC:=1
 
 MAXCOMPILER_QUOTE   := $(shell printf %q "$(MAXCOMPILERDIR)")
 
-RUNRULE_ARGS        := -n 16 -m 6048
+RUNRULE_ARGS        := -n 32 -m 1050
 RUNRULE_RUNENV      := MAXELEROSDIR="$(MAXCOMPILERDIR)/lib/maxeleros-sim" LD_LIBRARY_PATH="$(MAXCOMPILERDIR)/lib/maxeleros-sim/lib:$$LD_LIBRARY_PATH" SLIC_CONF="use_simulation=ch01mvavgsimpl;"  
 RUNRULE_MAXFILES    := VecMultiSparseComplex.max  
 RUNRULE_MAXFILES_H  := VecMultiSparseComplex.h 
 RUNRULE_CFLAGS      := 
 RUNRULE_LDFLAGS     := 
 
-TARGET_EXEC         := VecMultiSparseComplex16
+TARGET_EXEC         := VecMultiSparseComplex8
 TARGET_LIBRARY      := 
 
 

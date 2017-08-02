@@ -33,10 +33,11 @@ public class VecMultiSparseKernel extends Kernel {
 
         // Input
         // n is length of polynomial, m is number of xs
-        DFEVar n = io.scalarInput("n", UINT_32);
-        DFEVar m = io.scalarInput("m", UINT_32).cast(UINT_64);
-        DFEVar originalM = io.scalarInput("original_m", UINT_32).cast(UINT_64);
-        DFEVar unpaddedM = (m > originalM) ? m - xsPerTick : m;
+        int numOfPadded = latency * xsPerTick;
+        DFEVar n = io.scalarInput("n", UINT_64);
+        DFEVar m = io.scalarInput("m", UINT_64);
+        DFEVar originalM = io.scalarInput("original_m", UINT_64);
+        DFEVar unpaddedM = (m > originalM) ? m - numOfPadded : m;
 
         // We calculate polynomial values first for first "fragments" points,
         // then for next "fragments" points etc. Polynomial is saved in fmem

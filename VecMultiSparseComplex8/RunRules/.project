@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>VecMultiSparseComplex16_RunRules</name>
+	<name>VecMultiSparseComplex8_RunRules</name>
 	<comment>Simulation</comment>
 	<manageMaxCompiler>true</manageMaxCompiler>
 	<manageMaxGenFD>true</manageMaxGenFD>
