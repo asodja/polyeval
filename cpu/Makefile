@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-O3 -std=c99
 LIBS=-lm
 
-all: SingleSparseReal FastSingleSparseReal FastSingleSparseComplex SingleSparseComplex MultiSparseReal MultiSparseComplex MultiDenseReal MultiDenseComplex KMeans clean
+all: SingleSparseReal FastSingleSparseReal FastSingleSparseComplex SingleSparseComplex MultiSparseReal MultiSparseComplex MultiDenseReal MultiDenseComplex KMeans DFT clean
 
 SingleSparseReal: common.o SingleSparseReal.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
@@ -29,6 +29,9 @@ MultiDenseComplex: common.o MultiDenseComplex.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 KMeans: common.o KMeans.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+
+DFT: common.o DFT.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 common.o: common.c common.h

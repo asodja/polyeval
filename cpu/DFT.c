@@ -6,11 +6,14 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include <float.h>
+#include <math.h>
 
 
 #include "common.h"
 
 #define SHORTOPT "hn:m:"
+
+#define PI 3.14159265
 
 int help_flag = 0;
 
@@ -73,30 +76,34 @@ void parse_args(int argc, char * argv[]) {
 	}
 }
 
-uint32_t* eval_kmeans(uint32_t n, uint32_t m, float* points, float* centers) {
-	uint32_t* expected = malloc(sizeof(uint32_t) * m);
-	for (uint32_t j = 0; j < m * 2; j+=2) {
-		float x_min = FLT_MAX;
-		uint32_t x_result = -1;
-		float p_x = points[j];
-		float p_y = points[j+1];
-		for (uint32_t i = 0; i < n * 2; i+=2) {
-			float c_x = centers[i];
-			float c_y = centers[i+1];
-			float diff_x = p_x - c_x;
-			float diff_y = p_y - c_y;
-			float sqDistance = (diff_x * diff_x) + (diff_y * diff_y);
-			if (sqDistance < x_min) {
-				x_min = sqDistance;
-				x_result = i;
-			}
+static inline float complex mul_complex(float complex first, float complex second) {
+	float a = crealf(first);
+	float b = cimagf(first);
+	float c = crealf(second);
+	float d = cimagf(second);
+	return (a*c - b*d) + (b*c + a*d) * I; 
+}
 
+float complex* eval_dft(uint32_t n, uint32_t m, float complex* points, float complex* es) {
+	float complex* expected = malloc(sizeof(float complex) * m * n);
+	uint32_t p = 0;
+	for (uint32_t i = 0; i < m * n; i+=n) {
+		for (uint32_t k = 0; k < n; k++) {
+			float complex sum = 0.0 + 0.0*I;
+			uint32_t e_index = 0;
+			for (uint32_t j = 0; j < n; j++) {
+				float complex x = points[i + j];
+				float complex e = es[e_index];
+				e_index += k;
+				e_index = (e_index >= n) ? e_index - n : e_index;
+				sum += mul_complex(x, e);
+			}
+			expected[p++] = sum;
 		}
-		expected[j >> 1] = (x_result >> 1);
-		// expected_min[j] = x_min;
 	}
 	return expected;
 }
+
 
 int main(int argc, char * argv[])
 {	
@@ -107,22 +114,35 @@ int main(int argc, char * argv[])
 	if (m <= 0) {
 		error(1, "M cannot be 0", ' ');	
 	}	
-	uint32_t d = 2;
 
 	int seed = 15;
-	float* points = get_random_oninterval_with_dimension_float_array(m, d, 0, 100, seed + 1);
-	float* centers = get_random_oninterval_with_dimension_float_array(n, d, 0, 100, seed);
+	float complex* points = malloc(sizeof(float complex) * n * m);
+	for (uint32_t i = 0; i < n * m; i++) {
+	    double theta = (double)i / (double) (n * 33) * PI;
+	    float real = 1.0 * cos(10.0 * theta) + 0.5 * cos(25.0 * theta);
+	    float imag = 1.0 * sin(10.0 * theta) + 0.5 * sin(25.0 * theta);
+	    points[i] = real + imag * I;
+	}
 
 	timing_t timer;
 	timer_start(&timer);
-	uint32_t* expected = eval_kmeans(n, m, points, centers);
+	float complex* es = malloc(sizeof(float complex) * n);
+	for (uint32_t i = 0; i < n; i++) {
+		float k = 2 * PI * i / (float) n;
+		float real = cos(k);
+		float img = -sin(k);
+ 		es[i] = real + img * I;
+	}
+	float complex* result = eval_dft(n, m, points, es);
  	timer_stop(&timer);
 	
-	double r = 0.0;
-	for (uint32_t i = 0; i < m; i++) {
-		r += expected[i];
+	long double real = 0.0;
+	long double img = 0.0;
+	for (uint32_t i = 0; i < n * m; i++) {
+		real += crealf(result[i]);
+		img += cimagf(result[i]);
 	}
-	printf("n: %d, m: %d, t: %dms, r: %f\n", n, m, timer.realtime, r);
+	printf("n: %d, m: %d, t: %dms, r: %Lf + i*%Lf\n", n, m, timer.realtime, real, img);
 
 	return 0;
 }

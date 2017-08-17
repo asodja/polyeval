@@ -12,6 +12,7 @@ TARGETS:
   * dfesin <path to executable>     Runs single point dfe bench
   * cpumul <path to executable>     Runs multi point cpu bench
   * dfemul <path to executable>     Runs multi point dfe bench
+  * cpudft <path to executable>     Runs dft dfe bench
   * dfedft <path to executable>     Runs dft dfe bench
   * cpukm  <path to executable>     Runs kmeans cpu bench
   * dfekm  <path to executable>     Runs kmeans dfe bench
@@ -72,7 +73,7 @@ multi_dft() {
   local logfile="${filename%.*}-$type.log"
   echo "Running $exe, log is written to $logfile"
   for n in 16 32 64 128 256 512 1024 2048 4096; do
-	for m in 1 1 8192 131072 524288 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456 536870912; do
+	for m in 1 1 8192 131072 524288 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456; do
 		if (( $m > 1 )); then
 			((m=$m/$n))		
 		fi
@@ -111,6 +112,10 @@ target_cpumul() {
 
 target_dfemul() {
   multi_bench "dfe" "$@"
+}
+
+target_cpudft() {
+  multi_dft "cpu" "$@"
 }
 
 target_dfedft() {
