@@ -74,13 +74,21 @@ void parse_args(int argc, char * argv[]) {
 }
 
 
+static inline float complex mul_complex(float complex first, float complex second) {
+	float a = crealf(first);
+	float b = cimagf(first);
+	float c = crealf(second);
+	float d = cimagf(second);
+	return (a*c - b*d) + (b*c + a*d) * I; 
+}
+
 float complex* eval_multi_complex_poly(uint32_t n, uint32_t m, float complex* polynomial, float complex* xs) {
 	float complex* result = malloc(sizeof(float complex) * m);
 	for (uint32_t j = 0; j < m; j++) {
 		float complex x = xs[j];
 		float complex x_result = 0.0f + 0.0f * I;
 		for (uint32_t i = n; i > 0; i--) {
-			x_result = x_result * x + polynomial[i - 1];
+			x_result = mul_complex(x_result, x) + polynomial[i - 1];
 		}
 		result[j] = x_result;
 	}

@@ -80,20 +80,32 @@ float pow_exp(float x, uint32_t e) {
 			result = x * result;		
 		}
 		x = x * x;
-		e = e / 2;
+		e = e >> 1;
 	}
 	return result;
 }
 
+float eval_single(uint32_t n, float* polynomial, uint32_t* exponents, float x) {
+	float x_result1 = 0.0f;
+	float x_result2 = 0.0f;
+	float x_result3 = 0.0f;
+	float x_result4 = 0.0f;
+	for (uint32_t i = 0; i < n; i+=4) {
+		x_result1 += (polynomial[i] * pow_exp(x, exponents[i]));
+		x_result2 += (polynomial[i+1] * pow_exp(x, exponents[i+1]));
+		x_result3 += (polynomial[i+2] * pow_exp(x, exponents[i+2]));
+		x_result4 += (polynomial[i+3] * pow_exp(x, exponents[i+3]));
+	}
+	return x_result1 + x_result2 + x_result3 + x_result4;
+}
+
 float* eval_multi_real_poly(uint32_t n, uint32_t m, float* polynomial, uint32_t* exponents, float* xs) {
 	float* result = malloc(sizeof(float) * m);
-	for (uint32_t j = 0; j < m; j++) {
-		float x = xs[j];
-		float x_result = 0.0f;
-		for (uint32_t i = 0; i < n; i++) {
-			x_result += (polynomial[i] * pow_exp(x, exponents[i]));
-		}
-		result[j] = x_result;
+	for (uint32_t j = 0; j < m; j+=4) {
+		result[j] = eval_single(n, polynomial, exponents, xs[j]);
+		result[j+1] = eval_single(n, polynomial, exponents, xs[j+1]);
+		result[j+2] = eval_single(n, polynomial, exponents, xs[j+2]);
+		result[j+3] = eval_single(n, polynomial, exponents, xs[j+3]);
 	}
 	return result;
 }

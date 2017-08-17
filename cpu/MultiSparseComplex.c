@@ -73,27 +73,39 @@ void parse_args(int argc, char * argv[]) {
 	}
 }
 
+static inline float complex mul_complex(float complex first, float complex second) {
+	float a = crealf(first);
+	float b = cimagf(first);
+	float c = crealf(second);
+	float d = cimagf(second);
+	return (a*c - b*d) + (b*c + a*d) * I; 
+}
+
 float complex pow_exp(float complex x, uint32_t e) {
 	float complex result = 1.0f + 0.0f * I;
 	while (e > 0) {
 		if ((e & 1) != 0) {
-			result = x * result;		
+			result = mul_complex(x, result);		
 		}
-		x = x * x;
-		e = e / 2;
+		x = mul_complex(x, x);
+		e = e >> 1;
 	}
 	return result;
+}
+
+float complex eval_single(uint32_t n, float complex* polynomial, uint32_t* exponents, float complex x) {
+	float complex x_result = 0.0f;
+	for (uint32_t i = 0; i < n; i++) {
+		float complex powX = pow_exp(x, exponents[i]);
+		x_result += mul_complex(polynomial[i], powX);
+	}
+	return x_result;
 }
 
 float complex* eval_multi_complex_poly(uint32_t n, uint32_t m, float complex* polynomial, uint32_t* exponents, float complex* xs) {
 	float complex* result = malloc(sizeof(float complex) * m);
 	for (uint32_t j = 0; j < m; j++) {
-		float complex x = xs[j];
-		float complex x_result = 0.0f + 0.0f * I;
-		for (uint32_t i = 0; i < n; i++) {
-			x_result += (polynomial[i] * pow_exp(x, exponents[i]));
-		}
-		result[j] = x_result;
+		result[j] = eval_single( n, polynomial, exponents,  xs[j]);
 	}
 	return result;
 }

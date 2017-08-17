@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="KMeans64_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/KMeans64_EngineCode/bin" projectName="KMeans64"/>
+<cpuPart internalCpuSubproject="KMeans64_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

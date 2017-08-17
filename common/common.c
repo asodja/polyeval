@@ -16,6 +16,16 @@ float* get_padded(float* points, uint32_t original_m, uint32_t m, uint32_t xsPer
 	return padded;
 }
 
+float* get_random_oninterval_with_dimension_float_array(uint32_t n, uint32_t d, float minValue, float maxValue, int seed) {
+	srand(seed);
+	float* values = malloc(sizeof(float) * n * d);
+	for (uint32_t i = 0; i < n * d; i++) {
+		float value = ((rand() & 1) ? -1 : 1) * (minValue + ((float) rand() / (float) RAND_MAX) * (maxValue - minValue));
+		values[i] = value;
+	}
+	return values;
+}
+
 float* get_padded_cplx(float* points, uint32_t original_m, uint32_t m, uint32_t xsPerTick) {
 	return get_padded(points, original_m * 2, m * 2, xsPerTick * 2);
 }
