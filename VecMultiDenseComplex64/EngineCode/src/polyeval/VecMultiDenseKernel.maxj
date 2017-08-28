@@ -40,11 +40,9 @@ public class VecMultiDenseKernel extends Kernel {
 
         // Input
         // n is length of polynomial, m is number of xs
-        int numOfPadded = latency * xsPerTick;
         DFEVar n = io.scalarInput("n", UINT_64);
         DFEVar m = io.scalarInput("m", UINT_64);
-        DFEVar originalM = io.scalarInput("original_m", UINT_64);
-        DFEVar unpaddedM = (m > originalM) ? m - numOfPadded : m;
+        DFEVar maxCount = m + xsPerTick;
 
         // We calculate polynomial values first for first "fragments" points,
         // then for next "fragments" points etc. Polynomial is saved in fmem
@@ -57,20 +55,11 @@ public class VecMultiDenseKernel extends Kernel {
         DFEVar isLastCoefficient = polynomialIndex === (n - 1);
         DFEVar isFirstFragment = fragmentIndex === 0;
         DFEVar isFirstPoint = pointIndex === 0;
-        Counter readXCounter = getReadXCounter(isFirstCoefficient, xsPerTick, m);
-        DFEVar nReadXs = readXCounter.getCount();
-        // Read all xs that fall in last multiple of xsPerTick
-        // from original stream else read from padded stream
-        // Example: xsPerTick * latency is 16, we have 24 xs:
-        //          - we will read first 16 xs from "xs" stream
-        //          - we will read last 8 xs from "padded_xs" stream
-        DFEVar isXAvailable = nReadXs < unpaddedM;
-        DFEVar isPaddedXAvaliable = nReadXs >= unpaddedM & nReadXs < m;
+        Counter readXCounter = getReadXCounter(isFirstCoefficient, xsPerTick, maxCount);
+        DFEVar isXAvailable = readXCounter.getCount() < m;
 
         DFEComplex k = io.input("coefficients", CMPLX_FLOAT, isFirstFragment & isFirstPoint);
-        DFEVector<DFEComplex> xs = io.input("xs", floatVec, isFirstCoefficient & isXAvailable);
-        DFEVector<DFEComplex> paddedXs = io.input("padded_xs", floatVec, isFirstCoefficient & isPaddedXAvaliable);
-        DFEVector<DFEComplex> x = isXAvailable ? xs : paddedXs;
+        DFEVector<DFEComplex> x = io.input("xs", floatVec, isFirstCoefficient & isXAvailable);
         Memory<DFEComplex> kMemory = mem.alloc(CMPLX_FLOAT, maxPolynomialLength);
 
         // In first loop we save k into fmem

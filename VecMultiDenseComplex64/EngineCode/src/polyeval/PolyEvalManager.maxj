@@ -10,7 +10,7 @@ import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
 
 class PolyEvalManager {
 
-	static final int LATENCY = 36;
+	static final int LATENCY = 48;
 
 	static final int XS_PER_TICK_SIZE = 64;
 
@@ -34,18 +34,16 @@ class PolyEvalManager {
         // n is length of polynomial, m is number of xs
         InterfaceParam n = ei.addParam("n", CPUTypes.UINT64);
         InterfaceParam m = ei.addParam("m", CPUTypes.UINT64);
-        InterfaceParam originalM = ei.addParam("original_m", CPUTypes.UINT64);
+        InterfaceParam tickM = ei.addParam("tick_m", CPUTypes.UINT64);
         ei.setScalar(kernel.getName(), "n", n);
-        ei.setScalar(kernel.getName(), "original_m", originalM);
         ei.setScalar(kernel.getName(), "m", m);
 
         ei.setStream("coefficients", CPUTypes.FLOAT, 2 * n * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("xs", CPUTypes.FLOAT, 2 * m * CPUTypes.FLOAT.sizeInBytes());
-        ei.setStream("padded_xs", CPUTypes.FLOAT, 2 * LATENCY * XS_PER_TICK_SIZE * CPUTypes.FLOAT.sizeInBytes());
         ei.setStream("result", CPUTypes.FLOAT, 2 * m * CPUTypes.FLOAT.sizeInBytes());
 
         InterfaceParam minTicks = n * XS_PER_TICK_SIZE;
-        InterfaceParam calculatedReqTicks = n * m / XS_PER_TICK_SIZE;
+        InterfaceParam calculatedReqTicks = n * tickM / XS_PER_TICK_SIZE;
         InterfaceParam ticks = calculatedReqTicks < minTicks ? minTicks : calculatedReqTicks;
         ei.setTicks(kernel.getName(), ticks);
 

@@ -21,18 +21,16 @@ extern "C" {
  * 
  * \param [in] param_m Interface Parameter "m".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] param_original_m Interface Parameter "original_m".
+ * \param [in] param_tick_m Interface Parameter "tick_m".
  * \param [in] instream_coefficients The stream should be of size ((param_n * 2) * 4) bytes.
- * \param [in] instream_padded_xs The stream should be of size 18432 bytes.
  * \param [in] instream_xs The stream should be of size ((param_m * 2) * 4) bytes.
  * \param [out] outstream_result The stream should be of size ((param_m * 2) * 4) bytes.
  */
 void VecMultiDenseComplex(
 	uint64_t param_m,
 	uint64_t param_n,
-	uint64_t param_original_m,
+	uint64_t param_tick_m,
 	const float *instream_coefficients,
-	const float *instream_padded_xs,
 	const float *instream_xs,
 	float *outstream_result);
 
@@ -46,9 +44,8 @@ void VecMultiDenseComplex(
  * 
  * \param [in] param_m Interface Parameter "m".
  * \param [in] param_n Interface Parameter "n".
- * \param [in] param_original_m Interface Parameter "original_m".
+ * \param [in] param_tick_m Interface Parameter "tick_m".
  * \param [in] instream_coefficients The stream should be of size ((param_n * 2) * 4) bytes.
- * \param [in] instream_padded_xs The stream should be of size 18432 bytes.
  * \param [in] instream_xs The stream should be of size ((param_m * 2) * 4) bytes.
  * \param [out] outstream_result The stream should be of size ((param_m * 2) * 4) bytes.
  * \return A handle on the execution status, or NULL in case of error.
@@ -56,9 +53,8 @@ void VecMultiDenseComplex(
 max_run_t *VecMultiDenseComplex_nonblock(
 	uint64_t param_m,
 	uint64_t param_n,
-	uint64_t param_original_m,
+	uint64_t param_tick_m,
 	const float *instream_coefficients,
-	const float *instream_padded_xs,
 	const float *instream_xs,
 	float *outstream_result);
 
@@ -69,9 +65,8 @@ max_run_t *VecMultiDenseComplex_nonblock(
 typedef struct { 
 	uint64_t param_m; /**<  [in] Interface Parameter "m". */
 	uint64_t param_n; /**<  [in] Interface Parameter "n". */
-	uint64_t param_original_m; /**<  [in] Interface Parameter "original_m". */
+	uint64_t param_tick_m; /**<  [in] Interface Parameter "tick_m". */
 	const float *instream_coefficients; /**<  [in] The stream should be of size ((param_n * 2) * 4) bytes. */
-	const float *instream_padded_xs; /**<  [in] The stream should be of size 18432 bytes. */
 	const float *instream_xs; /**<  [in] The stream should be of size ((param_m * 2) * 4) bytes. */
 	float *outstream_result; /**<  [out] The stream should be of size ((param_m * 2) * 4) bytes. */
 } VecMultiDenseComplex_actions_t;

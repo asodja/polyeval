@@ -67,19 +67,23 @@ void parse_args(int argc, char * argv[]) {
 	}
 }
 
+float pow_exp(float x, uint32_t e) {
+	float result = 1.0f;
+	while (e > 0) {
+		if ((e & 1) != 0) {
+			result = x * result;		
+		}
+		x = x * x;
+		e = e >> 1;
+	}
+	return result;
+}
 
 float eval_single_real_poly(uint32_t n, float* polynomial, uint32_t* exponents, float x) {
-	float partialResult[16];
-	for (uint32_t i = 0; i < 16; i++) {
-		partialResult[i] = polynomial[i] * powf(x, exponents[i]);
- 	}
-	for (uint32_t i = 16; i < n; i++) {
-		partialResult[i % 16] += polynomial[i] * powf(x, exponents[i]);
-	}
 	float result = 0.0;
-	for (uint32_t i = 0; i < 16; i++) {
-		result += partialResult[i];
- 	}
+	for (uint32_t i = 0; i < n; i++) {
+		result += polynomial[i] * pow_exp(x, exponents[i]);
+	}
 	return result;
 }
 

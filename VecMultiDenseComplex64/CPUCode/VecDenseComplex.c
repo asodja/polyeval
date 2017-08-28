@@ -77,36 +77,43 @@ int main(int argc, char * argv[])
 	float* polynomial = get_random_oninterval_complex_array_as_float(n, 0, 5.0, 0, 0.5, seed);
 	// print_dense_real_poly(n, polynomial);
 
-	// We use poor man's padding because we read vectors:
-    // We have two streams of points,
-	// first stream "xs" are all xs that fall in multiple of xsPerTick,
-    // second stream "padded_xs" are all xs that overflow multiple
-	// (padded xs have last elements equal to 0)
-    // Example: xsPerTick is 16, we have 41 xs:
-    // - we will read first 32 xs from "xs" stream
-    // - we will read last 9 xs from "padded_xs" stream
-	//   ("padded_xs" stream has 7 padded zeros at the end)
-	int latency = 36;
+	// We use poor man's padding because we read vectors
+	int latency = 48;
 	int xsPerTick = 64;
-	int num_of_padded = latency * xsPerTick;
+	int xsPerLoop = latency * xsPerTick;
+	int tick_m = next_multiple_of(xsPerLoop, m);
 	timing_t timer;
 	timer_start(&timer);
-	uint32_t original_m = m;
-	m = next_multiple_of(num_of_padded, original_m);
 	float* result = malloc(sizeof(float) * m * 2);
-	float* padded = get_padded_cplx(points, original_m, m, num_of_padded);
+	float* padded_xs = malloc(sizeof(float) * xsPerLoop * 2);
 	float* reversed = reverse(polynomial, n);
-	VecMultiDenseComplex(m, n, original_m, reversed, padded, points, result);
+	// VecMultiDenseComplex(m, n, original_m, reversed, padded, points, result);
+
+	// VecMultiDenseReal(m, n, tick_m, centers, points, result, result_min);
+	max_file_t* mavMaxFile = VecMultiDenseComplex_init();
+	max_engine_t* mavDFE = max_load(mavMaxFile, "local:*");
+	max_actions_t* actions = max_actions_init(mavMaxFile, "default");
+	max_set_param_uint64t(actions, "m", m);
+	max_set_param_uint64t(actions, "n", n);
+	max_set_param_uint64t(actions, "tick_m", tick_m);
+	max_queue_input(actions, "xs", points, sizeof(float) * m * 2);
+	max_queue_input(actions, "xs", padded_xs, sizeof(float) * xsPerLoop * 2);
+	max_queue_input(actions, "coefficients", reversed, sizeof(float) * n * 2);
+	max_queue_output(actions, "result", result, sizeof(float) * m * 2);
+	max_run(mavDFE, actions);
+	max_actions_free(actions);
+	max_unload(mavDFE);
 	timer_stop(&timer);
+
 
 	// checkResult(original_m, points, n, polynomial, result);
 	long double real = 0.0;
 	long double img = 0.0;
-	for (uint32_t i = 0; i < original_m*2; i+=2) {
+	for (uint32_t i = 0; i < m*2; i+=2) {
 		real += result[i];
 		img += result[i + 1];
 	}
-	printf("n: %d, m: %d, t: %dms, r: %Lf+%Lfi\n", n, original_m, timer.realtime, real, img);
+	printf("n: %d, m: %d, t: %dms, r: %Lf+%Lfi\n", n, m, timer.realtime, real, img);
 
 
 	return 0;
